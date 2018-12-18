@@ -1,0 +1,3 @@
+[submodule "ethz_piksi_ros"]
+	path = ethz_piksi_ros
+	url = https://github.com/ethz-asl/ethz_piksi_ros.git

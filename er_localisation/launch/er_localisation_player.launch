@@ -1,0 +1,54 @@
+<!-- EarthRover Localization 
+  This file includes nodes to launch Robot localization 
+  Author: Andres Felipe Palomino (apalomino@edgebrain.io)
+-->
+
+<launch>
+
+  <!-- Use sim time when playing back bag files with the clock flag -->
+  <param name="use_sim_time" value="true"/>
+
+  <!-- Bag player Node  -->
+  <arg name="path" default="$(find er_localisation)/bag_files/piksi-multi-debug-2018-12-05-15-42-46.bag" /> 
+  <node name="player" type="play" pkg="rosbag" args="--delay 1 --clock $(arg path)" output="screen" />
+
+  <!-- Transforms  -->
+  <!-- IMU  -->
+  <node pkg="tf2_ros" type="static_transform_publisher" name="bl_imu" args="0 0 0 0 0 0 base_link xsens" />
+  <!-- GPS  -->
+  <node pkg="tf2_ros" type="static_transform_publisher" name="bl_gps_receiver" args="0 -0.95 0 0 0 0 base_link gps_receiver" /> 
+  <node pkg="tf2_ros" type="static_transform_publisher" name="bl_gps_attitude" args="0 0.95 0 0 0 0 base_link gps_attitude" /> 
+  <!-- Camera  -->
+  <!-- <node pkg="tf2_ros" type="static_transform_publisher" name="bl_gps" args="0 0 0 0 0 0 base_link camera_frame" /> -->
+  <!-- Odom Frame  -->  
+  <node pkg="tf2_ros" type="static_transform_publisher" name="map_odom" args="0 0 0 0 0 0 map odom" /> 
+
+  <!-- Heading Listener -->
+  <node pkg="er_localisation" type="heading_listener" name="heading_listener" output="log" /> 
+
+  <!-- EKF Node -->
+  <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization">
+    <rosparam command="load" file="$(find er_localisation)/cfg/ekf_imu_heading_localization.yaml" />
+    <remap from="/odometry/filtered" to="/odometry/filtered/global"/>
+  </node>
+    
+
+ <!-- Navsat_transform -->
+ <node pkg="robot_localization" type="navsat_transform_node" name="navsat_transform" respawn="true" output="screen">
+    <param name="frequency" value="30"/>
+    <param name="delay" value="3.0"/>
+    <param name="magnetic_declination_radians" value="0.0"/>
+    <param name="yaw_offset" value="0"/>
+    <param name="zero_altitude" value="false"/>
+    <param name="broadcast_utm_transform" value="true"/>        
+    <param name="publish_filtered_gps" value="true"/>
+    <param name="use_odometry_yaw" value="false"/>
+    <param name="wait_for_datum" value="true"/>
+      <rosparam param="datum">[41.4678702, 2.0227646, -0.0113143]</rosparam>    # Replace with desired Map origins. Check convergence value 
+
+    <remap from="/odometry/filtered" to="/odometry/filtered/global"/>
+    <remap from="/gps/fix" to="/piksi_receiver/navsatfix_best_fix"/>    
+  </node>
+
+ </launch>
+
