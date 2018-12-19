@@ -1,7 +1,7 @@
 # Earth Rover Localisation
 
 ## Dependencies
-The package requires the following dependencies
+- The package requires the following dependencies
 
 [robot_localization](http://docs.ros.org/kinetic/api/robot_localization/html/index.html): Robot Localization is a collection of state estimation nodes, each of which is an implementation of a nonlinear state estimator for robots moving in 3D space. It contains two state estimation nodes, ekf_localization_node and ukf_localization_node. In addition, robot_localization provides navsat_transform_node, which aids in the integration of GPS data.
 
@@ -9,7 +9,7 @@ The package requires the following dependencies
 
 [xsense Driver](https://github.com/xsens/xsens_mti_ros_node): Driver for the third and fourth generation of Xsens IMU devices
 
-Dependency on host computer to monitor results.
+- Dependency on host computer to monitor results.
 
 [Mapviz](https://github.com/swri-robotics/mapviz): Visualization tool with a plug-in system similar to RVIZ focused on visualizing 2D data.
 
@@ -24,37 +24,37 @@ Dependency on host computer to monitor results.
 	$ source devel/setup.bash
 	```
 
-The following steps explain the Hardware and ROS drivers configuration to run in the embedded device and monitor on a host PC. **Only follow this section if the required sensors are available to test for a complete base station - rover setup.** Skip to [Robot Localisation](## Earth Rover Localisation) to see robot localisation node, visualization tool and play recorded results.
+The following steps explain the Hardware and ROS drivers configuration to run in the embedded device and monitor on a host PC. **Only follow this section if the required sensors are available to test for a complete base station - rover setup.** Skip to [Robot Localisation](##Earth Rover Localisation) to see robot localisation node, visualization tool and play recorded results.
 
 ### Piksy Modules
 
-The Hardware configuration uses three (Piksi Multi Evaluation Board)[https://support.swiftnav.com/customer/en/portal/articles/2681333-piksi-multi-evaluation-board]: A base station and two receivers (reference and attitude) on the rover. The [FreeWave Radio Evaluation Kit](https://support.swiftnav.com/customer/en/portal/articles/2952967-freewave-radio-evaluation-kit) 
+The Hardware configuration uses three [Piksi Multi Evaluation Board](https://support.swiftnav.com/customer/en/portal/articles/2681333-piksi-multi-evaluation-board): A base station and two receivers on the rover (reference and attitude). 
 
-The reference receiver obtains corrections from base station using the [FreeWave Radio Evaluation Kit](https://support.swiftnav.com/customer/en/portal/articles/2952967-freewave-radio-evaluation-kit) and then send corrections to the attitude receiver which enable precise heading output. 
+The reference receiver obtains corrections from base station using the [FreeWave Radio Evaluation Kit](https://support.swiftnav.com/customer/en/portal/articles/2952967-freewave-radio-evaluation-kit) and then send corrections to the attitude receiver which enables precise heading output. 
 
 ![](https://github.com/earthrover/earth_rover_localisation/tree/master/er_localisation/docs/diagram.pdf)
 
-Swift console on a host computer
+- Swift console on a host computer
 
 2. Follow the instructions on installing and operating the Swift Console on your computer, see the [Installation Instructions](https://support.swiftnav.com/customer/en/portal/articles/2756825-installing-swift-console) and [User's Guide](https://support.swiftnav.com/customer/en/portal/articles/2838278-swift-console-user-s-guide).
 
-The following steps to configure on the Piksy modules.
+- The following steps to configure on the Piksy modules.
 
 3. Complete the instructions to configure the base station and rover receiver to use the [GNSS RTK Position with Stationary Base solution](https://support.swiftnav.com/customer/en/portal/articles/2771177).
 
 4. Follow the configuration to enable the heading setup. Be aware that one receiver (reference receiver) has already be configured to receive corrections from a base station. Configure the ```enabled_sbp_messages``` on **uart1** instead. See the [documentation](https://support.swiftnav.com/customer/en/portal/articles/2805901-piksi-multi---heading) details.
 
-5. Enable the [Ethernet Configuration](https://support.swiftnav.com/customer/en/portal/articles/2740815-using-ethernet-on-piksi-multi-and-duro)on reference and attitude receivers. Set `reference receiver ip_address to 192.168.0.222` and `attitude receiver ip_address to 192.168.0.223`
+5. Enable the [Ethernet Configuration](https://support.swiftnav.com/customer/en/portal/articles/2740815-using-ethernet-on-piksi-multi-and-duro) on reference and attitude receivers. Set `reference receiver ip_address to 192.168.0.222` and `attitude receiver ip_address to 192.168.0.223`
 
-Drivers configuration to be performed on the embedded device.
+- Drivers configuration to be performed on the embedded device.
 
 6. The ROS node reads SBP (Swift Navigation Binary Protocol) messages, a fast, simple, and minimal overhead binary protocol for communicating with Swift Navigation devices. 
 
-**WARNING**: install __ONLY ONE__ version of SBP library, depending of which Hardware version you are using. This page contains the driver for [Piksi Multi](https://www.swiftnav.com/piksi-multi).
+**WARNING**: install __ONLY ONE__ version of SBP library, depending of which Hardware version you are using.
 
 The following code will automatically download the required version of libsbp and install it in the default folder `/usr/local/lib/python2.7/dist-packages/sbp-<SBP_LIB_VERSION>-py2.7.egg/sbp/`.
 
-	```
+	```sh
 	# Execute this line in the package folder 'ethz_piksi_ros/piksi_multi_rtk_ros'
 	source install/install_piksi_multi.sh
 	```
@@ -149,12 +149,12 @@ Three nodes are used on the architecture
 You can install mapviz using apt-get from the ROS apt repository:
 
 	```sh
-	sudo apt-get install ros-$ROS_DISTRO-mapviz ros-$ROS_DISTRO-mapviz-plugins ros-$ROS_DISTRO-tile-map ros-$ROS_DISTRO-multires-image
+	$ sudo apt-get install ros-$ROS_DISTRO-mapviz ros-$ROS_DISTRO-mapviz-plugins ros-$ROS_DISTRO-tile-map ros-$ROS_DISTRO-multires-image
 	```
 
 Go to this [tutorial](https://github.com/danielsnider/MapViz-Tile-Map-Google-Maps-Satellite) to enable ROS Offline Google Maps for MapViz
 
-The following launch file reproduces a bag file and applies the robot localization to adquire the pose estimation of the rover.
+The following launch reproduces a bag file and applies the robot localization to adquire the pose estimation of the rover.
 
 	```sh
 	$ roslaunch er_localisation localizacion_earthrover_viztools.launch
