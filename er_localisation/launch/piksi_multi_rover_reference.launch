@@ -13,7 +13,7 @@
   <!-- Enable/disable load of an origin position of ENU frame. -->
   <arg name="load_enu_origin_from_file"   default="true"/>
   <!-- Location of the file containing origin ENU frame, used if 'load_enu_origin_from_file' is true. -->
-  <arg name="enu_origin_file"             default="$(find er_localisation)/cfg/enu_origin_example.yaml"/>
+  <arg name="enu_origin_file"             default="$(find er_localisation)/cfg/enu_origin.yaml"/>
 
   <!-- Piksi Multi ROS driver node: rover mode -->
   <node pkg="piksi_multi_rtk_ros" type="piksi_multi" name="piksi_receiver" output="screen" respawn="true">

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <!-- RVIZ  
+  <param name="use_gui" value="true"/>
+  <arg name="config" default="localization_rviz_earthrover" />
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find tractor_localization)/rviz/$(arg config).rviz" /> -->
+
+  <!-- Mapviz -->
+  <arg name="print_profile_data" default="true"/>
+
+  <node pkg="swri_transform_util" type="initialize_origin.py" name="initialize_origin" output="screen">
+    <param name="local_xy_frame" value="map"/>
+    <param name="local_xy_origin" value="swri"/>
+    <rosparam param="local_xy_origins">   # Replace with Map origins. Same as robot localisation datum param
+      [{ name: swri,
+      latitude: 41.4678702,
+      longitude: 2.0227646,
+      altitude: 132.530939,
+      heading: 0}]
+    </rosparam>
+  </node>  
+
+  <node pkg="mapviz" type="mapviz" name="mapviz"></node>
+
+ </launch>

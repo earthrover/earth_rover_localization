@@ -9,21 +9,12 @@ show_status_bar: true
 show_capture_tools: true
 window_width: 1309
 window_height: 747
-view_scale: 0.02430442
-offset_x: 0
-offset_y: 0
+view_scale: 0.04305676
+offset_x: 2.352336
+offset_y: 0.07798001
 use_latest_transforms: true
 background: "#a0a0a4"
 displays:
-  - type: mapviz_plugins/tile_map
-    name: Terrain
-    config:
-      visible: false
-      collapsed: true
-      custom_sources:
-        []
-      bing_api_key: ""
-      source: Stamen (terrain)
   - type: mapviz_plugins/tile_map
     name: Google maps
     config:
@@ -69,7 +60,7 @@ displays:
   - type: mapviz_plugins/navsat
     name: GPS filtered NavSat node
     config:
-      visible: true
+      visible: false
       collapsed: true
       topic: /gps/filtered
       color: "#0055ff"
@@ -79,7 +70,7 @@ displays:
   - type: mapviz_plugins/odometry
     name: GPS odometry (Map)
     config:
-      visible: true
+      visible: false
       collapsed: true
       topic: /odometry/gps
       color: "#ff00ff"
@@ -109,13 +100,13 @@ displays:
   - type: mapviz_plugins/tf_frame
     name: base_link
     config:
-      visible: false
+      visible: true
       collapsed: true
       frame: base_link
       color: "#0000ff"
       draw_style: lines
       position_tolerance: 0
-      buffer_size: 200
+      buffer_size: 0
       static_arrow_sizes: false
       arrow_size: 25
   - type: mapviz_plugins/tf_frame
@@ -143,72 +134,17 @@ displays:
       static_arrow_sizes: false
       arrow_size: 25
   - type: mapviz_plugins/attitude_indicator
-    name: new display
+    name: Rover Attitude
     config:
       visible: true
       collapsed: true
-      topic: /mti/sensor/imu
+      topic: /odometry/filtered/global
       x: 5
       y: -7
       width: 100
       height: 100
-  - type: mapviz_plugins/odometry
-    name: UTM
-    config:
-      visible: false
-      collapsed: true
-      topic: /utm/ekf_from_navsat_transform
-      color: "#aaffff"
-      draw_style: lines
-      position_tolerance: 0
-      buffer_size: 0
-      show_laps: false
-      show_covariance: false
-      static_arrow_sizes: true
-      arrow_size: 172
-      tampstamps: 0
-  - type: mapviz_plugins/odometry
-    name: UTM_gpsraw
-    config:
-      visible: false
-      collapsed: true
-      topic: /utm/from_gpsraw
-      color: "#ffaaff"
-      draw_style: lines
-      position_tolerance: 0
-      buffer_size: 0
-      show_laps: false
-      show_covariance: false
-      static_arrow_sizes: false
-      arrow_size: 25
-      tampstamps: 0
-  - type: mapviz_plugins/odometry
-    name: new display
-    config:
-      visible: false
-      collapsed: true
-      topic: /utm/pose_from_tf_ekf
-      color: "#ffff00"
-      draw_style: lines
-      position_tolerance: 0
-      buffer_size: 0
-      show_laps: false
-      show_covariance: false
-      static_arrow_sizes: false
-      arrow_size: 25
-      tampstamps: 0
-  - type: mapviz_plugins/navsat
-    name: new display
-    config:
-      visible: false
-      collapsed: true
-      topic: /gps/ekf_back_gps
-      color: "#aa5500"
-      draw_style: lines
-      position_tolerance: 0
-      buffer_size: 0
   - type: mapviz_plugins/robot_image
-    name: new display
+    name: Rover image
     config:
       visible: true
       collapsed: true

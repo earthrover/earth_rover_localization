@@ -11,6 +11,6 @@
 	<include file="$(find er_localisation)/launch/piksi_multi_rover_attitude.launch"/>
 
 	<!-- Imu driver -->
-	<include file="$(find xsens_driver)/launch/xsens.launch"/>  
+	<include file="$(find er_localisation)/launch/xsens.launch"/>  
 
 </launch>

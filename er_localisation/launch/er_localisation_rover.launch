@@ -5,8 +5,8 @@
 
 <launch>
   <!-- Sensor drivers  -->
-
-  <!-- Transforms  -->
+  <include file="$(find er_localisation)/launch/imu_piksy_drivers.launch"/>
+  <!-- Transforms  -->  # Static transforms of the different frames of incoming data
   <!-- IMU  -->
   <node pkg="tf2_ros" type="static_transform_publisher" name="bl_imu" args="0 0 0 0 0 0 base_link xsens" />
   <!-- GPS  -->
@@ -17,10 +17,10 @@
   <!-- Odom Frame  -->  
   <node pkg="tf2_ros" type="static_transform_publisher" name="map_odom" args="0 0 0 0 0 0 map odom" /> 
 
-  <!-- Heading Listener -->
+  <!-- Heading Listener node-->
   <node pkg="er_localisation" type="heading_listener" name="heading_listener" output="log" /> 
 
-  <!-- EKF Node -->
+  <!-- EKF node -->
   <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization">
     <rosparam command="load" file="$(find er_localisation)/cfg/ekf_imu_heading_localization.yaml" />
     <remap from="/odometry/filtered" to="/odometry/filtered/global"/>
