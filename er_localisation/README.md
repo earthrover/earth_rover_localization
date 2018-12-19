@@ -17,7 +17,7 @@
 
 1. Create a workspace, clone the repository, compile it and source the environment for each terminal you work in.
 
-	```sh
+	```
 	$ mkdir -p ~/er_ws/src  &&	cd ~/er_ws/src 	
 	$ git clone https://github.com/earthrover/earth_rover_localisation.git
 	$ cd .. & catkin_make
@@ -54,7 +54,7 @@ The reference receiver obtains corrections from base station using the [FreeWave
 
 The following code will automatically download the required version of libsbp and install it in the default folder `/usr/local/lib/python2.7/dist-packages/sbp-<SBP_LIB_VERSION>-py2.7.egg/sbp/`.
 
-	```sh
+	```
 	# Execute this line in the package folder 'ethz_piksi_ros/piksi_multi_rtk_ros'
 	source install/install_piksi_multi.sh
 	```
@@ -64,7 +64,7 @@ The following code will automatically download the required version of libsbp an
 ### Xsense
 8. Install the MTi USB Serial Driver
 
-	```sh
+	```
 	$ git clone https://github.com/xsens/xsens_mt.git
 	$ cd ~/xsens_mt
 	$ make
@@ -74,19 +74,19 @@ The following code will automatically download the required version of libsbp an
 
 9. Install gps_common or gps_umd as available based on the ROS distributable
 
-	```sh
+	```
 	$ sudo apt-get install ros-kinetic-gps-umd
 
 	```
 	or
-	```sh
+	```
 	$ sudo apt-get install ros-kinetic-gps-common
 	```
 ### Robot_localization package
 
 10. Install the robot localization package
 
-	```sh
+	```
 	sudo apt-get install ros-$ROS_DISTRO-robot-localization
 	```
 
@@ -94,25 +94,25 @@ The following code will automatically download the required version of libsbp an
 
 1. Test the ROS node on the reference receiver. The following line will launch the configuration over TCP/IP. Check that observations are received on the Swift Console and also the [published topics](https://github.com/ethz-asl/ethz_piksi_ros/tree/master/piksi_multi_rtk_ros#advertised-topics) from the driver   
 
-	```sh
+	```
 	$ roslaunch er_localisation piksi_multi_rover_reference.launch
 	```
 
 2. Test the ROS node on the attitude receiver. Check again observations and topics specially the `/piksi_attitude/baseline_heading`
 
-	```sh
+	```
 	$ roslaunch er_localisation piksi_multi_rover_attitude.launch
 	```
 
 3. Test the xsense node and check the publised topics.
 
-	```sh
+	```
 	$ roslaunch er_localisation xsens.launch
 	```
 
 4. The complete launch can be used to include sensor drivers and robot localization node to estimate the robot's pose in real time.
 
-	```sh
+	```
 	$ roslaunch er_localisation er_localisation_rover.launch
 	```
 
@@ -121,7 +121,7 @@ The following code will automatically download the required version of libsbp an
 The package includes .bag example files of recorded tracks to run robot localization and tune the EKF params if necessary.
 The following launch file reproduces a bag file and applies the robot localization to adquire the pose estimation of the rover.
 
-	```sh
+	```
 	$ roslaunch er_localisation er_localisation_player.launch
 	```
 
@@ -148,15 +148,15 @@ Three nodes are used on the architecture
 
 You can install mapviz using apt-get from the ROS apt repository:
 
-	```sh
+	```
 	$ sudo apt-get install ros-$ROS_DISTRO-mapviz ros-$ROS_DISTRO-mapviz-plugins ros-$ROS_DISTRO-tile-map ros-$ROS_DISTRO-multires-image
 	```
 
 Go to this [tutorial](https://github.com/danielsnider/MapViz-Tile-Map-Google-Maps-Satellite) to enable ROS Offline Google Maps for MapViz
 
-The following launch reproduces a bag file and applies the robot localization to adquire the pose estimation of the rover.
+- The following launch reproduces a bag file and applies the robot localization to adquire the pose estimation of the rover.
 
-	```sh
+	```
 	$ roslaunch er_localisation localizacion_earthrover_viztools.launch
 	```
 

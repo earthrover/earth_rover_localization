@@ -1,3 +1,6 @@
 [submodule "ethz_piksi_ros"]
 	path = ethz_piksi_ros
 	url = https://github.com/ethz-asl/ethz_piksi_ros.git
+[submodule "xsens_mti_ros_node"]
+	path = xsens_mti_ros_node
+	url = https://github.com/xsens/xsens_mti_ros_node
