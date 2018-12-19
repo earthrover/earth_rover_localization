@@ -17,14 +17,14 @@ The source code is released under a [BSD 3-Clause license](https://github.com/et
 
 Credits
 -------
-Andres Palomino, Ricard Pardell - EdgeBrain & EarthRover - 19 December 2018
+Andres Palomino, Ricard Pardell - EarthRover - 19 December 2018
 
 Based on robot_locaization from Tom Moore.
 
 Contact
 -------
 Andres Palomino apalomino(at)edgebrain.io
-Ricard Pardell rpardell(at)edgebrain.io
+Ricard Pardell ricard(at)earthrover.cc
 
 
 Bugs & Feature Requests
