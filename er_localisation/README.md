@@ -57,7 +57,7 @@ The following code will automatically download the required version of libsbp an
 source install/install_piksi_multi.sh
 ```
 
-7. To configure the ENU results from the ROS driver, fill the `enu_origin.yaml` on the package folder 'er_localisation/cfg' with the same coordinates of the base station from step 3.
+7. To configure the ENU results from the ROS driver, fill the `enu_origin.yaml` on the package folder `er_localisation/cfg` with the same coordinates of the base station from step 3.
 
 ### Xsense
 8. Install the MTi USB Serial Driver
@@ -125,16 +125,16 @@ $ roslaunch er_localisation er_localisation_player.launch
 
 ### Input
 
-The main topics published by the bag player are:
+The main published topics are:
 - `/mti/sensor/imu`: A [sensor_msgs/Imu.msg](http://docs.ros.org/melodic/api/sensor_msgs/html/msg/Imu.html) with the imu data
 - `/heading`: A [sensor_msgs/Imu.msg](http://docs.ros.org/melodic/api/sensor_msgs/html/msg/Imu.html) which reports the vehicle heading reported by the baseline between reference and attitude receiver
 - `/piksi_receiver/navsatfix_best_fix`: A [sensor_msgs/NavSatFix.msg](http://docs.ros.org/melodic/api/sensor_msgs/html/msg/NavSatFix.html) that contains WGS 84 coordinates with best available fix at the moment (either RTK or SBAS)
 
 ### Nodes
-Three nodes are used on the architecture
+Used nodes on the architecture
 - `heading_listener`: In charge of traducing the vehicle heading from the baseline into ROS-compliant message to use in robot localization node
 - `navsat_transform`: Takes as input the GPS data and produces an odometry message in coordinates that are consistent with the robot’s world frame. More info about navsat_transform_node on [Documentation](http://docs.ros.org/kinetic/api/robot_localization/html/navsat_transform_node.html).
-- `ekf_localization`: The node is an implementation of an [Extended Kalman filter](https://en.wikipedia.org/wiki/Extended_Kalman_filter). It uses an omnidirectional motion model to project the state forward in time, and corrects that projected estimate using perceived sensor data. Detailed information on the [Documentation](http://docs.ros.org/kinetic/api/robot_localization/html/navsat_transform_node.html). page.
+- `ekf_localization`: The node is an implementation of an [Extended Kalman filter](https://en.wikipedia.org/wiki/Extended_Kalman_filter). It uses an omnidirectional motion model to project the state forward in time, and corrects that projected estimate using perceived sensor data. Detailed information on the [Documentation](http://docs.ros.org/kinetic/api/robot_localization/html/navsat_transform_node.html)	 page.
 
 ### Outputs
 
@@ -152,7 +152,7 @@ $ sudo apt-get install ros-$ROS_DISTRO-mapviz ros-$ROS_DISTRO-mapviz-plugins ros
 
 Go to this [tutorial](https://github.com/danielsnider/MapViz-Tile-Map-Google-Maps-Satellite) to enable ROS Offline Google Maps for MapViz
 
-- The following launch reproduces a bag file and applies the robot localization to adquire the pose estimation of the rover.
+- The following launch configures the vizualization tool 
 
 	```
 	$ roslaunch er_localisation localizacion_earthrover_viztools.launch
