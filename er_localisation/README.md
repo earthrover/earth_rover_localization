@@ -24,7 +24,7 @@
 	$ source devel/setup.bash
 	```
 
-The following steps explain the Hardware and ROS drivers configuration to run in the embedded device and monitor on a host PC. **Only follow this section if the required sensors are available to test for a complete base station - rover setup.** Skip to [Robot Localisation](##Earth Rover Localisation) to see robot localisation node, visualization tool and play recorded results.
+The following steps explain the Hardware and ROS drivers configuration to run in the embedded device and monitor on a host PC. **Only follow this section if the required sensors are available to test for a complete base station - rover setup.** Skip to [Robot Localisation](https://github.com/earthrover/earth_rover_localisation/tree/master/er_localisation#earth-rover-localisation-1) to see robot localisation node, visualization tool and play recorded results.
 
 ### Piksy Modules
 
