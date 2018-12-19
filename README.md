@@ -2,7 +2,8 @@
 
 This repository contains ROS drivers, tools, launch files, and documents about how to use the Earth Rover localisation.
 
-![](https://github.com/earthrover/earth_rover_localisation/tree/master/er_localisation/docs/overview_image.pdf)
+![](https://github.com/earthrover/earth_rover_localisation/tree/master/er_localisation/docs/cover_image1.png)
+![](https://github.com/earthrover/earth_rover_localisation/tree/master/er_localisation/docs/cover_image2.png)
 
 Overview
 ------

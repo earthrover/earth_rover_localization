@@ -32,8 +32,6 @@ The Hardware configuration uses three [Piksi Multi Evaluation Board](https://sup
 
 The reference receiver obtains corrections from base station using the [FreeWave Radio Evaluation Kit](https://support.swiftnav.com/customer/en/portal/articles/2952967-freewave-radio-evaluation-kit) and then send corrections to the attitude receiver which enables precise heading output. 
 
-![](https://github.com/earthrover/earth_rover_localisation/tree/master/er_localisation/docs/diagram.pdf)
-
 - Swift console on a host computer
 
 2. Follow the instructions on installing and operating the Swift Console on your computer, see the [Installation Instructions](https://support.swiftnav.com/customer/en/portal/articles/2756825-installing-swift-console) and [User's Guide](https://support.swiftnav.com/customer/en/portal/articles/2838278-swift-console-user-s-guide).
@@ -54,10 +52,10 @@ The reference receiver obtains corrections from base station using the [FreeWave
 
 The following code will automatically download the required version of libsbp and install it in the default folder `/usr/local/lib/python2.7/dist-packages/sbp-<SBP_LIB_VERSION>-py2.7.egg/sbp/`.
 
-	```
-	# Execute this line in the package folder 'ethz_piksi_ros/piksi_multi_rtk_ros'
-	source install/install_piksi_multi.sh
-	```
+```
+# Execute this line in the package folder 'ethz_piksi_ros/piksi_multi_rtk_ros'
+source install/install_piksi_multi.sh
+```
 
 7. To configure the ENU results from the ROS driver, fill the `enu_origin.yaml` on the package folder 'er_localisation/cfg' with the same coordinates of the base station from step 3.
 
@@ -121,9 +119,9 @@ The following code will automatically download the required version of libsbp an
 The package includes .bag example files of recorded tracks to run robot localization and tune the EKF params if necessary.
 The following launch file reproduces a bag file and applies the robot localization to adquire the pose estimation of the rover.
 
-	```
-	$ roslaunch er_localisation er_localisation_player.launch
-	```
+```
+$ roslaunch er_localisation er_localisation_player.launch
+```
 
 ### Input
 
@@ -148,9 +146,9 @@ Three nodes are used on the architecture
 
 You can install mapviz using apt-get from the ROS apt repository:
 
-	```
-	$ sudo apt-get install ros-$ROS_DISTRO-mapviz ros-$ROS_DISTRO-mapviz-plugins ros-$ROS_DISTRO-tile-map ros-$ROS_DISTRO-multires-image
-	```
+```
+$ sudo apt-get install ros-$ROS_DISTRO-mapviz ros-$ROS_DISTRO-mapviz-plugins ros-$ROS_DISTRO-tile-map ros-$ROS_DISTRO-multires-image
+```
 
 Go to this [tutorial](https://github.com/danielsnider/MapViz-Tile-Map-Google-Maps-Satellite) to enable ROS Offline Google Maps for MapViz
 
