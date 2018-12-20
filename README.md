@@ -13,7 +13,7 @@ Overview
 
 License
 -------
-The source code is released under a [BSD 3-Clause license](https://github.com/ethz-asl/ethz_piksi_ros/blob/master/LICENSE).
+The source code is released under a [BSD 3-Clause license](https://github.com/earthrover/er_localisation/blob/master/LICENSE.md).
 
 Credits
 -------
