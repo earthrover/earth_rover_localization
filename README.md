@@ -19,7 +19,7 @@ Credits
 -------
 Andres Palomino, Ricard Pardell - EarthRover - 19 December 2018
 
-Based on robot_locaization from Tom Moore.
+Based on robot_localization from Tom Moore.
 
 Contact
 -------
