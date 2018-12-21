@@ -31,10 +31,12 @@ Based on robot_localization from Tom Moore.
     ROSIN acknowledgement from the ROSIN press kit
     @ https://github.com/rosin-project/press_kit
 -->
+
 <a href="http://rosin-project.eu">
   <img src="http://rosin-project.eu/wp-content/uploads/rosin_ack_logo_wide.png" 
        alt="rosin_logo" height="60" >
 </a>
+
 Supported by ROSIN - ROS-Industrial Quality-Assured Robot Software Components.  
 More information: <a href="http://rosin-project.eu">rosin-project.eu</a>
 
