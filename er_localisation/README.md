@@ -28,9 +28,6 @@ $ sudo apt-get install ros-kinetic-ros-base
 	$ git clone --recursive https://github.com/earthrover/earth_rover_localisation.git
 	$ cd .. 
 	$ catkin_make
-	$ mkdir -p ~/er_ws/src  &&	cd ~/er_ws/src 	
-	$ git clone --recursive https://github.com/earthrover/er_localisation.git
-	$ cd .. & catkin_make
 	$ source devel/setup.bash
 	```
 
