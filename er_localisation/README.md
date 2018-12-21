@@ -1,5 +1,10 @@
 # Earth Rover Localisation
 
+This package has been tested in Ubuntu 16.04.3 and ROS Kinetic. If you don't have ROS installed, use the following line. 
+```
+$ sudo apt-get install ros-kinetic-ros-base
+```
+
 ## Dependencies
 - The package requires the following dependencies
 
@@ -18,6 +23,11 @@
 1. Create a workspace, clone the repository, compile it and source the environment for each terminal you work in.
 
 	```
+	$ mkdir -p ~/er_ws/src  
+	$ cd ~/er_ws/src 	
+	$ git clone --recursive https://github.com/earthrover/earth_rover_localisation.git
+	$ cd .. 
+	$ catkin_make
 	$ mkdir -p ~/er_ws/src  &&	cd ~/er_ws/src 	
 	$ git clone --recursive https://github.com/earthrover/er_localisation.git
 	$ cd .. & catkin_make
@@ -74,12 +84,12 @@ source install/install_piksi_multi.sh
 
 	```
 	$ sudo apt-get install ros-kinetic-gps-umd
-
 	```
 	or
 	```
 	$ sudo apt-get install ros-kinetic-gps-common
 	```
+	
 ### Robot_localization package
 
 10. Install the robot localization package
@@ -116,14 +126,20 @@ source install/install_piksi_multi.sh
 
 ## Earth Rover Localisation
 
-The package includes .bag example files of recorded tracks to run robot localization and tune the EKF params if necessary.
+Install the robot localization package
+
+```
+$ sudo apt-get install ros-$ROS_DISTRO-robot-localization
+```
+
+The er_localisation package includes .bag example files of recorded tracks to run robot localization and tune the EKF params if necessary.
 The following launch file reproduces a bag file and applies the robot localization to adquire the pose estimation of the rover.
 
 ```
 $ roslaunch er_localisation er_localisation_player.launch
 ```
 
-### Input
+### Inputs
 
 The main published topics are:
 - `/mti/sensor/imu`: A [sensor_msgs/Imu.msg](http://docs.ros.org/melodic/api/sensor_msgs/html/msg/Imu.html) with the imu data
@@ -131,6 +147,7 @@ The main published topics are:
 - `/piksi_receiver/navsatfix_best_fix`: A [sensor_msgs/NavSatFix.msg](http://docs.ros.org/melodic/api/sensor_msgs/html/msg/NavSatFix.html) that contains WGS 84 coordinates with best available fix at the moment (either RTK or SBAS)
 
 ### Nodes
+
 Used nodes on the architecture
 - `heading_listener`: In charge of traducing the vehicle heading from the baseline into ROS-compliant message to use in robot localization node
 - `navsat_transform`: Takes as input the GPS data and produces an odometry message in coordinates that are consistent with the robot’s world frame. More info about navsat_transform_node on [Documentation](http://docs.ros.org/kinetic/api/robot_localization/html/navsat_transform_node.html).
