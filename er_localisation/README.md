@@ -19,7 +19,7 @@
 
 	```
 	$ mkdir -p ~/er_ws/src  &&	cd ~/er_ws/src 	
-	$ git clone https://github.com/earthrover/earth_rover_localisation.git
+	$ git clone --recursive https://github.com/earthrover/earth_rover_localisation.git
 	$ cd .. & catkin_make
 	$ source devel/setup.bash
 	```
