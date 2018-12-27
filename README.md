@@ -7,7 +7,7 @@ This repository contains ROS drivers, tools, launch files, and documents about h
 
 Overview
 ------
-- [er_localisation](https://github.com/earthrover/earth_rover_localisation/tree/master/er_localisation): ROS package to apply robot localization from sensor fusion. Uses the [Piksy Multi](https://www.swiftnav.com/piksi-multi) and IMU [MTi-3 AHRS](https://www.xsens.com/products/mti-1-series/)
+- [er_localisation](https://github.com/earthrover/er_localisation/tree/master/er_localisation): ROS package to apply robot localization from sensor fusion. Uses the [Piksy Multi](https://www.swiftnav.com/piksi-multi) and IMU [MTi-3 AHRS](https://www.xsens.com/products/mti-1-series/)
 - [ethz_piksi_ros](https://github.com/ethz-asl/ethz_piksi_ros/tree/767b0192be2f1a3e5434bcf6ddf33bb3dbd96c4f): Repository that contains ROS driver and utilities for Piksi RTK receiver device.
 - [xsens_mti_ros_node](https://github.com/xsens/xsens_mti_ros_node): ROS driver for third and fourth generation of Xsens IMU devices.
 
