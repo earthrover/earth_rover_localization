@@ -1,0 +1,17 @@
+<!-- EarthRover Localization 
+Reads location from yaml file to update ENU origin of map
+Author: Andres Felipe Palomino (apalomino@edgebrain.io)
+-->
+
+<launch>
+
+  <!-- Location of the file containing location of origin ENU frame-->
+  <arg name="enu_origin_file"             default="$(find er_localisation)/cfg/enu_origin.yaml"/>
+  <!-- Load enu origin from file -->
+  <rosparam file="$(arg enu_origin_file)"/>
+
+  <!-- Heading Listener node-->
+  <node pkg="er_localisation" type="set_datum" name="set_datum_client" output="screen" />
+
+</launch>
+
