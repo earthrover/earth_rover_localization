@@ -6,7 +6,7 @@ $ sudo apt-get install ros-kinetic-ros-base
 ```
 
 ## Dependencies
-- The package requires the following dependencies
+- A summary description and links to the corresponding sites are listed below only if browsing further information is needed. The installation steps will download or include necessary configuration details on how to use the required dependences
 
 [robot_localization](http://docs.ros.org/kinetic/api/robot_localization/html/index.html): Robot Localization is a collection of state estimation nodes, each of which is an implementation of a nonlinear state estimator for robots moving in 3D space. It contains two state estimation nodes, ekf_localization_node and ukf_localization_node. In addition, robot_localization provides navsat_transform_node, which aids in the integration of GPS data.
 
@@ -17,6 +17,8 @@ $ sudo apt-get install ros-kinetic-ros-base
 - Dependency on host computer to monitor results.
 
 [Mapviz](https://github.com/swri-robotics/mapviz): Visualization tool with a plug-in system similar to RVIZ focused on visualizing 2D data.
+
+[GeographicLib](https://geographiclib.sourceforge.io/html/intro.html): Offers C++ interfaces to a set of geographic transformations.
 
 ## Installation and Configuration
 
@@ -123,6 +125,43 @@ source install/install_piksi_multi.sh
 
 ## Earth Rover Localisation
 
+
+### GeographicLib
+First download either https://sourceforge.net/projects/geographiclib/files/distrib/GeographicLib-1.49.tar.gz/download 
+
+####Installation using CMAKE
+
+1. Unpack the source, running one of
+
+	```
+	tar xfpz GeographicLib-1.49.tar.gz
+	```
+
+2. then enter the directory created, create a separate build directory and enter it.
+
+	```
+	cd GeographicLib-1.49 
+	mkdir BUILD
+	cd BUILD
+	```
+
+3. Run cmake, pointing it to the source directory (..). On Linux. 
+
+	```
+	cmake ..
+	```	
+
+4. Build and install the software. if CMAKE_INSTALL_PREFIX is a system directory
+
+	```
+	make
+	sudo make install
+	```	
+
+Further installing details can be found [here](https://geographiclib.sourceforge.io/html/install.html)
+
+### Robot localisation package
+
 Install the robot localization package
 
 ```
@@ -135,6 +174,10 @@ The following launch file reproduces a bag file and applies the robot localizati
 ```
 $ roslaunch er_localisation er_localisation_player.launch
 ```
+
+The result of the localization package is the robot's pose estimation in its world frame. Then, the origin of the world frame is georeferenced and is specified as param in the launch file, example: `<rosparam param="datum">[41.4678702, 2.0227646, -0.0113143]</rosparam>`. This origin will change depending on where the scouting mission is performed. Besides, each 
+
+
 
 ### Inputs
 
