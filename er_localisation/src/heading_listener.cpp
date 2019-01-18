@@ -14,7 +14,7 @@
 #include <tf/transform_datatypes.h>
 
 # define M_PI           3.14159265358979323846  /* pi */
-# define sensor_way_deviation            0.002882263
+# define sensor_yaw_deviation            0.002882263
 
 // Initialize variables
 sensor_msgs::Imu heading_rtk;
@@ -47,7 +47,7 @@ void heading_callback(const piksi_rtk_msgs::BaselineHeading::ConstPtr& msg)
     heading_rtk.header.frame_id = "gps_attitude";
     heading_rtk.orientation = tf::createQuaternionMsgFromYaw(heading_radians.data);  // Create this quaternion from yaw (in radians)
     // Calculated standard deviation for the sensor
-    double standard_deviation = sensor_way_deviation  * M_PI/180;
+    double standard_deviation = sensor_yaw_deviation  * M_PI/180;
     heading_rtk.orientation_covariance[8] = standard_deviation*standard_deviation;   //Update sensor covariance about z axe
     heading_rtk.linear_acceleration.x = 0;
     heading_rtk.linear_acceleration.y = 0;
