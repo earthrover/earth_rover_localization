@@ -145,7 +145,6 @@ add_definitions (${GeographicLib_DEFINITIONS})
 add_executable(heading_listener src/heading_listener.cpp)
 add_executable(set_datum src/set_datum.cpp)
 
-
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -208,3 +207,4 @@ target_link_libraries(set_datum ${catkin_LIBRARIES} ${GeographicLib_LIBRARIES})
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
+
