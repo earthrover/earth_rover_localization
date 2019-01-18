@@ -144,8 +144,6 @@ add_definitions (${GeographicLib_DEFINITIONS})
 ## The recommended prefix ensures that target names across packages don't collide
 add_executable(heading_listener src/heading_listener.cpp)
 add_executable(set_datum src/set_datum.cpp)
-add_executable(heading_listener_debug src/heading_listener_debug.cpp)
-
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -156,11 +154,9 @@ add_executable(heading_listener_debug src/heading_listener_debug.cpp)
 ## Add cmake target dependencies of the executable
 ## same as for the library above
 add_dependencies(heading_listener ${catkin_EXPORTED_TARGETS})
-add_dependencies(heading_listener_debug ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(heading_listener ${catkin_LIBRARIES})
-target_link_libraries(heading_listener_debug ${catkin_LIBRARIES})
 target_link_libraries(set_datum ${catkin_LIBRARIES} ${GeographicLib_LIBRARIES})
 
 

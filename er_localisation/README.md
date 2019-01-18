@@ -175,7 +175,7 @@ The following launch file reproduces a bag file and applies the robot localizati
 $ roslaunch er_localisation er_localisation_player.launch
 ```
 
-The result of the localization package is the robot's pose estimation in its world frame. Then, the origin of the world frame is georeferenced and is specified as param in the launch file, example: `<rosparam param="datum">[41.4678702, 2.0227646, -0.0113143]</rosparam>`. This origin will change depending on where the scouting mission is performed. Besides, each 
+The result of the localization package is the robot's pose estimation in its world frame. Then, the origin of the world frame is georeferenced and is specified as param in the launch file, example: `<rosparam param="datum">[41.4678702, 2.0227646, -0.0113143]</rosparam>`. This origin will change depending on where the scouting mission is performed. 
 
 
 
