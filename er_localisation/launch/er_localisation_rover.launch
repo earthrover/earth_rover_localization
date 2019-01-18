@@ -44,5 +44,9 @@
     <remap from="/gps/fix" to="/piksi_receiver/navsatfix_best_fix"/>    
   </node>
 
+
+  <!-- Set_datum_service. Origin of Map coordinates -->
+  <include file="$(find er_localisation)/launch/er_localisation_set_datum.launch"/>
+
  </launch>
 
