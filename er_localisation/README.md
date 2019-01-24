@@ -127,11 +127,11 @@ source install/install_piksi_multi.sh
 
 
 ### GeographicLib
-First download either https://sourceforge.net/projects/geographiclib/files/distrib/GeographicLib-1.49.tar.gz/download 
+First download https://sourceforge.net/projects/geographiclib/files/distrib/GeographicLib-1.49.tar.gz
 
-####Installation using CMAKE
+### Installation using CMAKE
 
-1. Unpack the source, running one of
+1. Unpack the source running
 
 	```
 	tar xfpz GeographicLib-1.49.tar.gz
@@ -145,7 +145,7 @@ First download either https://sourceforge.net/projects/geographiclib/files/distr
 	cd BUILD
 	```
 
-3. Run cmake, pointing it to the source directory (..). On Linux. 
+3. Run cmake, pointing it to the source directory (..) 
 
 	```
 	cmake ..
