@@ -1,6 +1,7 @@
 # Earth Rover Localisation
 
-This package has been tested in Ubuntu 16.04.3 and ROS Kinetic. If you don't have ROS installed, use the following line. 
+This package contains ROS nodes, configuration and launch files to use the EKF of the robot_localization package with the Earth Rover Open Agribot. The package has been tested in Ubuntu 16.04.3 and ROS Kinetic. If you don't have ROS installed, use the following line. 
+
 ```
 $ sudo apt-get install ros-kinetic-ros-base
 ```
@@ -14,23 +15,20 @@ $ sudo apt-get install ros-kinetic-ros-base
 
 [xsense Driver](https://github.com/xsens/xsens_mti_ros_node): Driver for the third and fourth generation of Xsens IMU devices
 
+[GeographicLib](https://geographiclib.sourceforge.io/html/intro.html): Offers C++ interfaces to a set of geographic transformations.
+
 - Dependency on host computer to monitor results.
 
 [Mapviz](https://github.com/swri-robotics/mapviz): Visualization tool with a plug-in system similar to RVIZ focused on visualizing 2D data.
 
-[GeographicLib](https://geographiclib.sourceforge.io/html/intro.html): Offers C++ interfaces to a set of geographic transformations.
-
 ## Installation and Configuration
 
-1. Create a workspace, clone the repository, compile it and source the environment for each terminal you work in.
+1. Create a workspace and clone the repository.
 
 	```
-	$ mkdir -p ~/er_ws/src  
-	$ cd ~/er_ws/src 	
+	$ mkdir -p ~/earth_rover_ws/src  
+	$ cd ~/earth_rover_ws/src 	
 	$ git clone --recursive https://github.com/earthrover/er_localisation.git
-	$ cd .. 
-	$ catkin_make
-	$ source devel/setup.bash
 	```
 
 The following steps explain the Hardware and ROS drivers configuration to run in the embedded device and monitor on a host PC. **Only follow this section if the required sensors are available to test for a complete base station - rover setup.** Skip to [Robot Localisation](https://github.com/earthrover/er_localisation/tree/master/er_localisation#earth-rover-localisation-1) to see robot localisation node, visualization tool and play recorded results.
@@ -162,7 +160,7 @@ Further installing details can be found [here](https://geographiclib.sourceforge
 
 ### Robot localisation package
 
-Install the robot localization package
+If not already installed, install the robot localization package
 
 ```
 $ sudo apt-get install ros-$ROS_DISTRO-robot-localization
