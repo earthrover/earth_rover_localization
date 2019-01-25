@@ -7,8 +7,14 @@ services:
     network_mode: host
     command: roscore
   imu_piksy_drivers:
-    container_name: imu_piksy_drivers
+    depends_on:
+      - master
+    container_name: drivers
     image: earthrover/earth_rover_localization:0.0.1
     network_mode: host
     privileged: true
-    command: roslaunch earth_rover_localization imu_piksy_drivers.launch
+    command: >
+      /bin/bash -c "
+        sleep 2;
+        roslaunch earth_rover_localization imu_piksy_drivers.launch;
+      "
