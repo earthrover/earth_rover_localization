@@ -29,7 +29,6 @@ $ sudo apt-get install ros-kinetic-ros-base
 	$ mkdir -p ~/earth_rover_ws/src  
 	$ cd ~/earth_rover_ws/src 	
 	$ git clone --recursive https://github.com/earthrover/er_localisation.git
-
 	```
 ### GeographicLib
 
@@ -38,7 +37,6 @@ $ sudo apt-get install ros-kinetic-ros-base
 	```
 	$ cd ~/earth_rover_ws
 	$ wget https://sourceforge.net/projects/geographiclib/files/distrib/GeographicLib-1.49.tar.gz/download
-
 	```
 
 ### Installation using CMAKE
@@ -100,17 +98,19 @@ The reference receiver obtains corrections from base station using the [FreeWave
 
 1. Follow the instructions on installing and operating the Swift Console on your computer, see the [Installation Instructions](https://support.swiftnav.com/customer/en/portal/articles/2756825-installing-swift-console) and [User's Guide](https://support.swiftnav.com/customer/en/portal/articles/2838278-swift-console-user-s-guide).
 
-- The following steps to configure on the Piksy modules.
+- Use the following steps to configure the Piksy modules.
 
 2. Complete the instructions to configure the base station and rover receiver to use the [GNSS RTK Position with Stationary Base solution](https://support.swiftnav.com/customer/en/portal/articles/2771177).
 
 3. Follow the configuration to enable the heading setup. Be aware that one receiver (reference receiver) has already be configured to receive corrections from a base station. Configure the ```enabled_sbp_messages``` on **uart1** instead. See the [documentation](https://support.swiftnav.com/customer/en/portal/articles/2805901-piksi-multi---heading) details.
 
-4. Enable the [Ethernet Configuration](https://support.swiftnav.com/customer/en/portal/articles/2740815-using-ethernet-on-piksi-multi-and-duro) on reference and attitude receivers. Set `reference receiver ip_address to 192.168.0.222` and `attitude receiver ip_address to 192.168.0.223`
+4. Enable the [Ethernet Configuration](https://support.swiftnav.com/customer/en/portal/articles/2740815-using-ethernet-on-piksi-multi-and-duro) on reference and attitude receivers. 
 
 - Drivers configuration to be performed on the embedded device.
 
-5. The ROS node reads SBP (Swift Navigation Binary Protocol) messages, a fast, simple, and minimal overhead binary protocol for communicating with Swift Navigation devices. 
+5. Configure the launch files for the package on each receiver according to the IP addresses. The configuration files can be found in `earth_rover_localization/cfg/piksi_multi_driver_settings_rover_reference.yaml` and `earth_rover_localization/cfg/piksi_multi_driver_settings_rover_attitude.yaml` respectively. This repository includes by default `reference receiver ip_address to 192.168.0.222` and `attitude receiver ip_address to 192.168.0.223` 
+
+6. The ROS node reads SBP (Swift Navigation Binary Protocol) messages, a fast, simple, and minimal overhead binary protocol for communicating with Swift Navigation devices. 
 
 **WARNING**: install __ONLY ONE__ version of SBP library, depending of which Hardware version you are using.
 
@@ -121,10 +121,10 @@ The following code will automatically download the required version of libsbp an
 source install/install_piksi_multi.sh
 ```
 
-6. To configure the ENU results from the ROS driver, fill the `enu_origin.yaml` on the package folder `earth_rover_localization/cfg` with the same coordinates of the base station from step 3.
+7. To configure the ENU results from the ROS driver, fill the `enu_origin.yaml` on the package folder `earth_rover_localization/cfg` with the same coordinates of the base station from step 3.
 
 ### Xsense
-7. Install the MTi USB Serial Driver
+8. Install the MTi USB Serial Driver
 
 	```
 	$ git clone https://github.com/xsens/xsens_mt.git
@@ -134,7 +134,7 @@ source install/install_piksi_multi.sh
 	$ sudo insmod ./xsens_mt.ko
 	```
 
-8. Install gps_common or gps_umd as available based on the ROS distributable
+9. Install gps_common or gps_umd as available based on the ROS distributable
 
 	```
 	$ sudo apt-get install ros-kinetic-gps-umd
