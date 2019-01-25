@@ -1,4 +1,4 @@
-# Earth Rover localization
+# earth_rover_localization [![Build Status](https://travis-ci.com/earthrover/OpenER.svg?branch=master)](https://travis-ci.com/earthrover/OpenER)
 
 This repository contains ROS drivers, tools, launch files, and documents to configure the EKF robot_localization for the Earth Rover Agribot.
 
