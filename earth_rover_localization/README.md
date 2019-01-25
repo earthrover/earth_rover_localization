@@ -88,7 +88,7 @@ Further installing details can be found [here](https://geographiclib.sourceforge
 	$ source devel/setup.bash
 	```
 
-The following steps explain the Hardware and ROS drivers configuration to run in the embedded device and monitor on a host PC. **Only follow this section if the required sensors are available to test for a complete base station - rover setup.** Skip to [Robot localization](https://github.com/earthrover/earth_rover_localization/tree/master/earth_rover_localization#earth-rover-localization-1) to see robot localization node, visualization tool and play recorded results.
+The following steps explain the Hardware and ROS drivers configuration to run in the embedded device and monitor on a host PC. **Only follow this section if the required sensors are available to test for a complete base station - rover setup.** Skip to [Earth Rover localization](https://github.com/earthrover/er_localisation/tree/master/earth_rover_localization#earth-rover-localization-1) to see robot localization node, visualization tool and play recorded results.
 
 ### Piksy Modules
 
