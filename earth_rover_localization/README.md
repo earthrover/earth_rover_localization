@@ -23,18 +23,33 @@ $ sudo apt-get install ros-kinetic-ros-base
 
 ## Installation and Configuration
 
+1. On the on-board PC, create a workspace and clone the repository.
+
+	```
+	$ mkdir -p ~/earth_rover_ws/src  
+	$ cd ~/earth_rover_ws/src 	
+	$ git clone --recursive https://github.com/earthrover/er_localisation.git
+
+	```
 ### GeographicLib
-First download https://sourceforge.net/projects/geographiclib/files/distrib/GeographicLib-1.49.tar.gz
+
+2. Download GeographicLib 
+
+	```
+	$ cd ~/earth_rover_ws
+	$ wget https://sourceforge.net/projects/geographiclib/files/distrib/GeographicLib-1.49.tar.gz/download
+
+	```
 
 ### Installation using CMAKE
 
-1. Unpack the source running
+2. Unpack the source
 
 	```
-	tar xfpz GeographicLib-1.49.tar.gz
+	tar xfpz download
 	```
 
-2. then enter the directory created, create a separate build directory and enter it.
+3. then enter the directory created, create a separate build directory and enter it.
 
 	```
 	cd GeographicLib-1.49 
@@ -42,13 +57,13 @@ First download https://sourceforge.net/projects/geographiclib/files/distrib/Geog
 	cd BUILD
 	```
 
-3. Run cmake, pointing it to the source directory (..) 
+4. Run cmake, pointing it to the source directory (..) 
 
 	```
 	cmake ..
 	```	
 
-4. Build and install the software. if CMAKE_INSTALL_PREFIX is a system directory
+5. Build and install the software. if CMAKE_INSTALL_PREFIX is a system directory
 
 	```
 	make
@@ -57,12 +72,20 @@ First download https://sourceforge.net/projects/geographiclib/files/distrib/Geog
 
 Further installing details can be found [here](https://geographiclib.sourceforge.io/html/install.html)
 
-1. On the on-board PC, create a workspace and clone the repository.
+### Robot_localization package
+
+6. Install the robot localization package
 
 	```
-	$ mkdir -p ~/earth_rover_ws/src  
-	$ cd ~/earth_rover_ws/src 	
-	$ git clone --recursive https://github.com/earthrover/earth_rover_localization.git
+	sudo apt-get install ros-$ROS_DISTRO-robot-localization
+	```
+
+7. Compile
+
+	```
+	$ cd ~/earth_rover_ws 	
+	$ catkin_make
+	$ source devel/setup.bash
 	```
 
 The following steps explain the Hardware and ROS drivers configuration to run in the embedded device and monitor on a host PC. **Only follow this section if the required sensors are available to test for a complete base station - rover setup.** Skip to [Robot localization](https://github.com/earthrover/earth_rover_localization/tree/master/earth_rover_localization#earth-rover-localization-1) to see robot localization node, visualization tool and play recorded results.
@@ -75,19 +98,19 @@ The reference receiver obtains corrections from base station using the [FreeWave
 
 - Swift console on a host computer
 
-2. Follow the instructions on installing and operating the Swift Console on your computer, see the [Installation Instructions](https://support.swiftnav.com/customer/en/portal/articles/2756825-installing-swift-console) and [User's Guide](https://support.swiftnav.com/customer/en/portal/articles/2838278-swift-console-user-s-guide).
+1. Follow the instructions on installing and operating the Swift Console on your computer, see the [Installation Instructions](https://support.swiftnav.com/customer/en/portal/articles/2756825-installing-swift-console) and [User's Guide](https://support.swiftnav.com/customer/en/portal/articles/2838278-swift-console-user-s-guide).
 
 - The following steps to configure on the Piksy modules.
 
-3. Complete the instructions to configure the base station and rover receiver to use the [GNSS RTK Position with Stationary Base solution](https://support.swiftnav.com/customer/en/portal/articles/2771177).
+2. Complete the instructions to configure the base station and rover receiver to use the [GNSS RTK Position with Stationary Base solution](https://support.swiftnav.com/customer/en/portal/articles/2771177).
 
-4. Follow the configuration to enable the heading setup. Be aware that one receiver (reference receiver) has already be configured to receive corrections from a base station. Configure the ```enabled_sbp_messages``` on **uart1** instead. See the [documentation](https://support.swiftnav.com/customer/en/portal/articles/2805901-piksi-multi---heading) details.
+3. Follow the configuration to enable the heading setup. Be aware that one receiver (reference receiver) has already be configured to receive corrections from a base station. Configure the ```enabled_sbp_messages``` on **uart1** instead. See the [documentation](https://support.swiftnav.com/customer/en/portal/articles/2805901-piksi-multi---heading) details.
 
-5. Enable the [Ethernet Configuration](https://support.swiftnav.com/customer/en/portal/articles/2740815-using-ethernet-on-piksi-multi-and-duro) on reference and attitude receivers. Set `reference receiver ip_address to 192.168.0.222` and `attitude receiver ip_address to 192.168.0.223`
+4. Enable the [Ethernet Configuration](https://support.swiftnav.com/customer/en/portal/articles/2740815-using-ethernet-on-piksi-multi-and-duro) on reference and attitude receivers. Set `reference receiver ip_address to 192.168.0.222` and `attitude receiver ip_address to 192.168.0.223`
 
 - Drivers configuration to be performed on the embedded device.
 
-6. The ROS node reads SBP (Swift Navigation Binary Protocol) messages, a fast, simple, and minimal overhead binary protocol for communicating with Swift Navigation devices. 
+5. The ROS node reads SBP (Swift Navigation Binary Protocol) messages, a fast, simple, and minimal overhead binary protocol for communicating with Swift Navigation devices. 
 
 **WARNING**: install __ONLY ONE__ version of SBP library, depending of which Hardware version you are using.
 
@@ -98,10 +121,10 @@ The following code will automatically download the required version of libsbp an
 source install/install_piksi_multi.sh
 ```
 
-7. To configure the ENU results from the ROS driver, fill the `enu_origin.yaml` on the package folder `earth_rover_localization/cfg` with the same coordinates of the base station from step 3.
+6. To configure the ENU results from the ROS driver, fill the `enu_origin.yaml` on the package folder `earth_rover_localization/cfg` with the same coordinates of the base station from step 3.
 
 ### Xsense
-8. Install the MTi USB Serial Driver
+7. Install the MTi USB Serial Driver
 
 	```
 	$ git clone https://github.com/xsens/xsens_mt.git
@@ -111,7 +134,7 @@ source install/install_piksi_multi.sh
 	$ sudo insmod ./xsens_mt.ko
 	```
 
-9. Install gps_common or gps_umd as available based on the ROS distributable
+8. Install gps_common or gps_umd as available based on the ROS distributable
 
 	```
 	$ sudo apt-get install ros-kinetic-gps-umd
@@ -121,13 +144,6 @@ source install/install_piksi_multi.sh
 	$ sudo apt-get install ros-kinetic-gps-common
 	```
 	
-### Robot_localization package
-
-10. Install the robot localization package
-
-	```
-	sudo apt-get install ros-$ROS_DISTRO-robot-localization
-	```
 
 ## Usage
 
