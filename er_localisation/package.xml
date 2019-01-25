@@ -20,6 +20,7 @@
   <!-- Url tags are optional, but multiple are allowed, one per tag -->
   <!-- Optional attribute type can be: website, bugtracker, or repository -->
   <!-- Example: -->  
+  <url type="website">http://open.earthrover.cc/</url>
   <url type="repository">https://github.com/earthrover/OpenER</url>
   <url type="bugtracker">https://github.com/earthrover/OpenER/issues</url>
 
