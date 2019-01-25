@@ -5,12 +5,12 @@
 <launch>
 
 	<!-- Piksi Reference receiver -->
-	<include file="$(find er_localisation)/launch/piksi_multi_rover_reference.launch"/>
+	<include file="$(find earth_rover_localization)/launch/piksi_multi_rover_reference.launch"/>
 
 	<!-- Piksi Attitude receiver -->
-	<include file="$(find er_localisation)/launch/piksi_multi_rover_attitude.launch"/>
+	<include file="$(find earth_rover_localization)/launch/piksi_multi_rover_attitude.launch"/>
 
 	<!-- Imu driver -->
-	<include file="$(find er_localisation)/launch/xsens.launch"/>  
+	<include file="$(find earth_rover_localization)/launch/xsens.launch"/>  
 
 </launch>
