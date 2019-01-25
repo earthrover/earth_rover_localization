@@ -195,6 +195,14 @@ target_link_libraries(set_datum ${catkin_LIBRARIES} ${GeographicLib_LIBRARIES})
 #   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 # )
 
+install(DIRECTORY launch/
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/launch
+)
+
+install(DIRECTORY cfg/
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/cfg
+)
+
 #############
 ## Testing ##
 #############
