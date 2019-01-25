@@ -4,15 +4,9 @@
 -->
 
 <launch>
-
-  <!-- Use sim time when playing back bag files with the clock flag -->
-  <param name="use_sim_time" value="true"/>
-
-  <!-- Bag player Node  -->
-  <arg name="path" default="../bag_files/piksi-multi-debug-2018-12-05-15-42-46.bag" /> 
-  <node name="player" type="play" pkg="rosbag" args="--delay 1 --clock $(arg path)" output="screen" />
-
-  <!-- Transforms  -->
+  <!-- Sensor drivers  -->
+  <include file="$(find earth_rover_localization)/launch/imu_piksy_drivers.launch"/>
+  <!-- Transforms  -->  # Static transforms of the different frames of incoming data
   <!-- IMU  -->
   <node pkg="tf2_ros" type="static_transform_publisher" name="bl_imu" args="0 0 0 0 0 0 base_link xsens" />
   <!-- GPS  -->
@@ -23,12 +17,12 @@
   <!-- Odom Frame  -->  
   <node pkg="tf2_ros" type="static_transform_publisher" name="map_odom" args="0 0 0 0 0 0 map odom" /> 
 
-  <!-- Heading Listener -->
-  <node pkg="rover_tools" type="heading_listener" name="heading_listener" output="log" /> 
+  <!-- Heading Listener node-->
+  <node pkg="earth_rover_localization" type="heading_listener" name="heading_listener" output="log" /> 
 
-  <!-- EKF Node -->
+  <!-- EKF node -->
   <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization">
-    <rosparam command="load" file="$(find er_localisation)/params/ekf_imu_heading_localization.yaml" />
+    <rosparam command="load" file="$(find earth_rover_localization)/cfg/ekf_imu_heading_localization.yaml" />
     <remap from="/odometry/filtered" to="/odometry/filtered/global"/>
   </node>
     
@@ -49,6 +43,10 @@
     <remap from="/odometry/filtered" to="/odometry/filtered/global"/>
     <remap from="/gps/fix" to="/piksi_receiver/navsatfix_best_fix"/>    
   </node>
+
+
+  <!-- Set_datum_service. Origin of Map coordinates -->
+  <include file="$(find earth_rover_localization)/launch/er_localization_set_datum.launch"/>
 
  </launch>
 

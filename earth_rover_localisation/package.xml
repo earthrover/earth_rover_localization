@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>er_localisation</name>
+  <name>earth_rover_localization</name>
   <version>0.0.0</version>
   <description>Configuration for the EKF of the robot_localization package to use with the Earth Rover Open Agribot. </description>
 
