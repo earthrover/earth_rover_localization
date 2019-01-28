@@ -28,7 +28,7 @@ $ sudo apt-get install ros-kinetic-ros-base
 	```
 	$ mkdir -p ~/earth_rover_ws/src  
 	$ cd ~/earth_rover_ws/src 	
-	$ git clone --recursive https://github.com/earthrover/er_localisation.git
+	$ git clone --recursive https://github.com/earthrover/earth_rover_localization.git
 	```
 ### GeographicLib
 
