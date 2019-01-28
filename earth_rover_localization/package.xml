@@ -21,8 +21,8 @@
   <!-- Optional attribute type can be: website, bugtracker, or repository -->
   <!-- Example: -->  
   <url type="website">http://open.earthrover.cc/</url>
-  <url type="repository">https://github.com/earthrover/OpenER</url>
-  <url type="bugtracker">https://github.com/earthrover/OpenER/issues</url>
+  <url type="repository">https://github.com/earthrover/earth_rover_localization</url>
+  <url type="bugtracker">https://github.com/earthrover/earth_rover_localization/issues</url>
 
 
   <!-- Author tags are optional, multiple are allowed, one per tag -->
