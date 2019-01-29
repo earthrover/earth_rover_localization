@@ -23,6 +23,9 @@ RUN cd GeographicLib-1.49/BUILD && cmake .. && make && make install
 # a dependency on gps_umd
 RUN git clone --recursive --depth=1 https://github.com/swri-robotics/gps_umd.git
 
+# a dependency on Piksi RTK GPS module
+RUN git clone --recursive --depth=1 https://github.com/ethz-asl/ethz_piksi_ros.git
+
 # and robot_localisation
 RUN git clone --recursive --depth=1 https://github.com/cra-ros-pkg/robot_localization.git
 
