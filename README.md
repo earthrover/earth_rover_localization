@@ -2,8 +2,7 @@
 
 This repository contains ROS drivers, tools, launch files, and documents to configure the EKF robot_localization for the Earth Rover Agribot.
 
-![](https://github.com/earthrover/er_localisation/blob/master/earth_rover_localization/docs/cover_image1.png)
-![](https://github.com/earthrover/er_localisation/blob/master/earth_rover_localization/docs/cover_image2.png)
+![](https://github.com/earthrover/er_localisation/blob/master/earth_rover_localization/docs/OpenER.jpg)
 
 Overview
 ------
