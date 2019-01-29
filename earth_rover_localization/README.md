@@ -70,15 +70,22 @@ $ sudo apt-get install ros-kinetic-ros-base
 
 Further installing details can be found [here](https://geographiclib.sourceforge.io/html/install.html)
 
-### Robot_localization package
+### Robot_localization and Piksy RTK packages
 
 6. Install the robot localization package
 
 	```
 	sudo apt-get install ros-$ROS_DISTRO-robot-localization
 	```
+7. Download ROS drivers for the Piksi RTK GPS module
 
-7. Compile
+	```
+	mkdir -p ~/earth_rover_ws/src/libs
+	cd ~/earth_rover_ws/src/libs
+	git clone https://github.com/ethz-asl/ethz_piksi_ros.git
+	```
+
+8. Compile
 
 	```
 	$ cd ~/earth_rover_ws 	
