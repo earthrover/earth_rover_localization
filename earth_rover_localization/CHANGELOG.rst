@@ -2,6 +2,12 @@
 Changelog for package earth_rover_localization
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+1.0.1 (2019-02-04)
+-----------
+* system dependencies added
+* Update package.xml
+* Contributors: Andres Palomino
+
 1.0.0 (2019-01-28)
 -----------
 * Update CMakeList.txt GeographicLib test
