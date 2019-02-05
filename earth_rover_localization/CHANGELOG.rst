@@ -2,7 +2,7 @@
 Changelog for package earth_rover_localization
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-1.0.1 (2019-02-04)
+1.0.1 (2019-02-05)
 -----------
 * system dependencies added
 * Update package.xml
