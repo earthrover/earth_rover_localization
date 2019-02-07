@@ -2,9 +2,8 @@
 Changelog for package earth_rover_localization
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-1.0.0 (2019-02-07)
+1.0.1 (2019-02-07)
 -----------
-* 1.0.1
 * Update dependencies
 * Contributors: Andres Palomino
 
