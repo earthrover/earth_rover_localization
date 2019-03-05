@@ -1,5 +1,5 @@
 <!-- EarthRover Localization 
-Reads location from yaml file to update ENU origin of map
+Reads location from yaml file to update ENU origin of map, location and convergence value
 Author: Andres Felipe Palomino (apalomino@edgebrain.io)
 -->
 
@@ -10,8 +10,8 @@ Author: Andres Felipe Palomino (apalomino@edgebrain.io)
   <!-- Load enu origin from file -->
   <rosparam file="$(arg enu_origin_file)"/>
 
-  <!-- Heading Listener node-->
-  <node pkg="earth_rover_localization" type="set_datum" name="set_datum_client" output="screen" restart="true"/>
+  <!-- Set datum node-->
+  <node pkg="earth_rover_localization" type="set_datum" name="set_datum_client" output="screen" respawn="true" respawn_delay="30"/>
 
 </launch>
 

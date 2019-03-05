@@ -53,6 +53,9 @@
   <exec_depend>rospy</exec_depend>
   <exec_depend>robot_localization</exec_depend>
   <exec_depend>tf</exec_depend> 
+  <build_depend>piksi_multi_rtk</build_depend>
+  <build_export_depend>piksi_multi_rtk</build_export_depend>
+  <exec_depend>piksi_multi_rtk</exec_depend>
 
   <!-- message packages -->
   <build_depend>std_msgs</build_depend>

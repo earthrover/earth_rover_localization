@@ -11,7 +11,8 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   std_msgs
-  piksi_rtk_msgs
+  piksi_multi_rtk
+  piksi_rtk_msgs	
   robot_localization
   tf
 )
@@ -175,11 +176,11 @@ target_link_libraries(set_datum ${catkin_LIBRARIES} ${GeographicLib_LIBRARIES})
 # )
 
 ## Mark executables and/or libraries for installation
-# install(TARGETS ${PROJECT_NAME} ${PROJECT_NAME}_node
+install(TARGETS heading_listener set_datum
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-#   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-# )
+   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
 
 ## Mark cpp header files for installation
 # install(DIRECTORY include/${PROJECT_NAME}/
@@ -201,6 +202,10 @@ install(DIRECTORY launch/
 
 install(DIRECTORY cfg/
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/cfg
+)
+
+install(DIRECTORY bag_files/
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/bag_files
 )
 
 #############
