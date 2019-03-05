@@ -208,6 +208,10 @@ install(DIRECTORY bag_files/
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/bag_files
 )
 
+install(DIRECTORY scripts/
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/scripts
+)
+
 #############
 ## Testing ##
 #############
