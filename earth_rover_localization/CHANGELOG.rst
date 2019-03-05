@@ -2,8 +2,8 @@
 Changelog for package earth_rover_localization
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.2.0 (2019-03-05)
+------------------
 * Update readme and install SBP script
 * Fixed piksi package in launch and install targets
 * Contributors: Andres Palomino
