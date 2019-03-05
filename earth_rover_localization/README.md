@@ -11,7 +11,7 @@ $ sudo apt-get install ros-kinetic-ros-base
 
 [robot_localization](http://docs.ros.org/kinetic/api/robot_localization/html/index.html): Robot Localization is a collection of state estimation nodes, each of which is an implementation of a nonlinear state estimator for robots moving in 3D space. It contains two state estimation nodes, ekf_localization_node and ukf_localization_node. In addition, robot_localization provides navsat_transform_node, which aids in the integration of GPS data.
 
-[Piksy Driver](https://github.com/ethz-asl/ethz_piksi_ros): Driver from ETH Zurich compatible with the Swift Navigation devices. 
+[Piksy Driver](https://github.com/earthrover/earth_rover_piksi): Driver compatible with the Swift Navigation devices. 
 
 [xsense Driver](https://github.com/xsens/xsens_mti_ros_node): Driver for the third and fourth generation of Xsens IMU devices
 
@@ -125,7 +125,7 @@ The following code will automatically download the required version of libsbp an
 
 ```
 # Execute this line in the package folder 'ethz_piksi_ros/piksi_multi_rtk_ros'
-source install/install_piksi_multi.sh
+source scripts/install_sbp.sh
 ```
 
 7. To configure the ENU results from the ROS driver, fill the `enu_origin.yaml` on the package folder `earth_rover_localization/cfg` with the same coordinates of the base station from step 3.
@@ -236,4 +236,4 @@ Go to this [tutorial](https://github.com/danielsnider/MapViz-Tile-Map-Google-Map
 	$ roslaunch earth_rover_localization er_localization_viztools.launch
 	```
 
-Go to `File -> Open Config` on the top bar and upload the configuration file from `earth_rover_localization/mapviz_config`
+Go to `File -> Open Config` on the top bar and upload the configuration file from `cfg/mapviz_localization_config.mvc`

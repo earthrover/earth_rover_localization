@@ -6,8 +6,8 @@ This repository contains ROS drivers, tools, launch files, and documents to conf
 
 Overview
 ------
-- [earth_rover_localization](https://github.com/earthrover/er_localisation/tree/master/er_localisation): ROS package to configure the EKF of the robot_localization package. Uses sensor fusion of GPS [Piksy Multi](https://www.swiftnav.com/piksi-multi) and IMU [MTi-3 AHRS](https://www.xsens.com/products/mti-1-series/)
-- [ethz_piksi_ros](https://github.com/ethz-asl/ethz_piksi_ros/tree/767b0192be2f1a3e5434bcf6ddf33bb3dbd96c4f): Repository that contains ROS driver and utilities for Piksi RTK receiver device.
+- [earth_rover_localization](https://github.com/earthrover/earth_rover_localization/tree/master/earth_rover_localization): ROS package to configure the EKF of the robot_localization package. Uses sensor fusion of GPS [Piksy Multi](https://www.swiftnav.com/piksi-multi) and IMU [MTi-3 AHRS](https://www.xsens.com/products/mti-1-series/)
+- [piksi_multi_rtk](https://github.com/earthrover/earth_rover_piksi): Repository that contains ROS driver and utilities for Piksi RTK receiver device.
 - [xsens_mti_ros_node](https://github.com/xsens/xsens_mti_ros_node): ROS driver for third and fourth generation of Xsens IMU devices.
 
 License
@@ -22,10 +22,9 @@ Acknowledgement
 -------
 Earth Rover ROS – The Open-Source Agribot (http://open.earthrover.cc/)
 
-Andres Palomino apalomino(at)edgebrain.io
+Andres Palomino apalomino(at)earthrover.cc
 Ricard Pardell ricard(at)earthrover.cc
 
-Based on robot_localization from Tom Moore.
 <!-- 
     ROSIN acknowledgement from the ROSIN press kit
     @ https://github.com/rosin-project/press_kit
