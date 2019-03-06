@@ -82,10 +82,44 @@ Further installing details can be found [here](https://geographiclib.sourceforge
 	```
 	mkdir -p ~/earth_rover_ws/src/libs
 	cd ~/earth_rover_ws/src/libs
-	git clone https://github.com/ethz-asl/ethz_piksi_ros.git
+	git clone https://github.com/earthrover/earth_rover_piksi
+	```
+Checkout the new feature which is'n in the release yet (*To test*)
+
+	```
+	cd ~/earth_rover_ws/src/libs/earth_rover_piksi
+	git checkout feature_2.14.1		
+	```
+### Xsense
+8. Install the MTi USB Serial Driver
+
+	```
+	$ cd ~/earth_rover_ws/src/libs/
+	$ git clone https://github.com/xsens/xsens_mt.git
+	$ cd xsens_mt
+	$ make
+	$ sudo modprobe usbserial
+	$ sudo insmod ./xsens_mt.ko
 	```
 
-8. Compile
+9. Install gps_common or gps_umd as available based on the ROS distributable
+
+	```
+	$ sudo apt-get install ros-kinetic-gps-umd
+	```
+	or
+	```
+	$ sudo apt-get install ros-kinetic-gps-common
+	```	
+10. Download xsense ROS driver
+
+	```
+	$ cd ~/earth_rover_ws/src/libs/
+	$ git clone https://github.com/xsens/xsens_mti_ros_node
+
+	```
+### Compile	
+10. Compile
 
 	```
 	$ cd ~/earth_rover_ws 	
@@ -129,28 +163,6 @@ source scripts/install_sbp.sh
 ```
 
 7. To configure the ENU results from the ROS driver, fill the `enu_origin.yaml` on the package folder `earth_rover_localization/cfg` with the same coordinates of the base station from step 3.
-
-### Xsense
-8. Install the MTi USB Serial Driver
-
-	```
-	$ git clone https://github.com/xsens/xsens_mt.git
-	$ cd ~/xsens_mt
-	$ make
-	$ sudo modprobe usbserial
-	$ sudo insmod ./xsens_mt.ko
-	```
-
-9. Install gps_common or gps_umd as available based on the ROS distributable
-
-	```
-	$ sudo apt-get install ros-kinetic-gps-umd
-	```
-	or
-	```
-	$ sudo apt-get install ros-kinetic-gps-common
-	```
-	
 
 ## Usage
 
