@@ -86,10 +86,11 @@ Further installing details can be found [here](https://geographiclib.sourceforge
 	```
 7.1 Checkout the new feature which is'n in the release yet (*To test*)
 
-	```
-	cd ~/earth_rover_ws/src/libs/earth_rover_piksi
-	git checkout feature_2.14.1		
-	```
+```
+cd ~/earth_rover_ws/src/libs/earth_rover_piksi
+git checkout feature_2.14.1		
+```
+
 ### Xsense
 8. Install the MTi USB Serial Driver
 
@@ -116,7 +117,6 @@ Further installing details can be found [here](https://geographiclib.sourceforge
 	```
 	$ cd ~/earth_rover_ws/src/libs/
 	$ git clone https://github.com/xsens/xsens_mti_ros_node
-
 	```
 ### Compile	
 10. Compile the packages
@@ -134,8 +134,8 @@ Further installing details can be found [here](https://geographiclib.sourceforge
 Check the `<arg name="interface"` is set to `default="tcp"` and change the desired `tcp_addr` if necessary.
 
 ```
-	<!-- If interface is tcp, this specifies the address of Piksi Multi. -->
-	<arg name="tcp_addr"                    default="192.168.0.222"/>
+<!-- If interface is tcp, this specifies the address of Piksi Multi. -->
+<arg name="tcp_addr"                    default="192.168.0.222"/>
 ```
 
 2. The ROS node reads SBP (Swift Navigation Binary Protocol) messages, a fast, simple, and minimal overhead binary protocol for communicating with Swift Navigation devices. 
@@ -154,6 +154,7 @@ The following code will automatically download the required version of libsbp an
 # To install SBP, Execute this line in the package folder 'earth_rover_localization'
 source scripts/install_sbp.sh
 ```
+Check that the installations finishes succesfully. If any error appears due to locale settings, check the following [solution](https://libre-software.net/ubuntu-setting-locale/) and try the SBP installation again. 
 
 3. To configure the ENU results from the ROS driver, fill the `enu_origin.yaml` on the package folder `earth_rover_localization/cfg` with the same location of the base station. **If base station is not yet configured, remember to edit this file before launching `earth_rover_localization`**
 
@@ -175,13 +176,13 @@ The reference receiver obtains corrections from base station using the [FreeWave
 
 2. Complete the instructions to configure the base station and rover receiver to use the [GNSS RTK Position with Stationary Base solution](https://support.swiftnav.com/customer/en/portal/articles/2771177).
 
-3. Follow the configuration to enable the heading setup. **WARNING** Be aware that one receiver (reference receiver) has already be configured to receive corrections from a base station. Configure the ```enabled_sbp_messages``` on **uart1** instead. See the [documentation](https://support.swiftnav.com/customer/en/portal/articles/2805901-piksi-multi---heading) details.
+3. Follow the configuration to enable the heading setup. Use the piksis on the rover to configure this step. **WARNING** Be aware that one receiver (reference receiver) has already be configured to receive corrections from a base station. Configure the ```enabled_sbp_messages``` on **uart1** instead to send corrections from reference to attitude through this available port. See the [documentation](https://support.swiftnav.com/customer/en/portal/articles/2805901-piksi-multi---heading) details.
 
 4. Enable the [Ethernet Configuration](https://support.swiftnav.com/customer/en/portal/articles/2740815-using-ethernet-on-piksi-multi-and-duro) on reference and attitude receivers based on the desired IP addresses to connect. 
 
 ## Usage
 
-1. Test the ROS node on the reference receiver. The following line will launch the configuration over TCP/IP. Check that observations are received on the Swift Console and also the [published topics](https://github.com/ethz-asl/ethz_piksi_ros/tree/master/piksi_multi_rtk_ros#advertised-topics) from the driver   
+1. Test the ROS node on the reference receiver. The following line will launch the configuration over TCP/IP. Check that observations are received on the Swift Console and also the [published topics](https://github.com/earthrover/earth_rover_piksi/tree/master/piksi_multi_rtk#advertised-topics) from the driver   
 
 	```
 	$ roslaunch earth_rover_localization piksi_multi_rover_reference.launch
@@ -224,7 +225,7 @@ $ roslaunch er_localization er_localization_player.launch
 
 The result of the localization package is the robot's pose estimation in its world frame. Then, the origin of the world frame is georeferenced and will change depending on where the scouting mission is performed. 
 
-The launch will find the coordinates of the base station to set the origin of the Map frame. Check the `enu_origin.yaml` on the package folder `earth_rover_localization/cfg`. To test the bag player, set the following location on the configuration file.
+The launch will find the coordinates of the base station to set the origin of the Map frame. Check the `enu_origin.yaml` on the package folder `earth_rover_localization/cfg`. **Only if you're using the bag player, set the following location on the configuration file.**
 
 ```
 latitude0_deg: 41.4678702
@@ -253,20 +254,51 @@ Used nodes on the architecture
 - `gps/filtered`: A [sensor_msgs/NavSatFix.msg](http://docs.ros.org/melodic/api/sensor_msgs/html/msg/NavSatFix.html) message containing your robot’s world frame position, transformed into GPS coordinates.
 - `/odometry/filtered/global`: A [nav_msgs/Odometry.msg](http://docs.ros.org/melodic/api/nav_msgs/html/msg/Odometry.html) message with the robot's pose estimation in its world frame.
 
-### Mapviz 
+### Mapviz (Optional) on host PC
 
-You can install mapviz using apt-get from the ROS apt repository:
+The idea of this step is to start a ROS system using two machines and monitorize the master on the embedded PC from a host PC. Host PC and embedded PC should be connected on the same network. Get involve with working with multiple machines and the environmental variable `ROS_MASTER_URI` [here](http://wiki.ros.org/ROS/Tutorials/MultipleMachines)
 
+You can install mapviz using `apt-get` from the ROS apt repository:
 ```
 $ sudo apt-get install ros-$ROS_DISTRO-mapviz ros-$ROS_DISTRO-mapviz-plugins ros-$ROS_DISTRO-tile-map ros-$ROS_DISTRO-multires-image
 ```
-
 Go to this [tutorial](https://github.com/danielsnider/MapViz-Tile-Map-Google-Maps-Satellite) to enable ROS Offline Google Maps for MapViz
 
-- The following launch configures the vizualization tool 
+- Go to the downlodaded package and edit the launch file
+```
+$ roscd mapviz
+$ cd launch/
+$ sudo nano mapviz.launch
+```
+- Replace the file with the following template for `mapviz.launch` **Edit the local_xy_origins with the base station location**
+```
+<?xml version="1.0"?>
 
-	```
-	$ roslaunch earth_rover_localization er_localization_viztools.launch
-	```
+<launch>
 
-Go to `File -> Open Config` on the top bar and upload the configuration file from `cfg/mapviz_localization_config.mvc`
+  <!-- Mapviz -->
+  <arg name="print_profile_data" default="true"/>
+
+  <node pkg="swri_transform_util" type="initialize_origin.py" name="initialize_origin" output="screen">
+    <param name="local_xy_frame" value="map"/>
+    <param name="local_xy_origin" value="swri"/>
+    <rosparam param="local_xy_origins">   # Replace with Map origins. Same as robot localization datum param
+      [{ name: swri,
+      latitude: 41.4678702,
+      longitude: 2.0227646,
+      altitude: 132.530939,
+      heading: 0}]
+    </rosparam>
+  </node>  
+
+  <node pkg="mapviz" type="mapviz" name="mapviz"></node>
+
+ </launch>
+```
+- launch mapviz
+```
+$ roslaunch mapviz mapviz.launch
+```
+- Download the config file from this repository, `cfg/mapviz_localization_config.mvc`, go to `File -> Open Config` on the top bar and upload the configuration file. 
+
+- Visualization of topics should appear to follow the localization task. 
