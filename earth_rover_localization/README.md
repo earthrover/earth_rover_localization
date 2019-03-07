@@ -39,7 +39,7 @@ $ sudo apt-get install ros-kinetic-ros-base
 	$ wget https://sourceforge.net/projects/geographiclib/files/distrib/GeographicLib-1.49.tar.gz/download
 	```
 
-### Installation using CMAKE
+- Installation using CMAKE
 
 2. Unpack the source
 
@@ -84,7 +84,7 @@ Further installing details can be found [here](https://geographiclib.sourceforge
 	cd ~/earth_rover_ws/src/libs
 	git clone https://github.com/earthrover/earth_rover_piksi
 	```
-Checkout the new feature which is'n in the release yet (*To test*)
+7.1 Checkout the new feature which is'n in the release yet (*To test*)
 
 	```
 	cd ~/earth_rover_ws/src/libs/earth_rover_piksi
@@ -119,13 +119,45 @@ Checkout the new feature which is'n in the release yet (*To test*)
 
 	```
 ### Compile	
-10. Compile
+10. Compile the packages
 
 	```
 	$ cd ~/earth_rover_ws 	
 	$ catkin_make
 	$ source devel/setup.bash
 	```
+
+- Drivers configuration to be performed on the embedded device.
+
+1. Configure the launch files for the package **on each receiver (Reference and Attitude)** according to the desired IP addresses. The configuration files can be found in `earth_rover_localization/launch/piksi_multi_rover_reference.launch` and `earth_rover_localization/launch/piksi_multi_rover_attitude.launch` respectively. This repository includes by default `reference receiver ip_address to 192.168.0.222` and `attitude receiver ip_address to 192.168.0.223` 
+
+Check the `<arg name="interface"` is set to `default="tcp"` and change the desired `tcp_addr` if necessary.
+
+```
+	<!-- If interface is tcp, this specifies the address of Piksi Multi. -->
+	<arg name="tcp_addr"                    default="192.168.0.222"/>
+```
+
+2. The ROS node reads SBP (Swift Navigation Binary Protocol) messages, a fast, simple, and minimal overhead binary protocol for communicating with Swift Navigation devices. 
+
+Please check [here](https://support.swiftnav.com/customer/en/portal/articles/2492810-swift-binary-protocol) which Piksi Multi firmware version based on the current SBP Lib version.
+
+Currently the `scripts/install_sbp.sh` will install **SBP Lib 2.4.1**.
+This means you are supposed to install **Firmware 2.1.14** from [SwiftNav Firmware page](https://support.swiftnav.com/customer/en/portal/articles/2492784-piksi-multi-and-duro-firmware) in your Piksi Multi.
+**WARNING: If upgrading from a firmware below v2.0.0 to a firmware greater than v2.0.0, you must upgrade to v2.0.0 first.**
+
+**WARNING**: install __ONLY ONE__ version of SBP library, depending of which Hardware version you are using.
+
+The following code will automatically download the required version of libsbp and install it in the default folder `/usr/local/lib/python2.7/dist-packages/sbp-<SBP_LIB_VERSION>-py2.7.egg/sbp/`.
+
+```
+# To install SBP, Execute this line in the package folder 'earth_rover_localization'
+source scripts/install_sbp.sh
+```
+
+3. To configure the ENU results from the ROS driver, fill the `enu_origin.yaml` on the package folder `earth_rover_localization/cfg` with the same location of the base station. **If base station is not yet configured, remember to edit this file before launching `earth_rover_localization`**
+
+## Hardware configuration
 
 The following steps explain the Hardware and ROS drivers configuration to run in the embedded device and monitor on a host PC. **Only follow this section if the required sensors are available to test for a complete base station - rover setup.** Skip to [Earth Rover localization](https://github.com/earthrover/er_localisation/tree/master/earth_rover_localization#earth-rover-localization-1) to see robot localization node, visualization tool and play recorded results.
 
@@ -143,26 +175,9 @@ The reference receiver obtains corrections from base station using the [FreeWave
 
 2. Complete the instructions to configure the base station and rover receiver to use the [GNSS RTK Position with Stationary Base solution](https://support.swiftnav.com/customer/en/portal/articles/2771177).
 
-3. Follow the configuration to enable the heading setup. Be aware that one receiver (reference receiver) has already be configured to receive corrections from a base station. Configure the ```enabled_sbp_messages``` on **uart1** instead. See the [documentation](https://support.swiftnav.com/customer/en/portal/articles/2805901-piksi-multi---heading) details.
+3. Follow the configuration to enable the heading setup. **WARNING** Be aware that one receiver (reference receiver) has already be configured to receive corrections from a base station. Configure the ```enabled_sbp_messages``` on **uart1** instead. See the [documentation](https://support.swiftnav.com/customer/en/portal/articles/2805901-piksi-multi---heading) details.
 
-4. Enable the [Ethernet Configuration](https://support.swiftnav.com/customer/en/portal/articles/2740815-using-ethernet-on-piksi-multi-and-duro) on reference and attitude receivers. 
-
-- Drivers configuration to be performed on the embedded device.
-
-5. Configure the launch files for the package on each receiver according to the IP addresses. The configuration files can be found in `earth_rover_localization/cfg/piksi_multi_driver_settings_rover_reference.yaml` and `earth_rover_localization/cfg/piksi_multi_driver_settings_rover_attitude.yaml` respectively. This repository includes by default `reference receiver ip_address to 192.168.0.222` and `attitude receiver ip_address to 192.168.0.223` 
-
-6. The ROS node reads SBP (Swift Navigation Binary Protocol) messages, a fast, simple, and minimal overhead binary protocol for communicating with Swift Navigation devices. 
-
-**WARNING**: install __ONLY ONE__ version of SBP library, depending of which Hardware version you are using.
-
-The following code will automatically download the required version of libsbp and install it in the default folder `/usr/local/lib/python2.7/dist-packages/sbp-<SBP_LIB_VERSION>-py2.7.egg/sbp/`.
-
-```
-# Execute this line in the package folder 'ethz_piksi_ros/piksi_multi_rtk_ros'
-source scripts/install_sbp.sh
-```
-
-7. To configure the ENU results from the ROS driver, fill the `enu_origin.yaml` on the package folder `earth_rover_localization/cfg` with the same coordinates of the base station from step 3.
+4. Enable the [Ethernet Configuration](https://support.swiftnav.com/customer/en/portal/articles/2740815-using-ethernet-on-piksi-multi-and-duro) on reference and attitude receivers based on the desired IP addresses to connect. 
 
 ## Usage
 
@@ -200,7 +215,7 @@ If not already installed, install the robot localization package
 $ sudo apt-get install ros-$ROS_DISTRO-robot-localization
 ```
 
-The er_localization package includes .bag example files of recorded tracks to run robot localization and tune the EKF params if necessary.
+The package includes `.bag` example files of recorded tracks to run robot localization and tune the EKF params if necessary.
 The following launch file reproduces a bag file and applies the robot localization to adquire the pose estimation of the rover.
 
 ```
@@ -209,8 +224,13 @@ $ roslaunch er_localization er_localization_player.launch
 
 The result of the localization package is the robot's pose estimation in its world frame. Then, the origin of the world frame is georeferenced and will change depending on where the scouting mission is performed. 
 
-The launch will automatically find the coordinates of the base station to set the origin of the Map frame. Check the `enu_origin.yaml` on the package folder `er_localization/cfg`.
+The launch will find the coordinates of the base station to set the origin of the Map frame. Check the `enu_origin.yaml` on the package folder `earth_rover_localization/cfg`. To test the bag player, set the following location on the configuration file.
 
+```
+latitude0_deg: 41.4678702
+longitude0_deg: 2.0227646
+altitude0: 133.0527
+```
 
 ### Inputs
 
@@ -223,8 +243,9 @@ The main published topics are:
 
 Used nodes on the architecture
 - `heading_listener`: In charge of traducing the vehicle heading from the baseline into ROS-compliant message to use in robot localization node
+- `set_datum`: Finds the convergence value of the desired start location in `enu_origin.yaml`. It's necessary to set the map's origin.
 - `navsat_transform`: Takes as input the GPS data and produces an odometry message in coordinates that are consistent with the robot’s world frame. More info about navsat_transform_node on [Documentation](http://docs.ros.org/kinetic/api/robot_localization/html/navsat_transform_node.html).
-- `ekf_localization`: The node is an implementation of an [Extended Kalman filter](https://en.wikipedia.org/wiki/Extended_Kalman_filter). It uses an omnidirectional motion model to project the state forward in time, and corrects that projected estimate using perceived sensor data. Detailed information on the [Documentation](http://docs.ros.org/kinetic/api/robot_localization/html/navsat_transform_node.html)	 page.
+- `ekf_localization`: The node is an implementation of an [Extended Kalman filter](https://en.wikipedia.org/wiki/Extended_Kalman_filter). It uses an omnidirectional motion model to project the state forward in time, and corrects that projected estimate using perceived sensor data. Detailed information on the [Documentation](http://docs.ros.org/kinetic/api/robot_localization/html/navsat_transform_node.html) page.
 
 ### Outputs
 
