@@ -7,9 +7,9 @@
   <!-- If interface is serial, this specifies baud rate of Piksi Multi. -->
   <arg name="baud_rate"                   default="115200"/>
   <!-- If interface is tcp, this specifies the address of Piksi Multi. -->
-  <arg name="tcp_addr"                    default="192.168.0.223"/>
+  <arg name="tcp_addr"                    default="192.168.8.223"/>
   <!-- IP of a "pingable" device, used to check network status. -->
-  <arg name="base_station_ip"             default="192.168.0.1"/>
+  <arg name="base_station_ip"             default="192.168.8.1"/>
   <!-- Enable/disable load of an origin position of ENU frame. -->
   <arg name="load_enu_origin_from_file"   default="true"/>
   <!-- Location of the file containing origin ENU frame, used if 'load_enu_origin_from_file' is true. -->
