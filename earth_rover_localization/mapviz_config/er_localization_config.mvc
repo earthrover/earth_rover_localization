@@ -1,17 +1,17 @@
 capture_directory: ~
 fixed_frame: map
-target_frame: base_link
+target_frame: map
 fix_orientation: false
 rotate_90: false
 enable_antialiasing: true
 show_displays: true
 show_status_bar: true
 show_capture_tools: true
-window_width: 1309
-window_height: 747
-view_scale: 0.04305676
-offset_x: 2.352336
-offset_y: 0.07798001
+window_width: 1319
+window_height: 744
+view_scale: 0.3310126
+offset_x: 2677.959
+offset_y: -638.8129
 use_latest_transforms: true
 background: "#a0a0a4"
 displays:
@@ -27,6 +27,18 @@ displays:
           type: wmts
       bing_api_key: ""
       source: Google
+  - type: mapviz_plugins/tf_frame
+    name: base_station
+    config:
+      visible: true
+      collapsed: true
+      frame: map
+      color: "#ffaa00"
+      draw_style: points
+      position_tolerance: 0
+      buffer_size: 0
+      static_arrow_sizes: false
+      arrow_size: 478
   - type: mapviz_plugins/navsat
     name: Best GPS
     config:
@@ -40,7 +52,7 @@ displays:
   - type: mapviz_plugins/navsat
     name: RTK Float
     config:
-      visible: true
+      visible: false
       collapsed: true
       topic: /piksi_receiver/navsatfix_rtk_float
       color: "#ffaa00"
@@ -50,7 +62,7 @@ displays:
   - type: mapviz_plugins/navsat
     name: RTK Fix
     config:
-      visible: true
+      visible: false
       collapsed: true
       topic: /piksi_receiver/navsatfix_rtk_fix
       color: "#55ff00"
@@ -60,7 +72,7 @@ displays:
   - type: mapviz_plugins/navsat
     name: GPS filtered NavSat node
     config:
-      visible: false
+      visible: true
       collapsed: true
       topic: /gps/filtered
       color: "#0055ff"
@@ -70,9 +82,9 @@ displays:
   - type: mapviz_plugins/odometry
     name: GPS odometry (Map)
     config:
-      visible: false
+      visible: true
       collapsed: true
-      topic: /odometry/gps
+      topic: /plant_origin/odom_utm
       color: "#ff00ff"
       draw_style: points
       position_tolerance: 0
@@ -81,11 +93,11 @@ displays:
       show_covariance: false
       static_arrow_sizes: true
       arrow_size: 25
-      tampstamps: 0
+      show_timestamps: 0
   - type: mapviz_plugins/odometry
     name: EKF result (Map)
     config:
-      visible: true
+      visible: false
       collapsed: true
       topic: /odometry/filtered/global
       color: "#55aaff"
@@ -95,8 +107,8 @@ displays:
       show_laps: false
       show_covariance: false
       static_arrow_sizes: true
-      arrow_size: 53
-      tampstamps: 0
+      arrow_size: 96
+      show_timestamps: 0
   - type: mapviz_plugins/tf_frame
     name: base_link
     config:
@@ -115,7 +127,7 @@ displays:
       visible: true
       collapsed: true
       frame: gps_receiver
-      color: "#ffffff"
+      color: "#00aa00"
       draw_style: lines
       position_tolerance: 0
       buffer_size: 0
@@ -127,7 +139,7 @@ displays:
       visible: true
       collapsed: true
       frame: gps_attitude
-      color: "#ffffff"
+      color: "#b90000"
       draw_style: lines
       position_tolerance: 0
       buffer_size: 0
@@ -136,22 +148,74 @@ displays:
   - type: mapviz_plugins/attitude_indicator
     name: Rover Attitude
     config:
-      visible: true
+      visible: false
       collapsed: true
       topic: /odometry/filtered/global
       x: 5
       y: -7
       width: 100
       height: 100
+  - type: mapviz_plugins/image
+    name: rgb_bb
+    config:
+      visible: false
+      collapsed: true
+      topic: /mapping/debug/rgb_bb
+      anchor: top left
+      units: pixels
+      offset_x: 0
+      offset_y: 0
+      width: 320
+      height: 320
+      keep_ratio: true
+      image_transport: default
+  - type: mapviz_plugins/image
+    name: ir_bb
+    config:
+      visible: false
+      collapsed: true
+      topic: /mapping/debug/ir_bb
+      anchor: top left
+      units: pixels
+      offset_x: 320
+      offset_y: 0
+      width: 320
+      height: 320
+      keep_ratio: true
+      image_transport: default
+  - type: mapviz_plugins/image
+    name: projection
+    config:
+      visible: false
+      collapsed: true
+      topic: /mapping/debug/projected
+      anchor: top left
+      units: pixels
+      offset_x: 640
+      offset_y: 0
+      width: 320
+      height: 320
+      keep_ratio: true
+      image_transport: default
+  - type: mapviz_plugins/navsat
+    name: new display
+    config:
+      visible: true
+      collapsed: true
+      topic: /plant_utm2gps/plant/gps
+      color: "#00ff00"
+      draw_style: points
+      position_tolerance: 0
+      buffer_size: 0
   - type: mapviz_plugins/robot_image
     name: Rover image
     config:
       visible: true
       collapsed: true
       frame: base_link
-      image: /home/andreslinx/Documents/ROS/robot_localization_ws/car.png
+      image: /home/edgebrain/earth_rover_ws/media/truck.png
       width: 3
-      height: 1.61
-      offset_x: 0
+      height: 2.03
+      offset_x: -2
       offset_y: 0
       ratio: original

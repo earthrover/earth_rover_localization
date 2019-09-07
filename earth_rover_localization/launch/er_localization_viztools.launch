@@ -4,6 +4,7 @@
 
   <!-- Mapviz -->
   <arg name="print_profile_data" default="true"/>
+  <node pkg="tf" type="static_transform_publisher" name="swri_transform" args="0 0 0 0 0 0 /map /swri 100"  />
 
   <node pkg="swri_transform_util" type="initialize_origin.py" name="initialize_origin" output="screen">
     <param name="local_xy_frame" value="map"/>
@@ -13,7 +14,8 @@
       latitude: 53.433998,
       longitude: -0.908099,
       altitude: 55,
-      heading: 0}]
+      heading: 0.0}]
+      <!-- heading: 0.028732}] -->
     </rosparam>
   </node>
 
