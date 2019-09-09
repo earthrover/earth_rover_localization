@@ -38,14 +38,10 @@
     <param name="publish_filtered_gps" value="true"/>
     <param name="use_odometry_yaw" value="false"/>
     <param name="wait_for_datum" value="true"/>
-      <rosparam param="datum">[53.433998, -0.908099, 0.028732]</rosparam>    # Replace with desired Map origins. Check convergence value 
+      <rosparam param="datum">[53.433998, -0.908099, 0.0]</rosparam>    # Replace with desired Map origins. Check convergence value
 
     <remap from="/odometry/filtered" to="/odometry/filtered/global"/>
     <remap from="/gps/fix" to="/piksi_receiver/navsatfix_best_fix"/>
   </node>
-
-
-  <!-- Set_datum_service. Origin of Map coordinates -->
-  <include file="$(find earth_rover_localization)/launch/er_localization_set_datum.launch"/>
 
  </launch>
