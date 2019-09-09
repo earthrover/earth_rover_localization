@@ -21,14 +21,14 @@ publish_raw_imu_and_mag: true
 # broadcast_addr: ip address to use for broadcasting corrections
 # whenever possible, use network broadcast, not global ip broadcast
 # use ifconfig to show network broadcast (or calculate it yourself....).
-broadcast_addr: 192.168.0.255
+broadcast_addr: 192.168.8.255
 
 # broadcast_port: port to use for broadcasting corrections.
 broadcast_port: 26078
 
 # base_station_ip_for_latency_estimation: IP of base station for
 # latency estimation.
-base_station_ip_for_latency_estimation: 192.168.0.1
+base_station_ip_for_latency_estimation: 192.168.8.1
 
 # Coordinate frame of the GPS receiver with respect to the base link.
 navsatfix_frame_id: 'gps_receiver'
@@ -40,7 +40,8 @@ var_spp: [25.0, 25.0, 64.0]
 # Single Point Positioning (SPP) with SBAS.
 var_spp_sbas: [1.0, 1.0, 1.0]
 # RTK float mode.
-var_rtk_float: [25.0, 25.0, 64.0]
+# var_rtk_float: [25.0, 25.0, 64.0]
+var_rtk_float: [1.0, 1.0, 4.0]
 # RTK fix mode.
 var_rtk_fix: [0.0049, 0.0049, 0.01]
 
@@ -59,7 +60,7 @@ baud_rate: 115200
 
 # tcp_addr: the IP address of the receiver. By default, Swift Navigation
 # receivers have an IP address of 192.168.0.222.
-tcp_addr: 192.168.0.222
+tcp_addr: 192.168.8.222
 
 # tcp_port: the port number of the TCP server. By default, Swift Navigation
 # receivers publish SBP data on TCP port 55555.
