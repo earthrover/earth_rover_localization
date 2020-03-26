@@ -1,17 +1,17 @@
 capture_directory: ~
 fixed_frame: map
-target_frame: map
+target_frame: scouting_base_link
 fix_orientation: false
 rotate_90: false
 enable_antialiasing: true
 show_displays: true
 show_status_bar: true
 show_capture_tools: true
-window_width: 1319
-window_height: 744
-view_scale: 0.3310126
-offset_x: 2677.959
-offset_y: -638.8129
+window_width: 1853
+window_height: 1025
+view_scale: 0.01271202
+offset_x: 0.4301749
+offset_y: -2.095162
 use_latest_transforms: true
 background: "#a0a0a4"
 displays:
@@ -30,7 +30,7 @@ displays:
   - type: mapviz_plugins/tf_frame
     name: base_station
     config:
-      visible: true
+      visible: false
       collapsed: true
       frame: map
       color: "#ffaa00"
@@ -42,7 +42,7 @@ displays:
   - type: mapviz_plugins/navsat
     name: Best GPS
     config:
-      visible: true
+      visible: false
       collapsed: true
       topic: /piksi_receiver/navsatfix_best_fix
       color: "#aa0000"
@@ -82,9 +82,9 @@ displays:
   - type: mapviz_plugins/odometry
     name: GPS odometry (Map)
     config:
-      visible: true
+      visible: false
       collapsed: true
-      topic: /plant_origin/odom_utm
+      topic: /odometry/filtered/global
       color: "#ff00ff"
       draw_style: points
       position_tolerance: 0
@@ -103,11 +103,11 @@ displays:
       color: "#55aaff"
       draw_style: arrows
       position_tolerance: 0
-      buffer_size: 0
+      buffer_size: 60
       show_laps: false
       show_covariance: false
       static_arrow_sizes: true
-      arrow_size: 96
+      arrow_size: 51
       show_timestamps: 0
   - type: mapviz_plugins/tf_frame
     name: base_link
@@ -158,64 +158,64 @@ displays:
   - type: mapviz_plugins/image
     name: rgb_bb
     config:
-      visible: false
+      visible: true
       collapsed: true
-      topic: /mapping/debug/rgb_bb
+      topic: /mapping_0/debug/rgb_bb
       anchor: top left
       units: pixels
       offset_x: 0
       offset_y: 0
-      width: 320
-      height: 320
-      keep_ratio: true
-      image_transport: default
-  - type: mapviz_plugins/image
-    name: ir_bb
-    config:
-      visible: false
-      collapsed: true
-      topic: /mapping/debug/ir_bb
-      anchor: top left
-      units: pixels
-      offset_x: 320
-      offset_y: 0
-      width: 320
-      height: 320
+      width: 600
+      height: 338
       keep_ratio: true
       image_transport: default
   - type: mapviz_plugins/image
     name: projection
     config:
-      visible: false
+      visible: true
       collapsed: true
-      topic: /mapping/debug/projected
+      topic: /mapping_0/debug/projected
       anchor: top left
       units: pixels
-      offset_x: 640
+      offset_x: 600
       offset_y: 0
-      width: 320
-      height: 320
+      width: 600
+      height: 338
       keep_ratio: true
       image_transport: default
-  - type: mapviz_plugins/navsat
-    name: new display
+  - type: mapviz_plugins/tf_frame
+    name: camera_0
     config:
       visible: true
       collapsed: true
-      topic: /plant_utm2gps/plant/gps
-      color: "#00ff00"
+      frame: camera_0_base_link
+      color: "#5c3566"
       draw_style: points
       position_tolerance: 0
       buffer_size: 0
-  - type: mapviz_plugins/robot_image
-    name: Rover image
+      static_arrow_sizes: false
+      arrow_size: 25
+  - type: mapviz_plugins/tf_frame
+    name: camera_1
     config:
       visible: true
       collapsed: true
-      frame: base_link
-      image: /home/edgebrain/earth_rover_ws/media/truck.png
-      width: 3
-      height: 2.03
-      offset_x: -2
-      offset_y: 0
-      ratio: original
+      frame: camera_1_base_link
+      color: "#5c3566"
+      draw_style: points
+      position_tolerance: 0
+      buffer_size: 0
+      static_arrow_sizes: false
+      arrow_size: 25
+  - type: mapviz_plugins/tf_frame
+    name: camera_2
+    config:
+      visible: true
+      collapsed: true
+      frame: camera_2_base_link
+      color: "#5c3566"
+      draw_style: points
+      position_tolerance: 0
+      buffer_size: 0
+      static_arrow_sizes: false
+      arrow_size: 25
