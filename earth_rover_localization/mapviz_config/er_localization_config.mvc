@@ -9,10 +9,10 @@ show_status_bar: true
 show_capture_tools: true
 window_width: 1853
 window_height: 1025
-view_scale: 0.01271202
-offset_x: 0.4301749
-offset_y: -2.095162
-use_latest_transforms: true
+view_scale: 0.01101858
+offset_x: -0.643132
+offset_y: -1.5309
+use_latest_transforms: false
 background: "#a0a0a4"
 displays:
   - type: mapviz_plugins/tile_map
@@ -67,33 +67,18 @@ displays:
       topic: /piksi_receiver/navsatfix_rtk_fix
       color: "#55ff00"
       draw_style: points
-      position_tolerance: 0
+      position_tolerance: 0.5
       buffer_size: 0
   - type: mapviz_plugins/navsat
     name: GPS filtered NavSat node
     config:
-      visible: true
+      visible: false
       collapsed: true
       topic: /gps/filtered
       color: "#0055ff"
       draw_style: points
-      position_tolerance: 0
+      position_tolerance: 0.5
       buffer_size: 0
-  - type: mapviz_plugins/odometry
-    name: GPS odometry (Map)
-    config:
-      visible: false
-      collapsed: true
-      topic: /odometry/filtered/global
-      color: "#ff00ff"
-      draw_style: points
-      position_tolerance: 0
-      buffer_size: 0
-      show_laps: false
-      show_covariance: false
-      static_arrow_sizes: true
-      arrow_size: 25
-      show_timestamps: 0
   - type: mapviz_plugins/odometry
     name: EKF result (Map)
     config:
@@ -114,7 +99,7 @@ displays:
     config:
       visible: true
       collapsed: true
-      frame: base_link
+      frame: scouting_base_link
       color: "#0000ff"
       draw_style: lines
       position_tolerance: 0
@@ -124,7 +109,7 @@ displays:
   - type: mapviz_plugins/tf_frame
     name: receiver
     config:
-      visible: true
+      visible: false
       collapsed: true
       frame: gps_receiver
       color: "#00aa00"
@@ -136,7 +121,7 @@ displays:
   - type: mapviz_plugins/tf_frame
     name: attitude
     config:
-      visible: true
+      visible: false
       collapsed: true
       frame: gps_attitude
       color: "#b90000"
@@ -145,16 +130,6 @@ displays:
       buffer_size: 0
       static_arrow_sizes: false
       arrow_size: 25
-  - type: mapviz_plugins/attitude_indicator
-    name: Rover Attitude
-    config:
-      visible: false
-      collapsed: true
-      topic: /odometry/filtered/global
-      x: 5
-      y: -7
-      width: 100
-      height: 100
   - type: mapviz_plugins/image
     name: rgb_bb
     config:
@@ -165,8 +140,8 @@ displays:
       units: pixels
       offset_x: 0
       offset_y: 0
-      width: 600
-      height: 338
+      width: 560
+      height: 315
       keep_ratio: true
       image_transport: default
   - type: mapviz_plugins/image
@@ -177,12 +152,27 @@ displays:
       topic: /mapping_0/debug/projected
       anchor: top left
       units: pixels
-      offset_x: 600
+      offset_x: 560
       offset_y: 0
-      width: 600
-      height: 338
+      width: 560
+      height: 315
       keep_ratio: true
       image_transport: default
+  - type: mapviz_plugins/odometry
+    name: GPS odometry (Map)
+    config:
+      visible: false
+      collapsed: true
+      topic: /odometry/filtered/global
+      color: "#ff00ff"
+      draw_style: points
+      position_tolerance: 0.5
+      buffer_size: 0
+      show_laps: false
+      show_covariance: false
+      static_arrow_sizes: true
+      arrow_size: 25
+      show_timestamps: 0
   - type: mapviz_plugins/tf_frame
     name: camera_0
     config:
@@ -191,7 +181,7 @@ displays:
       frame: camera_0_base_link
       color: "#5c3566"
       draw_style: points
-      position_tolerance: 0
+      position_tolerance: 0.5
       buffer_size: 0
       static_arrow_sizes: false
       arrow_size: 25
@@ -203,7 +193,7 @@ displays:
       frame: camera_1_base_link
       color: "#5c3566"
       draw_style: points
-      position_tolerance: 0
+      position_tolerance: 0.5
       buffer_size: 0
       static_arrow_sizes: false
       arrow_size: 25
@@ -215,7 +205,117 @@ displays:
       frame: camera_2_base_link
       color: "#5c3566"
       draw_style: points
-      position_tolerance: 0
+      position_tolerance: 0.5
       buffer_size: 0
       static_arrow_sizes: false
       arrow_size: 25
+  - type: mapviz_plugins/pointcloud2
+    name: origins_0
+    config:
+      visible: false
+      collapsed: true
+      topic: /mapping_0/pcl/odom_origins
+      size: 9
+      buffer_size: 1
+      alpha: 1
+      color_transformer: Flat Color
+      min_color: "#f57900"
+      max_color: "#000000"
+      value_min: 0
+      value_max: 100
+      use_rainbow: false
+      use_automaxmin: false
+      unpack_rgb: false
+  - type: mapviz_plugins/pointcloud2
+    name: origins_1
+    config:
+      visible: false
+      collapsed: true
+      topic: /mapping_1/pcl/odom_origins
+      size: 9
+      buffer_size: 1
+      alpha: 1
+      color_transformer: Flat Color
+      min_color: "#edd400"
+      max_color: "#000000"
+      value_min: 0
+      value_max: 100
+      use_rainbow: false
+      use_automaxmin: false
+      unpack_rgb: false
+  - type: mapviz_plugins/pointcloud2
+    name: origins_2
+    config:
+      visible: false
+      collapsed: true
+      topic: /mapping_2/pcl/odom_origins
+      size: 9
+      buffer_size: 1
+      alpha: 1
+      color_transformer: Flat Color
+      min_color: "#f57900"
+      max_color: "#000000"
+      value_min: 0
+      value_max: 100
+      use_rainbow: false
+      use_automaxmin: false
+      unpack_rgb: false
+  - type: mapviz_plugins/navsat
+    name: plants
+    config:
+      visible: false
+      collapsed: true
+      topic: /mapping_deduplicate/plant_gps
+      color: "#4e9a06"
+      draw_style: points
+      position_tolerance: 0
+      buffer_size: 0
+  - type: mapviz_plugins/odometry
+    name: new display
+    config:
+      visible: false
+      collapsed: true
+      topic: /mapping_deduplicate/plant_odom
+      color: "#8ae234"
+      draw_style: points
+      position_tolerance: 0
+      buffer_size: 0
+      show_laps: false
+      show_covariance: false
+      static_arrow_sizes: false
+      arrow_size: 63
+      show_timestamps: 0
+  - type: mapviz_plugins/pointcloud2
+    name: deduplicate_in
+    config:
+      visible: true
+      collapsed: true
+      topic: /mapping_deduplicate/pcl_in
+      size: 9
+      buffer_size: 1
+      alpha: 1
+      color_transformer: Flat Color
+      min_color: "#cc0000"
+      max_color: "#000000"
+      value_min: 0
+      value_max: 100
+      use_rainbow: false
+      use_automaxmin: true
+      unpack_rgb: false
+  - type: mapviz_plugins/pointcloud2
+    name: deduplicate_out
+    config:
+      visible: true
+      collapsed: true
+      topic: /mapping_deduplicate/pcl_out
+      size: 5
+      buffer_size: 1
+      alpha: 1
+      color_transformer: Flat Color
+      min_color: "#4e9a06"
+      max_color: "#000000"
+      value_min: 0
+      value_max: 100
+      use_rainbow: true
+      use_automaxmin: false
+      unpack_rgb: false
