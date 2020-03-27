@@ -319,3 +319,20 @@ displays:
       use_rainbow: true
       use_automaxmin: false
       unpack_rgb: false
+  - type: mapviz_plugins/pointcloud2
+    name: pcl_plants
+    config:
+      visible: true
+      collapsed: true
+      topic: /mapping_deduplicate/pcl_out_acc
+      size: 7
+      buffer_size: 1
+      alpha: 1
+      color_transformer: Flat Color
+      min_color: "#00ff00"
+      max_color: "#000000"
+      value_min: 0
+      value_max: 100
+      use_rainbow: false
+      use_automaxmin: false
+      unpack_rgb: false
