@@ -1,6 +1,6 @@
 capture_directory: ~
 fixed_frame: map
-target_frame: scouting_base_link
+target_frame: mapviz_viz
 fix_orientation: false
 rotate_90: false
 enable_antialiasing: true
@@ -9,9 +9,9 @@ show_status_bar: true
 show_capture_tools: true
 window_width: 1853
 window_height: 1025
-view_scale: 0.01101858
-offset_x: -0.643132
-offset_y: -1.5309
+view_scale: 0.02230652
+offset_x: -1.791504
+offset_y: -1.64949
 use_latest_transforms: false
 background: "#a0a0a4"
 displays:
@@ -88,16 +88,16 @@ displays:
       color: "#55aaff"
       draw_style: arrows
       position_tolerance: 0
-      buffer_size: 60
+      buffer_size: 2
       show_laps: false
       show_covariance: false
       static_arrow_sizes: true
-      arrow_size: 51
+      arrow_size: 472
       show_timestamps: 0
   - type: mapviz_plugins/tf_frame
     name: base_link
     config:
-      visible: true
+      visible: false
       collapsed: true
       frame: scouting_base_link
       color: "#0000ff"
@@ -130,34 +130,6 @@ displays:
       buffer_size: 0
       static_arrow_sizes: false
       arrow_size: 25
-  - type: mapviz_plugins/image
-    name: rgb_bb
-    config:
-      visible: true
-      collapsed: true
-      topic: /mapping_0/debug/rgb_bb
-      anchor: top left
-      units: pixels
-      offset_x: 0
-      offset_y: 0
-      width: 560
-      height: 315
-      keep_ratio: true
-      image_transport: default
-  - type: mapviz_plugins/image
-    name: projection
-    config:
-      visible: true
-      collapsed: true
-      topic: /mapping_0/debug/projected
-      anchor: top left
-      units: pixels
-      offset_x: 560
-      offset_y: 0
-      width: 560
-      height: 315
-      keep_ratio: true
-      image_transport: default
   - type: mapviz_plugins/odometry
     name: GPS odometry (Map)
     config:
@@ -176,7 +148,7 @@ displays:
   - type: mapviz_plugins/tf_frame
     name: camera_0
     config:
-      visible: true
+      visible: false
       collapsed: true
       frame: camera_0_base_link
       color: "#5c3566"
@@ -188,7 +160,7 @@ displays:
   - type: mapviz_plugins/tf_frame
     name: camera_1
     config:
-      visible: true
+      visible: false
       collapsed: true
       frame: camera_1_base_link
       color: "#5c3566"
@@ -200,7 +172,7 @@ displays:
   - type: mapviz_plugins/tf_frame
     name: camera_2
     config:
-      visible: true
+      visible: false
       collapsed: true
       frame: camera_2_base_link
       color: "#5c3566"
@@ -212,7 +184,7 @@ displays:
   - type: mapviz_plugins/pointcloud2
     name: origins_0
     config:
-      visible: false
+      visible: true
       collapsed: true
       topic: /mapping_0/pcl/odom_origins
       size: 9
@@ -229,7 +201,7 @@ displays:
   - type: mapviz_plugins/pointcloud2
     name: origins_1
     config:
-      visible: false
+      visible: true
       collapsed: true
       topic: /mapping_1/pcl/odom_origins
       size: 9
@@ -246,7 +218,7 @@ displays:
   - type: mapviz_plugins/pointcloud2
     name: origins_2
     config:
-      visible: false
+      visible: true
       collapsed: true
       topic: /mapping_2/pcl/odom_origins
       size: 9
@@ -260,38 +232,64 @@ displays:
       use_rainbow: false
       use_automaxmin: false
       unpack_rgb: false
-  - type: mapviz_plugins/navsat
-    name: plants
+  - type: mapviz_plugins/pointcloud2
+    name: origins_0_accu
     config:
-      visible: false
+      visible: true
       collapsed: true
-      topic: /mapping_deduplicate/plant_gps
-      color: "#4e9a06"
-      draw_style: points
-      position_tolerance: 0
-      buffer_size: 0
-  - type: mapviz_plugins/odometry
-    name: new display
+      topic: /mapping_0/pcl/odom_origins
+      size: 5
+      buffer_size: 100
+      alpha: 1
+      color_transformer: Flat Color
+      min_color: "#0e5a19"
+      max_color: "#000000"
+      value_min: 0
+      value_max: 100
+      use_rainbow: false
+      use_automaxmin: true
+      unpack_rgb: false
+  - type: mapviz_plugins/pointcloud2
+    name: origins_1_accu
     config:
-      visible: false
+      visible: true
       collapsed: true
-      topic: /mapping_deduplicate/plant_odom
-      color: "#8ae234"
-      draw_style: points
-      position_tolerance: 0
-      buffer_size: 0
-      show_laps: false
-      show_covariance: false
-      static_arrow_sizes: false
-      arrow_size: 63
-      show_timestamps: 0
+      topic: /mapping_1/pcl/origins
+      size: 5
+      buffer_size: 100
+      alpha: 1
+      color_transformer: Flat Color
+      min_color: "#0e5a19"
+      max_color: "#000000"
+      value_min: 0
+      value_max: 100
+      use_rainbow: true
+      use_automaxmin: false
+      unpack_rgb: false
+  - type: mapviz_plugins/pointcloud2
+    name: origins_2_accu
+    config:
+      visible: true
+      collapsed: true
+      topic: /mapping_2/pcl/origins
+      size: 5
+      buffer_size: 100
+      alpha: 1
+      color_transformer: Flat Color
+      min_color: "#0e5a19"
+      max_color: "#000000"
+      value_min: 0
+      value_max: 100
+      use_rainbow: true
+      use_automaxmin: false
+      unpack_rgb: false
   - type: mapviz_plugins/pointcloud2
     name: deduplicate_in
     config:
       visible: true
       collapsed: true
       topic: /mapping_deduplicate/pcl_in
-      size: 9
+      size: 12
       buffer_size: 1
       alpha: 1
       color_transformer: Flat Color
@@ -308,11 +306,11 @@ displays:
       visible: true
       collapsed: true
       topic: /mapping_deduplicate/pcl_out
-      size: 5
-      buffer_size: 1
+      size: 6
+      buffer_size: 100
       alpha: 1
       color_transformer: Flat Color
-      min_color: "#4e9a06"
+      min_color: "#00ff00"
       max_color: "#000000"
       value_min: 0
       value_max: 100
@@ -320,19 +318,146 @@ displays:
       use_automaxmin: false
       unpack_rgb: false
   - type: mapviz_plugins/pointcloud2
-    name: pcl_plants
+    name: odom_0_accu
     config:
       visible: true
       collapsed: true
-      topic: /mapping_deduplicate/pcl_out_acc
+      topic: /mapping_0/pcl/odom
+      size: 5
+      buffer_size: 100
+      alpha: 1
+      color_transformer: Flat Color
+      min_color: "#555753"
+      max_color: "#000000"
+      value_min: 0
+      value_max: 100
+      use_rainbow: true
+      use_automaxmin: false
+      unpack_rgb: false
+  - type: mapviz_plugins/pointcloud2
+    name: odom_1_accu
+    config:
+      visible: true
+      collapsed: true
+      topic: /mapping_1/pcl/odom
+      size: 5
+      buffer_size: 100
+      alpha: 1
+      color_transformer: Flat Color
+      min_color: "#555753"
+      max_color: "#000000"
+      value_min: 0
+      value_max: 100
+      use_rainbow: true
+      use_automaxmin: false
+      unpack_rgb: false
+  - type: mapviz_plugins/pointcloud2
+    name: odom_2_accu
+    config:
+      visible: true
+      collapsed: true
+      topic: /mapping_2/pcl/odom
+      size: 5
+      buffer_size: 100
+      alpha: 1
+      color_transformer: Flat Color
+      min_color: "#555753"
+      max_color: "#000000"
+      value_min: 0
+      value_max: 100
+      use_rainbow: true
+      use_automaxmin: false
+      unpack_rgb: false
+  - type: mapviz_plugins/pointcloud2
+    name: odom_0
+    config:
+      visible: true
+      collapsed: true
+      topic: /mapping_0/pcl/odom
       size: 7
       buffer_size: 1
       alpha: 1
       color_transformer: Flat Color
-      min_color: "#00ff00"
+      min_color: "#000000"
       max_color: "#000000"
       value_min: 0
       value_max: 100
       use_rainbow: false
       use_automaxmin: false
       unpack_rgb: false
+  - type: mapviz_plugins/pointcloud2
+    name: odom_1
+    config:
+      visible: true
+      collapsed: true
+      topic: /mapping_1/pcl/odom
+      size: 7
+      buffer_size: 1
+      alpha: 1
+      color_transformer: Flat Color
+      min_color: "#000000"
+      max_color: "#000000"
+      value_min: 0
+      value_max: 100
+      use_rainbow: true
+      use_automaxmin: false
+      unpack_rgb: false
+  - type: mapviz_plugins/pointcloud2
+    name: odom_2
+    config:
+      visible: true
+      collapsed: true
+      topic: /mapping_2/pcl/odom
+      size: 7
+      buffer_size: 1
+      alpha: 1
+      color_transformer: Flat Color
+      min_color: "#000000"
+      max_color: "#000000"
+      value_min: 0
+      value_max: 100
+      use_rainbow: true
+      use_automaxmin: false
+      unpack_rgb: false
+  - type: mapviz_plugins/image
+    name: rgb_bb
+    config:
+      visible: true
+      collapsed: true
+      topic: /mapping_0/debug/rgb_bb
+      anchor: top right
+      units: pixels
+      offset_x: 460
+      offset_y: 0
+      width: 560
+      height: 315
+      keep_ratio: true
+      image_transport: default
+  - type: mapviz_plugins/image
+    name: ir_bb
+    config:
+      visible: true
+      collapsed: true
+      topic: /mapping_0/debug/ir_bb
+      anchor: top right
+      units: pixels
+      offset_x: 0
+      offset_y: 0
+      width: 460
+      height: 345
+      keep_ratio: true
+      image_transport: default
+  - type: mapviz_plugins/image
+    name: projection
+    config:
+      visible: true
+      collapsed: true
+      topic: /mapping_0/debug/projected
+      anchor: top right
+      units: pixels
+      offset_x: 0
+      offset_y: 320
+      width: 460
+      height: 259
+      keep_ratio: true
+      image_transport: default
