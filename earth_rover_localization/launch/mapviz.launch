@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <!-- Mapviz -->
+  <arg name="print_profile_data" default="true"/>
+
+  <node pkg="tf2_ros" type="static_transform_publisher" name="map_viz" args="6.2 -17.85 0 0 0 0 map mapviz_viz" />
+    <!-- x: 0.0113468741686
+    y: -0.0202470742204
+    z: 0.839222809549
+    w: 0.54329216851 -->
+
+  <node pkg="swri_transform_util" type="initialize_origin.py" name="initialize_origin" output="screen">
+    <param name="local_xy_frame" value="map"/>
+    <param name="local_xy_origin" value="swri"/>
+    <rosparam param="local_xy_origins">   # Replace with Map origins. Same as robot localization datum param
+      [{ name: swri,
+      latitude: 53.4386604283,
+      longitude: -0.932653757765,
+      altitude: 50.7238057501,
+      heading: 0}]
+    </rosparam>
+  </node>
+
+  <node pkg="mapviz" type="mapviz" name="mapviz"></node>
+
+ </launch>
