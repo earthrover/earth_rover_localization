@@ -5,6 +5,8 @@
 // C++ standard libraries
 #include <string>
 #include <climits>
+#include <algorithm>
+#include <chrono>
 
 // ROS libraries
 #include <ros/ros.h>
@@ -55,6 +57,8 @@ class BedDetection {
 
     nm::Odometry _odom_msg;
 
-    // param variables
-
+    bool _first_time = true;
+    double _threshold_time = 0.5;
+    double _twist_threshold = 0.2;
+    ros::Time _tp_1;
 };

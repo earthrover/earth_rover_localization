@@ -27,16 +27,42 @@ void BD::odom_callback(const nm::OdometryPtr& odom_sub)
   BD::is_straight();
 }
 
+// bool BD::is_straight()
+// {
+//   if (_odom_msg.twist.twist.angular.z > 0.2)
+//   {
+//     ROS_INFO_STREAM("false");
+//     return false;
+//   }
+//   else
+//   {
+//     ROS_INFO_STREAM("true");
+//     return true;
+//   }
+// }
+
 bool BD::is_straight()
 {
-  if (_odom_msg.twist.twist.angular.z > 0.2)
+  if (_odom_msg.twist.twist.angular.z > _twist_threshold || _odom_msg.twist.twist.angular.z < -_twist_threshold)
   {
-    ROS_INFO_STREAM("Patito false");
-    return false;
+    if (_first_time == true)
+    {
+      _tp_1 = ros::Time::now();
+      _first_time = false;
+    }
+    ros::Time tp_2 = ros::Time::now();
+    double track_time = (tp_2 - _tp_1).toSec();
+    // ROS_INFO_STREAM(track_time);
+    if (track_time > _threshold_time)
+    {
+      ROS_INFO_STREAM("Not Straight");
+      return false;
+    }
   }
   else
   {
-    ROS_INFO_STREAM("Patito true");
+    _first_time = true;
+    ROS_INFO_STREAM("Straight");
     return true;
   }
 }
