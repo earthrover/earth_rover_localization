@@ -16,13 +16,12 @@ BD::BedDetection(const ros::NodeHandle &node_handle, const ros::NodeHandle &priv
 void BD::init()
 {
   std::string itopic_odom  = "input_odometry";  // input topic for robot odometry
-  sdr_msgs::Bool isstraight = "is_straight"; // ouput topic for bed detection
 
   // Init subscribers
   _sub_odom = _nh.subscribe(itopic_odom, 1, &BD::odom_callback, this);
 
   // Init publishers
-  _pub_bed_detection = _nh.advertise(isstraight, 1, &BD::odom_callback, this);
+  _pub_bed_detection = _nh.advertise<std_msgs::Bool>("is_straight", 1000);
 
   // Obtain ros parameters
   _pnh.getParam("/bed_detector/threshold_time", _threshold_time);
@@ -37,7 +36,10 @@ bool BD::ok()
 void BD::odom_callback(const nm::OdometryPtr& odom_sub)
 {
   _odom_msg = *odom_sub;
-  BD::is_straight();
+  bool isstraight = BD::is_straight();
+  std_msgs::Bool x;
+  x.data = isstraight;
+  _pub_bed_detection.publish(x);
 }
 
 
