@@ -5,11 +5,11 @@
 /**
  * @file bed_detector_node.cpp
  * @brief Run the bed detector node, which returns whether a tractor or rover is going straight (true) or turning (false).
- * @author Rodrigo Gonzalez (rodrigo.gonzalez@earhtrover.farm)
- * @date May 2019
+ * @author Rodrigo Gonzalez (rodrigo.gonzalez@earthrover.farm)
+ * @date Apr 2020
  */
 
-#include "earth_rover_bed_detection/earth_rover_bed_detection.h"
+#include "earth_rover_bed_detection/bed_detection.h"
 
 int main(int argc, char** argv)
 {

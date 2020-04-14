@@ -115,7 +115,7 @@ find_package(catkin REQUIRED COMPONENTS ${PKG_DEPENDENCIES}
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
  INCLUDE_DIRS include
- LIBRARIES earth_rover_bed_detection
+ LIBRARIES bed_detection
  CATKIN_DEPENDS roscpp rospy std_msgs
  # DEPENDS system_lib
 )
@@ -132,8 +132,8 @@ include_directories(
 )
 
 ## Declare a C++ library
-add_library(${PROJECT_NAME}
-  src/${PROJECT_NAME}/earth_rover_bed_detection.cpp
+add_library(bed_detection
+  src/${PROJECT_NAME}/bed_detection.cpp
 )
 ## Specify libraries to link a library or executable target against
 
@@ -146,13 +146,13 @@ add_library(${PROJECT_NAME}
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/earth_rover_bed_detection_node.cpp)
-add_executable(${PROJECT_NAME}_node src/earth_rover_bed_detection_node.cpp)
+add_executable(${PROJECT_NAME}_node src/bed_detection_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
 ## e.g. "rosrun someones_pkg node" instead of "rosrun someones_pkg someones_pkg_node"
-# set_target_properties(${PROJECT_NAME}_node PROPERTIES OUTPUT_NAME node PREFIX "")
+set_target_properties(${PROJECT_NAME}_node PROPERTIES OUTPUT_NAME bed_detection PREFIX "")
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
@@ -161,7 +161,7 @@ add_dependencies(${PROJECT_NAME}_node ${catkin_EXPORTED_TARGETS})
 
 target_link_libraries(${PROJECT_NAME}_node
   ${catkin_LIBRARIES}
-	${PROJECT_NAME}
+	bed_detection
 )
 
 
