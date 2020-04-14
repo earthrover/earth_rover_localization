@@ -1,0 +1,15 @@
+<launch>
+
+  <group ns="bed_detection">
+    <rosparam file="$(find earth_rover_bed_detection)/cfg/bed_detector_params.yaml"/>
+  </group>
+
+  <!-- Parameters -->
+  <arg name="input_odometry"     default="/ugv_11/earth_rover_ugv_diff/odom"/>
+
+  <!-- Launch Bed Detection Node -->
+  <node name="bed_detection" type="earth_rover_bed_detection_node" pkg="earth_rover_bed_detection" output="screen">
+    <remap from="earth_rover_bed_detection/input_odometry"  to="$(arg input_odometry)"/>
+  </node>
+
+</launch>

@@ -13,6 +13,7 @@
 
 #include <sensor_msgs/NavSatFix.h>
 #include <nav_msgs/Odometry.h>
+#include <std_msgs/Bool.h>
 
 namespace nm = nav_msgs;
 
@@ -52,13 +53,15 @@ class BedDetection {
     ros::NodeHandle _pnh;         ///< private node handle
     // odometry subscriber
     ros::Subscriber _sub_odom;
+    // boolean publisher
+    ros::Publisher _pub_bed_detection;
 
     bool _is_init;
 
     nm::Odometry _odom_msg;
 
     bool _first_time = true;
-    double _threshold_time = 0.5;
-    double _twist_threshold = 0.2;
+    double _threshold_time;
+    double _twist_threshold;
     ros::Time _tp_1;
 };

@@ -14,7 +14,7 @@
 int main(int argc, char** argv)
 {
   ros::init(argc, argv, "earth_rover_bed_detection");
-  ros::NodeHandle nh("earth_rover_bed_detection");
+  ros::NodeHandle nh("bed_detection");
   ros::NodeHandle nh_private("~");
   BedDetection node(nh, nh_private);
   if( node.ok() )
