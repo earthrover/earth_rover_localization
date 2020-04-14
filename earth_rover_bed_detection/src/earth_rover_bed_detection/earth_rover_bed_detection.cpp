@@ -16,6 +16,8 @@ BD::BedDetection(const ros::NodeHandle &node_handle, const ros::NodeHandle &priv
 void BD::init()
 {
   std::string itopic_odom;  //= "/ugv_11/earth_rover_ugv_diff/odom";  // input topic for robot odometry
+
+  // Obtain ros parameters
   if (ros::param::get("~itopic_odom", itopic_odom)){}
   else
   {
@@ -36,10 +38,6 @@ void BD::init()
 
   // Init publishers
   _pub_bed_detection = _nh.advertise<std_msgs::Bool>("is_straight", 1000);
-
-  // Obtain ros parameters
-  // _pnh.getParam("/bed_detector/threshold_time", _threshold_time);
-  // _pnh.getParam("/bed_detector/twist_threshold", _twist_threshold);
 }
 
 bool BD::ok()
