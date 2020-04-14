@@ -1,15 +1,18 @@
 <launch>
 
-  <group ns="bed_detection">
-    <rosparam file="$(find earth_rover_bed_detection)/cfg/bed_detector_params.yaml"/>
-  </group>
+  <!-- <rosparam file="$(find earth_rover_bed_detection)/cfg/bed_detector_params.yaml"/> -->
 
   <!-- Parameters -->
   <arg name="input_odometry"     default="/ugv_11/earth_rover_ugv_diff/odom"/>
+  <arg name="twist_threshold"    default="0.2"/>
+  <arg name="threshold_time"     default="0.5"/>
 
   <!-- Launch Bed Detection Node -->
   <node name="bed_detection" type="earth_rover_bed_detection_node" pkg="earth_rover_bed_detection" output="screen">
-    <remap from="earth_rover_bed_detection/input_odometry"  to="$(arg input_odometry)"/>
+    <param name="itopic_odom"  value="$(arg input_odometry)"/>
+    <param name="twist_threshold"  value="$(arg twist_threshold)"/>
+    <param name="threshold_time"  value="$(arg threshold_time)"/>
+
   </node>
 
 </launch>
