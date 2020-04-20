@@ -1,6 +1,6 @@
 # Earth Rover localization
 
-This package contains ROS nodes, configuration and launch files to use the EKF of the robot_localization package with the Earth Rover Open Agribot. The package has been tested in Ubuntu 16.04.3 and ROS Kinetic. If you don't have ROS installed, use the following line. 
+This package contains ROS nodes, configuration and launch files to use the EKF of the robot_localization package with the Earth Rover Open Agribot. The package has been tested in Ubuntu 16.04.3 and ROS Kinetic. If you don't have ROS installed, use the following line.
 
 ```
 $ sudo apt-get install ros-kinetic-ros-base
@@ -11,7 +11,7 @@ $ sudo apt-get install ros-kinetic-ros-base
 
 [robot_localization](http://docs.ros.org/kinetic/api/robot_localization/html/index.html): Robot Localization is a collection of state estimation nodes, each of which is an implementation of a nonlinear state estimator for robots moving in 3D space. It contains two state estimation nodes, ekf_localization_node and ukf_localization_node. In addition, robot_localization provides navsat_transform_node, which aids in the integration of GPS data.
 
-[Piksy Driver](https://github.com/earthrover/earth_rover_piksi): Driver compatible with the Swift Navigation devices. 
+[Piksy Driver](https://github.com/earthrover/earth_rover_piksi): Driver compatible with the Swift Navigation devices.
 
 [xsense Driver](https://github.com/xsens/xsens_mti_ros_node): Driver for the third and fourth generation of Xsens IMU devices
 
@@ -32,7 +32,7 @@ $ sudo apt-get install ros-kinetic-ros-base
 	```
 ### GeographicLib
 
-2. Download GeographicLib 
+2. Download GeographicLib
 
 	```
 	$ cd ~/earth_rover_ws
@@ -50,23 +50,23 @@ $ sudo apt-get install ros-kinetic-ros-base
 3. then enter the directory created, create a separate build directory and enter it.
 
 	```
-	cd GeographicLib-1.49 
+	cd GeographicLib-1.49
 	mkdir BUILD
 	cd BUILD
 	```
 
-4. Run cmake, pointing it to the source directory (..) 
+4. Run cmake, pointing it to the source directory (..)
 
 	```
 	cmake ..
-	```	
+	```
 
 5. Build and install the software. if CMAKE_INSTALL_PREFIX is a system directory
 
 	```
 	make
 	sudo make install
-	```	
+	```
 
 Further installing details can be found [here](https://geographiclib.sourceforge.io/html/install.html)
 
@@ -111,14 +111,14 @@ git checkout feature_2.14.1
 	or
 	```
 	$ sudo apt-get install ros-kinetic-gps-common
-	```	
+	```
 10. Download xsense ROS driver
 
 	```
 	$ cd ~/earth_rover_ws/src/libs/
 	$ git clone https://github.com/xsens/xsens_mti_ros_node
 	```
-### Compile	
+### Compile
 10. Compile the packages
 
 	```
@@ -129,7 +129,7 @@ git checkout feature_2.14.1
 
 - Drivers configuration to be performed on the embedded device.
 
-1. Configure the launch files for the package **on each receiver (Reference and Attitude)** according to the desired IP addresses. The configuration files can be found in `earth_rover_localization/launch/piksi_multi_rover_reference.launch` and `earth_rover_localization/launch/piksi_multi_rover_attitude.launch` respectively. This repository includes by default `reference receiver ip_address to 192.168.0.222` and `attitude receiver ip_address to 192.168.0.223` 
+1. Configure the launch files for the package **on each receiver (Reference and Attitude)** according to the desired IP addresses. The configuration files can be found in `earth_rover_localization/launch/piksi_multi_rover_reference.launch` and `earth_rover_localization/launch/piksi_multi_rover_attitude.launch` respectively. This repository includes by default `reference receiver ip_address to 192.168.0.222` and `attitude receiver ip_address to 192.168.0.223`
 
 Check the `<arg name="interface"` is set to `default="tcp"` and change the desired `tcp_addr` if necessary.
 
@@ -138,7 +138,7 @@ Check the `<arg name="interface"` is set to `default="tcp"` and change the desir
 <arg name="tcp_addr"                    default="192.168.0.222"/>
 ```
 
-2. The ROS node reads SBP (Swift Navigation Binary Protocol) messages, a fast, simple, and minimal overhead binary protocol for communicating with Swift Navigation devices. 
+2. The ROS node reads SBP (Swift Navigation Binary Protocol) messages, a fast, simple, and minimal overhead binary protocol for communicating with Swift Navigation devices.
 
 Please check [here](https://support.swiftnav.com/customer/en/portal/articles/2492810-swift-binary-protocol) which Piksi Multi firmware version based on the current SBP Lib version.
 
@@ -154,7 +154,7 @@ The following code will automatically download the required version of libsbp an
 # To install SBP, Execute this line in the package folder 'earth_rover_localization'
 source scripts/install_sbp.sh
 ```
-Check that the installations finishes succesfully. If any error appears due to locale settings, check the following [solution](https://libre-software.net/ubuntu-setting-locale/) and try the SBP installation again. 
+Check that the installations finishes succesfully. If any error appears due to locale settings, check the following [solution](https://libre-software.net/ubuntu-setting-locale/) and try the SBP installation again.
 
 3. To configure the ENU results from the ROS driver, fill the `enu_origin.yaml` on the package folder `earth_rover_localization/cfg` with the same location of the base station. **If base station is not yet configured, remember to edit this file before launching `earth_rover_localization`**
 
@@ -164,9 +164,9 @@ The following steps explain the Hardware and ROS drivers configuration to run in
 
 ### Piksy Modules
 
-The Hardware configuration uses three [Piksi Multi Evaluation Board](https://support.swiftnav.com/customer/en/portal/articles/2681333-piksi-multi-evaluation-board): A base station and two receivers on the rover (reference and attitude). 
+The Hardware configuration uses three [Piksi Multi Evaluation Board](https://support.swiftnav.com/customer/en/portal/articles/2681333-piksi-multi-evaluation-board): A base station and two receivers on the rover (reference and attitude).
 
-The reference receiver obtains corrections from base station using the [FreeWave Radio Evaluation Kit](https://support.swiftnav.com/customer/en/portal/articles/2952967-freewave-radio-evaluation-kit) and then send corrections to the attitude receiver which enables precise heading output. 
+The reference receiver obtains corrections from base station using the [FreeWave Radio Evaluation Kit](https://support.swiftnav.com/customer/en/portal/articles/2952967-freewave-radio-evaluation-kit) and then send corrections to the attitude receiver which enables precise heading output.
 
 - Swift console on a host computer
 
@@ -178,7 +178,7 @@ The reference receiver obtains corrections from base station using the [FreeWave
 
 3. Follow the configuration to enable the heading setup. Use the piksis on the rover to configure this step. **WARNING** Be aware that one receiver (reference receiver) has already be configured to receive corrections from a base station. Configure the ```enabled_sbp_messages``` on **uart1** instead to send corrections from reference to attitude through this available port. See the [documentation](https://support.swiftnav.com/customer/en/portal/articles/2805901-piksi-multi---heading) details.
 
-4. Enable the [Ethernet Configuration](https://support.swiftnav.com/customer/en/portal/articles/2740815-using-ethernet-on-piksi-multi-and-duro) on reference and attitude receivers based on the desired IP addresses to connect. 
+4. Enable the [Ethernet Configuration](https://support.swiftnav.com/customer/en/portal/articles/2740815-using-ethernet-on-piksi-multi-and-duro) on reference and attitude receivers based on the desired IP addresses to connect.
 
 ## Usage
 
@@ -223,7 +223,7 @@ The following launch file reproduces a bag file and applies the robot localizati
 $ roslaunch er_localization er_localization_player.launch
 ```
 
-The result of the localization package is the robot's pose estimation in its world frame. Then, the origin of the world frame is georeferenced and will change depending on where the scouting mission is performed. 
+The result of the localization package is the robot's pose estimation in its world frame. Then, the origin of the world frame is georeferenced and will change depending on where the scouting mission is performed.
 
 The launch will find the coordinates of the base station to set the origin of the Map frame. Check the `enu_origin.yaml` on the package folder `earth_rover_localization/cfg`. **Only if you're using the bag player, set the following location on the configuration file.**
 
@@ -299,6 +299,97 @@ $ sudo nano mapviz.launch
 ```
 $ roslaunch mapviz mapviz.launch
 ```
-- Download the config file from this repository, `cfg/mapviz_localization_config.mvc`, go to `File -> Open Config` on the top bar and upload the configuration file. 
+- Download the config file from this repository, `cfg/mapviz_localization_config.mvc`, go to `File -> Open Config` on the top bar and upload the configuration file.
 
-- Visualization of topics should appear to follow the localization task. 
+- Visualization of topics should appear to follow the localization task.
+
+
+## Documentation
+The documentation provided above gives general knowledge on how to install, configure and use the package in a general way. In this section, an in depth explanation of the package is provided. A knowledge of the [robot localization package](http://docs.ros.org/melodic/api/robot_localization/html/) is required.
+
+### Topics and nodes
+First things first, the [*under the hood* structure of the nodes](docs/ros_nodes_graph.pdf):
+
+#### Input data
+As you can see, the **raw data input** is composed by the topics (the sensors are covered in next sections):
+- `/piksi_receiver/navsatfix_best_fix`: a [sensor_msgs/NavSatFix.msg](http://docs.ros.org/melodic/api/sensor_msgs/html/msg/NavSatFix.html) that contains WGS 84 coordinates with *best available solution* at the moment (either RTK-FIX, RTK-FLOAT or SBAS). The data is in `LLA` (Latitude, Longitude and Altitude) in `degrees` and `meters`. Important values are the `position_covariance` and the `status/status`:
+
+	- If `position_covariance = 0.0049` and `status/status = 2`: it's RTK-FIX.
+	- If `position_covariance = 1` and `status/status = 2`: it's RTK-FLOAT.
+	- If `position_covariance = 25` and `status/status = 1`: it's SPP.
+
+- `/piksi_attitude/baseline_heading`: a [piksi_rtk_msgs/BaselineHeading.msg](https://github.com/earthrover/earth_rover_piksi/blob/master/piksi_rtk_msgs/msg/BaselineHeading.msg) that contains heading direction with *best available solution* at the moment. The data is in `NED` frame and in `mili-degrees (mdeg)`.
+
+- `/mti/sensor/imu`: a [sensor_msgs/Imu.msg](http://docs.ros.org/melodic/api/sensor_msgs/html/msg/Imu.html) with the IMU raw data. The orientation is given in `rad`, the angular velocity in `rad/s` and the linear acceleration in `m/s^2`. Today (15/04/2020), the IMU package is wrong since it does not provide covariance values, hence they are hard-coded in a later step (explained in next sections).
+
+- `/tf`: a [tf/tfMessage.msg](http://docs.ros.org/melodic/api/tf/html/msg/tfMessage.html) message containing all the required transformations for the localization, namely:
+
+	- the robot model frames: `/scouting_base_link`, `/piksi_receiver`, `/piksi_attitude`, `/xsens`.
+	- the relation between the frames: `/map` and `/odom` (for now, this is constant).
+
+#### Output data
+The result of this node is composed by the estimated position of the robot expressed in three different ways, the topics:
+- `/odometry/filtered/global`: a [nav_msgs/Odometry.msg](http://docs.ros.org/melodic/api/nav_msgs/html/msg/Odometry.html) message containing the filtered robot position in frame `/odom`->`/scouting_base_link`. This data is in `cartesian` coordinates.
+
+- `/tf`: a [tf/tfMessage.msg](http://docs.ros.org/melodic/api/tf/html/msg/tfMessage.html) message containing the `/odometry/filtered/global` data.
+
+- `gps/filtered`: a [sensor_msgs/NavSatFix.msg](http://docs.ros.org/melodic/api/sensor_msgs/html/msg/NavSatFix.html) message containing the `/odometry/filtered/global` in GPS `WGS84` coordinates.
+
+#### Middle data
+The extra topics result of processing the data along the way are the following:
+- `heading`: a [sensor_msgs/Imu.msg](http://docs.ros.org/melodic/api/sensor_msgs/html/msg/Imu.html) that contains heading direction with *best available solution* at the moment. The data is in `ENU` frame and in `rad`.
+
+- `imu`: a [sensor_msgs/Imu.msg](http://docs.ros.org/melodic/api/sensor_msgs/html/msg/Imu.html) with the IMU modified data. The orientation is given in `rad`, the angular velocity in `rad/s` and the linear acceleration in `m/s^2`. The orientation is computed as the `/heading` data updated with the variations of the orientation in the IMU. This transformation is performed because some experiments showed that the IMU magnetometer is not reliable inside the scouting box, hence, the long term readings weren't correct.
+
+- `/odometry/gps`: a [nav_msgs/Odometry.msg](http://docs.ros.org/melodic/api/nav_msgs/html/msg/Odometry.html) message containing the GPS antenna position in frame `/odom`->`/piksi_receiver`. This data is in `cartesian` coordinates.
+
+#### Nodes
+The localization package is composed of 4 nodes (+1 which is not currently used):
+- `/heading_listener`: this node takes in the topics `/piksi_attitude/baseline_heading` and `/mti/sensor/imu` and process their data for the following nodes. It does the following processing:
+
+	1. Transforms the data in `/piksi_attitude/baseline_heading` from `NED` to `ENU` reference frame, and from `mdeg` to `rad`. Publishes it in the `/heading` topic.
+	2. Transforms the data in `/mti/sensor/imu`, adding the covariance of the IMU for it's readings and modifying the `yaw` value: `yaw_imu = heading(last_available) + (imu_current - imu_0(when last_available heading))`. Publishes it in the `/imu` topic. The second modification may not be used depending on the configuration of the ekf.
+
+- [`/navsat_transform`](http://docs.ros.org/melodic/api/robot_localization/html/navsat_transform_node.html): this node transform the gps data provided by `/piksi_receiver/navsatfix_best_fix` to odometry data in `/odometry/gps`. It also converts back the filtered odometry in `/odometry/filtered/global` to gps in `/gps/filtered`. The parameters used in this node are directly applied in the launch file: `/launch/er_localization_node.launch`.
+
+- [`/ekf_localization`](http://docs.ros.org/melodic/api/robot_localization/html/state_estimation_nodes.html): this node computes the sensor fusion for the robot position. It requires data to be odometric and in ENU frame, hence, the conversions performed to the data in the previous nodes. The parameters of the ekf can be found in `/cfg/ekf_imu_heading_localization.yaml`
+
+- `/map_odom`: for now, this node only provides a static transformation between the `/map` frame and the `/odom` frame.
+
+- `/set_datum`: this node was used in a previous version to set the `datum` parameter for the EKF node using a service server/client structure, however, in principle it is not required since the parameter is directly passed to it.
+
+### Sensors
+For now (20/04/2020), the localization system is composed of 6 sensors: an IMU (Xsens MTi-3DK), 2 2.4Ghz radio (Freewave), and 3 RTK-GPS (Piksi Multi). One of the antennas, the Base Station, is fixed and used to send the corrections to the robot in order to have RTK quality.
+- [Xsens MTi-3DK](https://www.mouser.es/pdfdocs/MTiUserManual1-seriesDK-MT0513P-D-2.pdf): is a high-precision IMU. Using the SDK, some information can be extracted but main configuration is done with the launch file of the driver node.
+
+	- Publishing frequency: 50 Hz
+	- USB-A 2.0 data transmission
+
+- [Freewave radio](https://support.swiftnav.com/support/solutions/articles/44001850772-freewave-radio-evaluation-kit): is a 2.4 GHz radio used to send/receive the Base Station data corrections. Currently, an Ethernet service is used in parallel for the same purpose.
+
+		- Serial cable RS232.
+
+- [Piksi Multi](https://support.swiftnav.com/support/solutions/folders/44001200455): is a GPS antenna with RTK capability. The main configuration is done with the SDK of the sensor (see configuration of the sensor). The launch needs further investigation but, in general, it does not affect the internal configuration of the system.
+
+	- Publishing frequency `receiver`: 10 Hz
+	- Publishing frequency `attitude`: 5 Hz
+	- Ethernet communication.
+	- Serial cable RS232.
+
+### File structure and content
+The package file structure is as follows, two main directories:
+1. `/development_notes`: has the documents published to ROS answers specifying some questions we had in the passed.
+2. `/earth_rover_localization`: the ROS package.
+
+#### /earth_rover_localization
+1. `/bag_files`: currently not in use. Directory providing old data to do a simulation.
+2. `/cfg`: configuration files for the ROS nodes.
+3. `/cmake`: configuration file to find the `GeographicLib` library, required for the `/set_datum` node.
+4. `/docs`: image resources.
+5. `/launch`: launch files for the different available nodes.
+6. `/mapviz_config`: mapviz configuration file with latest debugging layout.
+7. `/scripts`: script to install the `sbp` library for the piksis.
+8. `/src`: contains the nodes' code.
+
+#### /cfg
+ 
