@@ -307,6 +307,9 @@ $ roslaunch mapviz mapviz.launch
 ## Documentation
 The documentation provided above gives general knowledge on how to install, configure and use the package in a general way. In this section, an in depth explanation of the package is provided. A knowledge of the [robot localization package](http://docs.ros.org/melodic/api/robot_localization/html/) is required.
 
+### TF tree
+In order to understand a little better the robot model and it's references in the next sections, here's the [TF tree structure](docs/ros_tf_tree.pdf).
+
 ### Topics and nodes
 First things first, the [*under the hood* structure of the nodes](docs/ros_nodes_graph.pdf):
 
@@ -367,7 +370,7 @@ For now (20/04/2020), the localization system is composed of 6 sensors: an IMU (
 
 - [Freewave radio](https://support.swiftnav.com/support/solutions/articles/44001850772-freewave-radio-evaluation-kit): is a 2.4 GHz radio used to send/receive the Base Station data corrections. Currently, an Ethernet service is used in parallel for the same purpose.
 
-		- Serial cable RS232.
+	- Serial cable RS232.
 
 - [Piksi Multi](https://support.swiftnav.com/support/solutions/folders/44001200455): is a GPS antenna with RTK capability. The main configuration is done with the SDK of the sensor (see configuration of the sensor). The launch needs further investigation but, in general, it does not affect the internal configuration of the system.
 
@@ -392,4 +395,32 @@ The package file structure is as follows, two main directories:
 8. `/src`: contains the nodes' code.
 
 #### /cfg
- 
+1. `ekf_imu_heading_localization.yaml`: configuration file for the robot localization EKF node.
+2. `enu_origin.yaml`: configuration for the Piksis initial position for the ENU conversion.
+3. `mapviz_localization_config.yaml`: deprecated configuration for mapviz.
+4. `piksi_multi_driver_settings_rover_attitude.yaml`: configuration file for piksi attitude node (pretty sure the configuration does not apply to the piksi).
+5. `piksi_multi_driver_settings_rover_reference.yaml`: configuration file for piksi reference node (pretty sure the configuration does not apply to the piksi).
+6. `piksi_multi_driver_settings_roverserial.yaml`: not used.
+7. `xsens.yaml`: configuration for the IMU.
+
+#### /launch
+1. `er_localization_node.launch`: to launch the localization along with the mapping system.
+2. `er_localization_player.launch`: Deprecated. Old launch of a simulated node (along with contents in `/bag_files`).
+3. `er_localization_rover.launch`: Deprecated. Old launch to use the localization node.
+4. `er_localization_set_datum.launch`: Deprecated. Old launch of the `/set_datum` node.
+5. `er_localization_viztools.launch`: Deprecated. Old launch for mapviz.
+6. `imu_piksi_drivers.launch`: launches the sensors' drivers.
+7. `mapviz.launch`: launches mapviz.
+8. `piksi_multi_rover_attitude.launch`: launches the ROS driver node for the Piksi Attitude.
+9. `piksi_multi_rover_reference.launch`: launches the ROS driver node for the Piksi Receiver.
+10. `xsens.yaml`: launches the IMU ROS driver.
+
+#### /mapviz_config
+1. `er_localization_config.mvc`: configuration file for mapviz with the latest layout.
+
+#### /scripts
+1. `install_sbp.sh`: installs the `sbp` library.
+
+#### /src
+1. `heading_listener.cpp`: source code for the heading listener node.
+2. `set_datum.cpp`: Deprecated. Source code for the `set_datum` client service.
