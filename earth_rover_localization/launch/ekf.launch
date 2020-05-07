@@ -1,0 +1,9 @@
+<launch>
+  <!-- robot localization node -->
+  <!-- EKF node -->
+  <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization">
+    <rosparam command="load" file="$(find earth_rover_localization)/cfg/ekf_params.yaml" />
+    <remap from="/odometry/filtered" to="/odometry/filtered/global"/>
+  </node>
+
+</launch>

@@ -1,0 +1,31 @@
+<launch>
+
+    <arg name="color_image_raw"  default="/camera0/color/image_raw"/>
+    <arg name="color_camera_info"  default="/camera0/color/camera_info"/>
+    <arg name="depth_image"			  default="/camera0/depth/image_raw"/>
+    <arg name="depth_camera_info"	  default="/camera0/depth/camera_info"/>
+    <arg name="color_image_raw_rect"  default="/image_rect_color"/>
+    <arg name="depth_image_rect"	  default="$(arg depth_image)"/>
+
+    <arg name="node_suffix" default="_0"/>
+    <arg name="bonding" default="--no-bond"/>
+
+    <!-- Rectify the depth image -->
+	<!-- <node pkg="image_proc" type="image_proc" name="image_proc">
+		<remap from="image_raw"    to="$(arg depth_image)"/>
+		<remap from="camera_info"  to="$(arg depth_camera_info)"/>
+		<remap from="image_rect" to="/rectified_depth_image"/>
+	</node> -->
+
+  <!-- Nodelet manager for image pipeline -->
+	<node pkg="nodelet" type="nodelet" args="manager" name="depth_manager$(arg node_suffix)"/>
+
+  <!-- Register depth to color -->
+	<node pkg="nodelet" type="nodelet" name="register$(arg node_suffix)_depth_to_color" args="load depth_image_proc/register depth_manager$(arg node_suffix) $(arg bonding)" output="screen">
+	    <remap from="rgb/camera_info" to="$(arg color_camera_info)"/>
+	    <remap from="depth/camera_info" to="$(arg depth_camera_info)"/>
+	    <remap from="depth/image_rect" to="$(arg depth_image)"/>
+	</node>
+
+
+ </launch>
