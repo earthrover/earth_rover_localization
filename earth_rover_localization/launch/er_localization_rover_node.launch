@@ -10,6 +10,7 @@
 
   <!-- Odom Frame  -->
   <node pkg="tf2_ros" type="static_transform_publisher" name="map_odom" args="0 0 0 0 0 0 map odom" />
+  <node pkg="tf2_ros" type="static_transform_publisher" name="odom_ugv_odom" args="0 0 0 0 0 0 odom ugv_odom" />
 
   <!-- Sensors -->
   <include file="$(find earth_rover_localization)/launch/imu_piksy_drivers.launch"/>
