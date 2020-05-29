@@ -21,7 +21,7 @@
   <node name="xsens_mti" pkg="xsens_driver" type="mtnode.py" respawn="true">
       <rosparam command="load" file="$(find earth_rover_localization)/cfg/imu.yaml"/>
   </node>
-  <node pkg="tf2_ros" type="static_transform_publisher" name="base_link_rename" args="0 0 0 0 0 0 scouting_base_link ugv_base_link" />
+  <node pkg="tf2_ros" type="static_transform_publisher" name="base_link_rename" args="0 0 0 0 0 0 ugv_base_link scouting_base_link" />
 
   <!-- Heading Listener node-->
   <node pkg="earth_rover_localization" type="heading_listener" name="heading_listener" output="log" />
