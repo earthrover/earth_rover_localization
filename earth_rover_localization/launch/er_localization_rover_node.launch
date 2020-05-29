@@ -13,8 +13,14 @@
   <node pkg="tf2_ros" type="static_transform_publisher" name="odom_ugv_odom" args="0 0 0 0 0 0 odom ugv_odom" />
 
   <!-- Sensors -->
-  <include file="$(find earth_rover_localization)/launch/imu_piksy_drivers.launch"/>
-  <node pkg="tf2_ros" type="static_transform_publisher" name="imu_rename" args="0 0 0 0 0 0 imu_sensor_link xsens" />
+  <!-- Piksi Reference receiver -->
+	<include file="$(find earth_rover_localization)/launch/piksi_multi_rover_reference.launch"/>
+	<!-- Piksi Attitude receiver -->
+	<include file="$(find earth_rover_localization)/launch/piksi_multi_rover_attitude.launch"/>
+	<!-- Imu driver -->
+  <node name="xsens_mti" pkg="xsens_driver" type="mtnode.py" respawn="true">
+      <rosparam command="load" file="$(find earth_rover_localization)/cfg/imu.yaml"/>
+  </node>
   <node pkg="tf2_ros" type="static_transform_publisher" name="base_link_rename" args="0 0 0 0 0 0 scouting_base_link ugv_base_link" />
 
   <!-- Heading Listener node-->
