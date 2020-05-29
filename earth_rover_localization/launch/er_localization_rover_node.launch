@@ -9,8 +9,7 @@
 <launch>
 
   <!-- Odom Frame  -->
-  <node pkg="tf2_ros" type="static_transform_publisher" name="map_odom" args="0 0 0 0 0 0 map odom" />
-  <node pkg="tf2_ros" type="static_transform_publisher" name="odom_ugv_odom" args="0 0 0 0 0 0 odom ugv_odom" />
+  <node pkg="tf2_ros" type="static_transform_publisher" name="map_ugv_odom" args="0 0 0 0 0 0 map ugv_odom" />
 
   <!-- Sensors -->
   <!-- Piksi Reference receiver -->
@@ -21,14 +20,13 @@
   <node name="xsens_mti" pkg="xsens_driver" type="mtnode.py" respawn="true">
       <rosparam command="load" file="$(find earth_rover_localization)/cfg/imu.yaml"/>
   </node>
-  <node pkg="tf2_ros" type="static_transform_publisher" name="base_link_rename" args="0 0 0 0 0 0 ugv_base_link scouting_base_link" />
 
   <!-- Heading Listener node-->
   <node pkg="earth_rover_localization" type="heading_listener" name="heading_listener" output="log" />
 
   <!-- EKF node -->
   <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization">
-    <rosparam command="load" file="$(find earth_rover_localization)/cfg/ekf_imu_heading_localization.yaml" />
+    <rosparam command="load" file="$(find earth_rover_localization)/cfg/rover_localization.yaml" />
     <remap from="/odometry/filtered" to="/ugv_11/earth_rover_ugv_diff/odom"/>
   </node>
 
