@@ -1,3 +1,10 @@
+<!-- Copyright (C) 2019 Earth Rover Limited. All rights reserved. -->
+
+<!-- Rover Visual Odometry
+  This file launches the RTABMAP package, which implements visual odometry
+  Author: Rodrigo Gonzalez
+  Date: 05/2020
+-->
 
 <launch>
   <!-- Convenience launch file to launch odometry, rtabmap and rtabmapviz nodes at once -->
@@ -46,7 +53,7 @@
   <arg name="rtabmap_args"            default="$(arg args)"/>   <!-- deprecated, use "args" argument -->
   <arg name="launch_prefix"           default=""/>              <!-- for debugging purpose, it fills launch-prefix tag of the nodes -->
   <arg name="output"                  default="screen"/>        <!-- Control node output (screen or log) -->
-  <arg name="publish_tf_map"          default="true"/>
+  <arg name="publish_tf_map"          default="false"/>
 
 
   <!-- Optical Rotation -->
@@ -95,7 +102,7 @@
   <arg name="icp_odometry"             default="false"/>         <!-- Launch rtabmap icp odometry node -->
   <arg name="odom_topic"               default="ugv_odom"/>          <!-- Odometry topic name -->
   <arg name="vo_frame_id"              default="$(arg odom_topic)"/> <!-- Visual/Icp odometry frame ID for TF -->
-  <arg name="publish_tf_odom"          default="false"/>
+  <arg name="publish_tf_odom"          default="true"/>
   <arg name="odom_tf_angular_variance" default="1"/>             <!-- If TF is used to get odometry, this is the default angular variance -->
   <arg name="odom_tf_linear_variance"  default="1"/>             <!-- If TF is used to get odometry, this is the default linear variance -->
   <arg name="odom_args"                default=""/>              <!-- More arguments for odometry (overwrite same parameters in rtabmap_args) -->

@@ -1,9 +1,55 @@
+<!-- Copyright (C) 2019 Earth Rover Limited. All rights reserved. -->
+
+<!-- Rover Localization
+  This file launches the localization system, and image rectification for the camera gazebo plugin.
+  Author: Rodrigo Gonzalez
+  Date: 05/2020
+-->
+
 <launch>
   <!-- robot localization node -->
   <!-- EKF node -->
   <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization">
     <rosparam command="load" file="$(find earth_rover_localization)/cfg/ekf_params.yaml" />
     <remap from="/odometry/filtered" to="/odometry/filtered/global"/>
+  </node>
+
+  <!-- Navsat_transform -->
+  <node pkg="robot_localization" type="navsat_transform_node" name="navsat_transform" respawn="true" output="screen">
+     <param name="frequency" value="30"/>
+     <param name="delay" value="3.0"/>
+     <param name="magnetic_declination_radians" value="0.0"/>
+     <param name="yaw_offset" value="0"/>
+     <param name="zero_altitude" value="false"/>
+     <param name="broadcast_utm_transform" value="true"/>
+     <param name="publish_filtered_gps" value="true"/>
+     <param name="use_odometry_yaw" value="false"/>
+     <param name="wait_for_datum" value="true"/>
+       <rosparam param="datum">[53.4386604283, -0.932653757765, 0.0]</rosparam>    # Replace with desired Map origins. Check convergence value
+
+     <remap from="/odometry/filtered" to="/odometry/filtered/global"/>
+     <remap from="/gps/fix" to="/piksi_receiver/navsatfix_best_fix"/>
+   </node>
+
+   <!-- Camera Rectification Arguments-->
+  <arg name="color_image_raw"  default="/camera0/color/image_raw"/>
+  <arg name="color_camera_info"  default="/camera0/color/camera_info"/>
+  <arg name="depth_image"			  default="/camera0/depth/image_raw"/>
+  <arg name="depth_camera_info"	  default="/camera0/depth/camera_info"/>
+  <arg name="color_image_raw_rect"  default="/image_rect_color"/>
+  <arg name="depth_image_rect"	  default="$(arg depth_image)"/>
+
+  <arg name="node_suffix" default="_0"/>
+  <arg name="bonding" default="--no-bond"/>
+
+  <!-- Nodelet manager for image pipeline -->
+  <node pkg="nodelet" type="nodelet" args="manager" name="depth_manager$(arg node_suffix)"/>
+
+  <!-- Register depth to color -->
+  <node pkg="nodelet" type="nodelet" name="register$(arg node_suffix)_depth_to_color" args="load depth_image_proc/register depth_manager$(arg node_suffix) $(arg bonding)" output="screen">
+    <remap from="rgb/camera_info" to="$(arg color_camera_info)"/>
+    <remap from="depth/camera_info" to="$(arg depth_camera_info)"/>
+    <remap from="depth/image_rect" to="$(arg depth_image)"/>
   </node>
 
 </launch>
