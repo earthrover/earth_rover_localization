@@ -13,8 +13,8 @@
 
   <!-- Sensors -->
   <include file="$(find earth_rover_localization)/launch/imu_piksy_drivers.launch"/>
-  <node pkg="tf2_ros" type="static_transform_publisher" name="map_odom" args="0 0 0 0 0 0 imu_sensor_link xsens" />
-  <node pkg="tf2_ros" type="static_transform_publisher" name="map_odom" args="0 0 0 0 0 0 scouting_base_link ugv_base_link" />
+  <node pkg="tf2_ros" type="static_transform_publisher" name="imu_rename" args="0 0 0 0 0 0 imu_sensor_link xsens" />
+  <node pkg="tf2_ros" type="static_transform_publisher" name="base_link_rename" args="0 0 0 0 0 0 scouting_base_link ugv_base_link" />
 
   <!-- Heading Listener node-->
   <node pkg="earth_rover_localization" type="heading_listener" name="heading_listener" output="log" />
