@@ -1,0 +1,52 @@
+<!-- Copyright (C) 2019 Earth Rover Limited. All rights reserved. -->
+
+<!-- Scouting system
+  This file launches the localization system.
+  Author: David Llevat Pamies (dllevat@edgebrain.io)
+  Date: 05/2019
+-->
+
+<launch>
+
+  <!-- Odom Frame  -->
+  <node pkg="tf2_ros" type="static_transform_publisher" name="map_odom" args="0 0 0 0 0 0 map odom" />
+
+  <!-- Sensors -->
+  <include file="$(find earth_rover_localization)/launch/imu_piksy_drivers.launch"/>
+  <node pkg="tf2_ros" type="static_transform_publisher" name="map_odom" args="0 0 0 0 0 0 imu_sensor_link xsens" />
+  <node pkg="tf2_ros" type="static_transform_publisher" name="map_odom" args="0 0 0 0 0 0 scouting_base_link ugv_base_link" />
+
+  <!-- Heading Listener node-->
+  <node pkg="earth_rover_localization" type="heading_listener" name="heading_listener" output="log" />
+
+  <!-- EKF node -->
+  <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization">
+    <rosparam command="load" file="$(find earth_rover_localization)/cfg/ekf_imu_heading_localization.yaml" />
+    <remap from="/odometry/filtered" to="/odometry/filtered/global"/>
+  </node>
+
+
+ <!-- Navsat_transform -->
+ <node pkg="robot_localization" type="navsat_transform_node" name="navsat_transform" respawn="true" output="screen">
+    <param name="frequency" value="30"/>
+    <param name="delay" value="3.0"/>
+    <param name="magnetic_declination_radians" value="0.0"/>
+    <param name="yaw_offset" value="0"/>
+    <param name="zero_altitude" value="false"/>
+    <param name="broadcast_utm_transform" value="true"/>
+    <param name="publish_filtered_gps" value="true"/>
+    <param name="use_odometry_yaw" value="false"/>
+    <param name="wait_for_datum" value="false"/>
+    <!-- <param name="wait_for_datum" value="true"/>
+      <rosparam param="datum">[53.4386604283, -0.932653757765, 0.0]</rosparam>    # Replace with desired Map origins. Check convergence value -->
+
+    <!-- <remap from="/odometry/filtered" to="/odometry/filtered/global"/> -->
+    <remap from="/odometry/filtered" to="/ugv_11/earth_rover_ugv_diff/odom"/>
+    <remap from="/gps/fix" to="/piksi_receiver/navsatfix_best_fix"/>
+    <remap from="/imu/data" to="/heading"/>
+
+    <remap from="/odom/gps" to="/odom/gps"/>
+    <remap from="/gps/filtered" to="/gps/filtered"/>
+  </node>
+
+ </launch>
