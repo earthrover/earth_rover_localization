@@ -31,11 +31,12 @@
     <param name="broadcast_utm_transform" value="true"/>
     <param name="publish_filtered_gps" value="true"/>
     <param name="use_odometry_yaw" value="false"/>
-    <param name="wait_for_datum" value="true"/>
-      <rosparam param="datum">[53.4386604283, -0.932653757765, 0.0]</rosparam>    # Replace with desired Map origins. Check convergence value
+    <param name="wait_for_datum" value="false"/>
+      <!-- <rosparam param="datum">[53.4386604283, -0.932653757765, 0.0]</rosparam>    # Replace with desired Map origins. Check convergence value -->
 
     <remap from="/odometry/filtered" to="/odometry/filtered/global"/>
     <remap from="/gps/fix" to="/piksi_receiver/navsatfix_best_fix"/>
+    <remap from="/imu/data" to="/heading"/>
   </node>
 
  </launch>
