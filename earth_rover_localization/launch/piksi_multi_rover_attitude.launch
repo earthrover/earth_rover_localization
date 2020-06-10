@@ -11,16 +11,15 @@
   <!-- IP of a "pingable" device, used to check network status. -->
   <arg name="base_station_ip"             default="192.168.8.1"/>
   <!-- Enable/disable load of an origin position of ENU frame. -->
-  <arg name="load_enu_origin_from_file"   default="true"/>
+  <arg name="load_enu_origin_from_file"   default="false"/>
   <!-- Location of the file containing origin ENU frame, used if 'load_enu_origin_from_file' is true. -->
-  <arg name="enu_origin_file"             default="$(find earth_rover_localization)/cfg/enu_origin.yaml"/>
+  <!-- <arg name="enu_origin_file"             default="$(find earth_rover_localization)/cfg/enu_origin.yaml"/> -->
 
   <!-- Piksi Multi ROS driver node: rover mode -->
   <node pkg="piksi_multi_rtk" type="piksi_multi" name="piksi_attitude" output="screen" respawn="true">
     <!-- Load default settings -->
     <rosparam file="$(find earth_rover_localization)/cfg/piksi_multi_driver_settings_rover_attitude.yaml"/>
 
-    <!-- Load enu origin from file -->
     <rosparam file="$(arg enu_origin_file)"   if="$(arg load_enu_origin_from_file)"/>
 
     <!-- Overwrite settings -->
