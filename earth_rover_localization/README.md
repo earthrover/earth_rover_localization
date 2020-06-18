@@ -303,7 +303,13 @@ $ roslaunch mapviz mapviz.launch
 
 - Visualization of topics should appear to follow the localization task.
 
-### Visual Odometry
+## Visual Odometry
 
-The implemented visual odometry algorithm in this package uses Real-Time Appearance-Based Mapping (RTABMAP). Learn more about this algorithm
+If necessary, install the ROS rtabmap package:
+
+```
+$ sudo apt-get install ros-$ROS_DISTRO-rtabmap-ros
+```
+
+The package includes the visual odometry algorithm Real-Time Appearance-Based Mapping (RTABMAP). Learn more about this algorithm
 [here](http://introlab.github.io/rtabmap/).
