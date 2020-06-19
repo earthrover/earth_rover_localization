@@ -369,14 +369,25 @@ This structure in a launch file will align the images published by the Gazebo de
   </node>
   ```
   
+### Nodes
+
+Used nodes on the architecture
+- `rtabmap/rgbd_odometry`: In charge of computing the visual odometry based on the depth and color images described above.
+- `rtabmap/rtabmapviz`: Launches the visualization tool for RTAB-Map, where the image being used to compute the odometry and SLAM is displayed, showing the features being used in the algorithm, as well as functionality for the 3D map and the odometry visualization.
+
+### Parameters
+
+The following are a set of important parameters that need to be set in RTAB-Map to ensure proper functioning.
+
+- `frame_id`: Where the odometry should be coming from. The default setting is `ugv_base_link`. If using only the camera for testing, make sure this parameter is changed to the appropiate one in the camera, `camera0_link` in the realsense driver.
+- `odom_frame_id`: The odometry frame. currently set to `ugv_odom`.
+- `publish_tf`: If needed, the RTAB-Map package can publish the transform from `ugv_odom` to `ugv_base_link`
+
+
 ### Outputs
   
   The RTAB-Map package can provide visual odometry and the resulting map if the SLAM option is being used.
   - `/rtabmap/ugv_odom`: Odometry message [nav_msgs/Odometry.msg] that comes from the visual odometry algorithm within RTAB-Map.
 - `/rtabmap/odom_info`: A custom message [rtabmap_ros/OdomInfo] by RTAB-Map that information for the corresponding odometry message, including the last position recorded and all of the feature inliers taken into account for the odometry calculations.
 
-### Nodes
 
-Used nodes on the architecture
-- `rtabmap/rgbd_odometry`: In charge of computing the visual odometry based on the depth and color images described above.
-- `rtabmap/rtabmapviz`: Launches the visualization tool for RTAB-Map, where the image being used to compute the odometry and SLAM is displayed, showing the features being used in the algorithm, as well as functionality for the 3D map and the odometry visualization.
