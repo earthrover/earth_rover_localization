@@ -302,3 +302,7 @@ $ roslaunch mapviz mapviz.launch
 - Download the config file from this repository, `cfg/mapviz_localization_config.mvc`, go to `File -> Open Config` on the top bar and upload the configuration file. 
 
 - Visualization of topics should appear to follow the localization task. 
+
+### Visual Odometry Package
+
+
