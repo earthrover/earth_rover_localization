@@ -314,5 +314,9 @@ To install the package, use the line
 ```
 $ sudo apt-get install ros-melodic-rtabmap-ros
 ```
+To launch the visual odometry package along with the realsense camera driver, use the following command:
 
+```
+$ roslaunch earth_rover_localization er_visual_odometry.launch
+```
 
