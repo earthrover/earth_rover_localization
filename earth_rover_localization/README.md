@@ -319,4 +319,4 @@ To launch the visual odometry package along with the realsense camera driver, us
 ```
 $ roslaunch earth_rover_localization er_visual_odometry.launch
 ```
-
+The camera driver in question is associated with the launch in earth_rover_scouting `er_camera_xavier.launch`
