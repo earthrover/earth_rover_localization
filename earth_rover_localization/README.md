@@ -303,6 +303,10 @@ $ roslaunch mapviz mapviz.launch
 
 - Visualization of topics should appear to follow the localization task. 
 
-### Visual Odometry Package
+## Visual Odometry
+
+### RTAB-Map
+
+The package used for visual odometry on the rover is RTAB-Map, a package forreal-time appearance based mapping, with the capabilities of performing visual odom-etry. It supports RGB-D SLAM approach based on an incremental appearance-basedclosed loop detection.The cameras used offer three topics, one for depth, one for color, and one forinfrared images. Since the preferred approach will be RGB-D, only the depth andcolor topics will be used. 
 
 
