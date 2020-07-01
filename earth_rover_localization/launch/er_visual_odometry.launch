@@ -9,21 +9,23 @@
 
   <!-- <node pkg="tf2_ros" type="static_transform_publisher" name="map_cam" args="0 0 0 0 0 0 map camera_0_link" /> -->
 
-  <arg name="cam_suffix"      default="_0"/>
+  <arg name="cam_suffix"        default="_0"/>
   <arg name="input_rgb_info"    default="/camera$(arg cam_suffix)/color/camera_info" />
-  <arg name="input_rgb_img"   default="/camera$(arg cam_suffix)/color/image_raw" />
+  <arg name="input_rgb_img"     default="/camera$(arg cam_suffix)/color/image_raw" />
   <!-- <arg name="input_ir_info"     default="/camera$(arg cam_suffix)/infra1/camera_info" /> -->
   <!-- <arg name="input_depth_info"  default="/camera$(arg cam_suffix)/depth/camera_info" /> -->
   <!-- <arg name="input_depth_img"   default="/camera$(arg cam_suffix)/depth/image_rect_raw" /> -->
 
   <!-- <arg name="output_depth_rgb_info" default="/camera$(arg cam_suffix)/depth/to_color/camera_info" /> -->
-  <arg name="output_depth_rgb_img"  default="/camera$(arg cam_suffix)/aligned_depth_to_color/image_raw" />
+  <arg name="output_depth_rgb_img"    default="/camera$(arg cam_suffix)/aligned_depth_to_color/image_raw" />
   <!-- <arg name="output_depth_ir_info"  default="/camera$(arg cam_suffix)/depth/to_infra1/camera_info" />
   <arg name="output_depth_ir_img"   default="/camera$(arg cam_suffix)/depth/to_infra1/image_rect_raw" /> -->
 
   <!-- Realsense Camera driver -->
   <include file="$(find earth_rover_scouting_system)/launch/er_camera_xavier.launch" >
-    <arg name="camera"  value="camera$(arg cam_suffix)"/>
+    <arg name="camera"      value="camera$(arg cam_suffix)"/>
+    <arg name="depth_fps"   value="15"/>
+    <arg name="color_fps"   value="15"/>
   </include>
 
   <!-- Depth and ir registration to color -->
@@ -40,13 +42,14 @@
     <arg name="output_depth_ir_img"   value="$(arg output_depth_ir_img)" />
   </include> -->
 
-  <include file="$(find rtabmap_ros)/launch/rtabmap.launch" >
-    <arg name="rgb_topic"    value="$(arg input_rgb_img)" />
-    <arg name="camera_info_topic"    value="$(arg input_rgb_info)" />
-    <arg name="depth_topic"  value="$(arg output_depth_rgb_img)" />
-    <arg name="rtabmap_args" value="--delete_db_on_start"/>
-    <arg name="approx_sync" value="false"/>
-    <arg name="frame_id" value="camera$(arg cam_suffix)_link"/>
+  <include file="$(find earth_rover_localization)/launch/er_rtabmap_node.launch" >
+    <arg name="use_sim_time"        value="false" />
+    <arg name="rgb_topic"           value="$(arg input_rgb_img)" />
+    <arg name="camera_info_topic"   value="$(arg input_rgb_info)" />
+    <arg name="depth_topic"         value="$(arg output_depth_rgb_img)" />
+    <arg name="args"                value="--delete_db_on_start"/>
+    <arg name="approx_sync"         value="false"/>
+    <arg name="frame_id"            value="camera$(arg cam_suffix)_link"/>
   </include>
 
 </launch>

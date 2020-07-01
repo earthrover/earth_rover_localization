@@ -41,9 +41,9 @@
   <arg name="rviz_cfg"                default="$(find rtabmap_ros)/launch/config/rgbd.rviz" />
 
   <arg name="frame_id"                default="ugv_base_link"/>     <!-- Fixed frame id, you may set "base_link" or "base_footprint" if they are published -->
-  <arg name="odom_frame_id"           default=""/>                <!-- If set, TF is used to get odometry instead of the topic -->
+  <arg name="odom_frame_id"           default="$(arg odom_topic)"/>                <!-- If set, TF is used to get odometry instead of the topic -->
   <arg name="map_frame_id"            default="map"/>
-  <arg name="ground_truth_frame_id"   default=""/>     <!-- e.g., "world" -->
+  <arg name="ground_truth_frame_id"   default="map"/>     <!-- e.g., "world" -->
   <arg name="ground_truth_base_frame_id" default=""/>  <!-- e.g., "tracker", a fake frame matching the frame "frame_id" (but on different TF tree) -->
   <arg name="namespace"               default="rtabmap"/>
   <arg name="database_path"           default="~/.ros/rtabmap.db"/>
@@ -209,6 +209,9 @@
           <param name="guess_min_rotation"          type="double" value="$(arg odom_guess_min_rotation)"/>
           <!-- 2D SLAM: 3DoF - x, y, theta -->
           <!-- <param name="Reg/Force3DoF"               type="string" value="true"/> -->
+          <param name="Odom/ResetCountdown" type="int" value="1"/>
+          <!-- 0=Frame-to-Map (F2M) 1=Frame-to-Frame (F2F) -->
+          <param name="Odom/Strategy" value="1"/>
         </node>
 
         <!-- Stereo Odometry -->
@@ -290,6 +293,7 @@
       <param name="landmark_angular_variance"  type="double" value="$(arg tag_angular_variance)"/>
       <!-- 2D SLAM: 3DoF - x, y, theta -->
       <!-- <param name="Reg/Force3DoF"               type="string" value="true"/> -->
+      <param name="Rtabmap/StartNewMapOnLoopClosure" type="string" value="true"/>
 
       <remap from="rgb/image"       to="$(arg rgb_topic_relay)"/>
       <remap from="depth/image"     to="$(arg depth_topic_relay)"/>
