@@ -304,18 +304,6 @@ $ roslaunch mapviz mapviz.launch
 - Visualization of topics should appear to follow the localization task.
 
 ## Visual Odometry
-
-If necessary, install the ROS rtabmap package:
-<<<<<<< Updated upstream
-=======
-
-```
-$ sudo apt-get install ros-$ROS_DISTRO-rtabmap-ros
-```
-
-The package includes the visual odometry algorithm Real-Time Appearance-Based Mapping (RTABMAP). Learn more about this algorithm
-[here](http://introlab.github.io/rtabmap/).
-
 ### RTAB-Map
 
 The package used for visual odometry on the rover is RTAB-Map, a package forreal-time appearance based mapping, with the capabilities of performing visual odom-etry. It supports RGB-D SLAM approach based on an incremental appearance-basedclosed loop detection.The cameras used offer three topics, one for depth, one for color, and one forinfrared images. Since the preferred approach will be RGB-D, only the depth andcolor topics will be used.
@@ -323,7 +311,7 @@ The package used for visual odometry on the rover is RTAB-Map, a package forreal
 To install the package, use the line
 
 ```
-$ sudo apt-get install ros-melodic-rtabmap-ros
+$ sudo apt-get install ros-$ROS_DISTRO-rtabmap-ros
 ```
 To launch the visual odometry package along with the realsense camera driver, use the following command:
 
