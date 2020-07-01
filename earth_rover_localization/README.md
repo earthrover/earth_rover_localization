@@ -300,6 +300,7 @@ $ sudo nano mapviz.launch
 $ roslaunch mapviz mapviz.launch
 ```
 - Download the config file from this repository, `cfg/mapviz_localization_config.mvc`, go to `File -> Open Config` on the top bar and upload the configuration file.
+<<<<<<< HEAD
 
 - Visualization of topics should appear to follow the localization task.
 
@@ -393,14 +394,27 @@ The following are a set of important parameters that need to be set in RTAB-Map 
 
 <<<<<<< HEAD
 - Visualization of topics should appear to follow the localization task. 
+=======
+
+- Visualization of topics should appear to follow the localization task.
+>>>>>>> a93072773d8044d1528262e463d7af5d86a1c48d
 
 ## Visual Odometry
 
+If necessary, install the ROS rtabmap package:
+
+```
+$ sudo apt-get install ros-$ROS_DISTRO-rtabmap-ros
+```
+
+The package includes the visual odometry algorithm Real-Time Appearance-Based Mapping (RTABMAP). Learn more about this algorithm
+[here](http://introlab.github.io/rtabmap/).
+
 ### RTAB-Map
 
-The package used for visual odometry on the rover is RTAB-Map, a package forreal-time appearance based mapping, with the capabilities of performing visual odom-etry. It supports RGB-D SLAM approach based on an incremental appearance-basedclosed loop detection.The cameras used offer three topics, one for depth, one for color, and one forinfrared images. Since the preferred approach will be RGB-D, only the depth andcolor topics will be used. 
+The package used for visual odometry on the rover is RTAB-Map, a package forreal-time appearance based mapping, with the capabilities of performing visual odom-etry. It supports RGB-D SLAM approach based on an incremental appearance-basedclosed loop detection.The cameras used offer three topics, one for depth, one for color, and one forinfrared images. Since the preferred approach will be RGB-D, only the depth andcolor topics will be used.
 
-To install the package, use the line 
+To install the package, use the line
 
 ```
 $ sudo apt-get install ros-melodic-rtabmap-ros
@@ -420,7 +434,7 @@ RTAB-Map requires the depth and color images from the camera in order to work:
 - `/camera0/color/camera_info`: Information for the corresponding color image. This includes elements like the timestamp, pixel size, and frame onto which the image is being projected.
 - `/camera0/depth/image_rect`: Depth image mesage. When using RTAB-Map in a simulation, an additional step must be done, described below.
 
-In addition to providing the input images, the depth camera frame must be aligned to the color camera frame in order to match both cameras and ensure proper functioning. The realsense driver comes with the following option allowing for this alignment: 
+In addition to providing the input images, the depth camera frame must be aligned to the color camera frame in order to match both cameras and ensure proper functioning. The realsense driver comes with the following option allowing for this alignment:
 
 ```
 $ roslaunch realsense2_camera rs_camera.launch align_depth:=true
@@ -459,7 +473,7 @@ This structure in a launch file will align the images published by the Gazebo de
     <remap from="depth/image_rect" to="$(arg depth_image)"/>
   </node>
   ```
-  
+
 ### Nodes
 
 Used nodes on the architecture
@@ -476,10 +490,11 @@ The following are a set of important parameters that need to be set in RTAB-Map 
 
 
 ### Outputs
-  
+
   The RTAB-Map package can provide visual odometry and the resulting map if the SLAM option is being used.
   - `/rtabmap/ugv_odom`: Odometry message [nav_msgs/Odometry.msg] that comes from the visual odometry algorithm within RTAB-Map.
 - `/rtabmap/odom_info`: A custom message [rtabmap_ros/OdomInfo] by RTAB-Map that information for the corresponding odometry message, including the last position recorded and all of the feature inliers taken into account for the odometry calculations.
+<<<<<<< HEAD
 
 
 =======
@@ -488,3 +503,5 @@ The following are a set of important parameters that need to be set in RTAB-Map 
 - `/rtabmap/odom_info`: A custom message [rtabmap_ros/OdomInfo] by RTAB-Map that information for the corresponding odometry message, including the last position recorded and all of the feature inliers taken into account for the odometry calculations.
 >>>>>>> Stashed changes
 >>>>>>> feature_adding_realsense
+=======
+>>>>>>> a93072773d8044d1528262e463d7af5d86a1c48d
