@@ -306,6 +306,8 @@ $ roslaunch mapviz mapviz.launch
 ## Visual Odometry
 
 If necessary, install the ROS rtabmap package:
+<<<<<<< Updated upstream
+=======
 
 ```
 $ sudo apt-get install ros-$ROS_DISTRO-rtabmap-ros
@@ -313,3 +315,95 @@ $ sudo apt-get install ros-$ROS_DISTRO-rtabmap-ros
 
 The package includes the visual odometry algorithm Real-Time Appearance-Based Mapping (RTABMAP). Learn more about this algorithm
 [here](http://introlab.github.io/rtabmap/).
+
+### RTAB-Map
+
+The package used for visual odometry on the rover is RTAB-Map, a package forreal-time appearance based mapping, with the capabilities of performing visual odom-etry. It supports RGB-D SLAM approach based on an incremental appearance-basedclosed loop detection.The cameras used offer three topics, one for depth, one for color, and one forinfrared images. Since the preferred approach will be RGB-D, only the depth andcolor topics will be used.
+
+To install the package, use the line
+
+```
+$ sudo apt-get install ros-melodic-rtabmap-ros
+```
+To launch the visual odometry package along with the realsense camera driver, use the following command:
+
+```
+$ roslaunch earth_rover_localization er_visual_odometry.launch
+```
+The camera driver in question is associated with the launch in earth_rover_scouting `er_camera_xavier.launch`
+
+### Inputs
+
+RTAB-Map requires the depth and color images from the camera in order to work:
+
+- `/camera0/color/image_raw`: Color image message. A remap might be needed if another camera is used or if using within a simulation.
+- `/camera0/color/camera_info`: Information for the corresponding color image. This includes elements like the timestamp, pixel size, and frame onto which the image is being projected.
+- `/camera0/depth/image_rect`: Depth image mesage. When using RTAB-Map in a simulation, an additional step must be done, described below.
+
+In addition to providing the input images, the depth camera frame must be aligned to the color camera frame in order to match both cameras and ensure proper functioning. The realsense driver comes with the following option allowing for this alignment:
+
+```
+$ roslaunch realsense2_camera rs_camera.launch align_depth:=true
+```
+
+This parameter can also be directly set within the RTAB-Map launch file. In fact, the file `er_rtabmap_node.launch` already accounts for this alignment.
+
+### depth_image_proc
+
+In case the RTAB-Map package is being used within a simulation, the current version of the rover gazebo model requires the use of the `depth_image_proc` in order to make the necessary alignment, which is registering the depth image onto the color image frame. To install this package, use
+>>>>>>> Stashed changes
+
+```
+$ sudo apt-get install ros-$ROS_DISTRO-rtabmap-ros
+```
+<<<<<<< Updated upstream
+
+The package includes the visual odometry algorithm Real-Time Appearance-Based Mapping (RTABMAP). Learn more about this algorithm
+[here](http://introlab.github.io/rtabmap/).
+=======
+This structure in a launch file will align the images published by the Gazebo depth and color camera plugins:
+
+```
+   <!-- Camera Rectification Arguments-->
+  <arg name="color_image_raw"  default="/camera0/color/image_raw"/>
+  <arg name="color_camera_info"  default="/camera0/color/camera_info"/>
+  <arg name="depth_image"			  default="/camera0/depth/image_raw"/>
+  <arg name="depth_camera_info"	  default="/camera0/depth/camera_info"/>
+  <arg name="color_image_raw_rect"  default="/image_rect_color"/>
+  <arg name="depth_image_rect"	  default="$(arg depth_image)"/>
+
+  <arg name="node_suffix" default="_0"/>
+  <arg name="bonding" default="--no-bond"/>
+
+  <!-- Nodelet manager for image pipeline -->
+  <node pkg="nodelet" type="nodelet" args="manager" name="depth_manager$(arg node_suffix)"/>
+
+  <!-- Register depth to color -->
+  <node pkg="nodelet" type="nodelet" name="register$(arg node_suffix)_depth_to_color" args="load depth_image_proc/register depth_manager$(arg node_suffix) $(arg bonding)" output="screen">
+    <remap from="rgb/camera_info" to="$(arg color_camera_info)"/>
+    <remap from="depth/camera_info" to="$(arg depth_camera_info)"/>
+    <remap from="depth/image_rect" to="$(arg depth_image)"/>
+  </node>
+  ```
+
+### Nodes
+
+Used nodes on the architecture
+- `rtabmap/rgbd_odometry`: In charge of computing the visual odometry based on the depth and color images described above.
+- `rtabmap/rtabmapviz`: Launches the visualization tool for RTAB-Map, where the image being used to compute the odometry and SLAM is displayed, showing the features being used in the algorithm, as well as functionality for the 3D map and the odometry visualization.
+
+### Parameters
+
+The following are a set of important parameters that need to be set in RTAB-Map to ensure proper functioning.
+
+- `frame_id`: Where the odometry should be coming from. The default setting is `ugv_base_link`. If using only the camera for testing, make sure this parameter is changed to the appropiate one in the camera, `camera0_link` in the realsense driver.
+- `odom_frame_id`: The odometry frame. currently set to `ugv_odom`.
+- `publish_tf`: If needed, the RTAB-Map package can publish the transform from `ugv_odom` to `ugv_base_link`
+
+
+### Outputs
+
+  The RTAB-Map package can provide visual odometry and the resulting map if the SLAM option is being used.
+  - `/rtabmap/ugv_odom`: Odometry message [nav_msgs/Odometry.msg] that comes from the visual odometry algorithm within RTAB-Map.
+- `/rtabmap/odom_info`: A custom message [rtabmap_ros/OdomInfo] by RTAB-Map that information for the corresponding odometry message, including the last position recorded and all of the feature inliers taken into account for the odometry calculations.
+>>>>>>> Stashed changes
