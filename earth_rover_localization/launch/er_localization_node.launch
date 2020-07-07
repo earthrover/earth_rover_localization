@@ -31,17 +31,12 @@
     <param name="broadcast_utm_transform" value="true"/>
     <param name="publish_filtered_gps" value="true"/>
     <param name="use_odometry_yaw" value="false"/>
-    <param name="wait_for_datum" value="false"/>
+    <param name="wait_for_datum" value="true"/>
+    <rosparam command="load" file="$(find earth_rover_localization)/cfg/enu_origin.yaml" />
 
     <remap from="/odometry/filtered" to="/odometry/filtered/global"/>
     <remap from="/gps/fix" to="/piksi_receiver/navsatfix_best_fix"/>
-    <remap from="/imu/data" to="/heading"/>
+    <!-- <remap from="/imu/data" to="/heading"/> -->
   </node>
-
-  <!-- First RTK node -->
-  <node pkg="earth_rover_localization" type="get_first_RTK.py" name="first_RTK" args="$(arg $(find earth_rover_localization)/cfg)" output="screen">
-    <remap from="/piksi_receiver/navsatfix_best_fix" to="/piksi_receiver/navsatfix_best_fix"/>
-  </node>
-
 
  </launch>
