@@ -1,0 +1,8 @@
+<launch>
+
+  <!-- First RTK node -->
+  <node pkg="earth_rover_localization" type="get_first_RTK.py" name="first_RTK" args="$(find earth_rover_localization)/cfg" output="screen">
+    <remap from="/piksi_receiver/navsatfix_best_fix" to="/piksi_receiver/navsatfix_best_fix"/>
+  </node>
+
+</launch>
