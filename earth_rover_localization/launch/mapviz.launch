@@ -12,9 +12,9 @@
     <param name="local_xy_origin" value="swri"/>
     <rosparam param="local_xy_origins">   # Replace with Map origins. Same as robot localization datum param
       [{ name: swri,
-      latitude: 41.4678659386,
-      longitude: 2.02288158777,
-      altitude: 136.000,
+      latitude: 41.451745,
+      longitude: 2.032110,
+      altitude: 223.5,
       heading: 0.0}]
     </rosparam>
   </node>
