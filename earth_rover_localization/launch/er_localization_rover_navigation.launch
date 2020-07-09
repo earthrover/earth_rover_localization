@@ -21,7 +21,7 @@
   <!-- EKF node -->
   <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization">
     <rosparam command="load" file="$(find earth_rover_localization)/cfg/ekf_local_rover_localization.yaml" />
-    <remap from="/odometry/filtered" to="/ugv_11/earth_rover_ugv_diff/odom"/>
+    <remap from="/odometry/filtered" to="/odometry/filtered/local"/>
   </node>
 
  </launch>
