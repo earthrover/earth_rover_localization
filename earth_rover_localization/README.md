@@ -1,6 +1,6 @@
 # Earth Rover localization
 
-This package contains ROS nodes, configuration and launch files to use the EKF of the robot_localization package with the Earth Rover Open Agribot. The package has been tested in Ubuntu 16.04.3 and ROS Kinetic. If you don't have ROS installed, use the following line. 
+This package contains ROS nodes, configuration and launch files to use the EKF of the robot_localization package with the Earth Rover Open Agribot. The package has been tested in Ubuntu 16.04.3 and ROS Kinetic. If you don't have ROS installed, use the following line.
 
 ```
 $ sudo apt-get install ros-kinetic-ros-base
@@ -11,7 +11,7 @@ $ sudo apt-get install ros-kinetic-ros-base
 
 [robot_localization](http://docs.ros.org/kinetic/api/robot_localization/html/index.html): Robot Localization is a collection of state estimation nodes, each of which is an implementation of a nonlinear state estimator for robots moving in 3D space. It contains two state estimation nodes, ekf_localization_node and ukf_localization_node. In addition, robot_localization provides navsat_transform_node, which aids in the integration of GPS data.
 
-[Piksy Driver](https://github.com/earthrover/earth_rover_piksi): Driver compatible with the Swift Navigation devices. 
+[Piksy Driver](https://github.com/earthrover/earth_rover_piksi): Driver compatible with the Swift Navigation devices.
 
 [xsense Driver](https://github.com/xsens/xsens_mti_ros_node): Driver for the third and fourth generation of Xsens IMU devices
 
@@ -32,7 +32,7 @@ $ sudo apt-get install ros-kinetic-ros-base
 	```
 ### GeographicLib
 
-2. Download GeographicLib 
+2. Download GeographicLib
 
 	```
 	$ cd ~/earth_rover_ws
@@ -50,23 +50,23 @@ $ sudo apt-get install ros-kinetic-ros-base
 3. then enter the directory created, create a separate build directory and enter it.
 
 	```
-	cd GeographicLib-1.49 
+	cd GeographicLib-1.49
 	mkdir BUILD
 	cd BUILD
 	```
 
-4. Run cmake, pointing it to the source directory (..) 
+4. Run cmake, pointing it to the source directory (..)
 
 	```
 	cmake ..
-	```	
+	```
 
 5. Build and install the software. if CMAKE_INSTALL_PREFIX is a system directory
 
 	```
 	make
 	sudo make install
-	```	
+	```
 
 Further installing details can be found [here](https://geographiclib.sourceforge.io/html/install.html)
 
@@ -111,14 +111,14 @@ git checkout feature_2.14.1
 	or
 	```
 	$ sudo apt-get install ros-kinetic-gps-common
-	```	
+	```
 10. Download xsense ROS driver
 
 	```
 	$ cd ~/earth_rover_ws/src/libs/
 	$ git clone https://github.com/xsens/xsens_mti_ros_node
 	```
-### Compile	
+### Compile
 10. Compile the packages
 
 	```
@@ -129,7 +129,7 @@ git checkout feature_2.14.1
 
 - Drivers configuration to be performed on the embedded device.
 
-1. Configure the launch files for the package **on each receiver (Reference and Attitude)** according to the desired IP addresses. The configuration files can be found in `earth_rover_localization/launch/piksi_multi_rover_reference.launch` and `earth_rover_localization/launch/piksi_multi_rover_attitude.launch` respectively. This repository includes by default `reference receiver ip_address to 192.168.0.222` and `attitude receiver ip_address to 192.168.0.223` 
+1. Configure the launch files for the package **on each receiver (Reference and Attitude)** according to the desired IP addresses. The configuration files can be found in `earth_rover_localization/launch/piksi_multi_rover_reference.launch` and `earth_rover_localization/launch/piksi_multi_rover_attitude.launch` respectively. This repository includes by default `reference receiver ip_address to 192.168.0.222` and `attitude receiver ip_address to 192.168.0.223`
 
 Check the `<arg name="interface"` is set to `default="tcp"` and change the desired `tcp_addr` if necessary.
 
@@ -138,7 +138,7 @@ Check the `<arg name="interface"` is set to `default="tcp"` and change the desir
 <arg name="tcp_addr"                    default="192.168.0.222"/>
 ```
 
-2. The ROS node reads SBP (Swift Navigation Binary Protocol) messages, a fast, simple, and minimal overhead binary protocol for communicating with Swift Navigation devices. 
+2. The ROS node reads SBP (Swift Navigation Binary Protocol) messages, a fast, simple, and minimal overhead binary protocol for communicating with Swift Navigation devices.
 
 Please check [here](https://support.swiftnav.com/customer/en/portal/articles/2492810-swift-binary-protocol) which Piksi Multi firmware version based on the current SBP Lib version.
 
@@ -154,7 +154,7 @@ The following code will automatically download the required version of libsbp an
 # To install SBP, Execute this line in the package folder 'earth_rover_localization'
 source scripts/install_sbp.sh
 ```
-Check that the installations finishes succesfully. If any error appears due to locale settings, check the following [solution](https://libre-software.net/ubuntu-setting-locale/) and try the SBP installation again. 
+Check that the installations finishes succesfully. If any error appears due to locale settings, check the following [solution](https://libre-software.net/ubuntu-setting-locale/) and try the SBP installation again.
 
 3. To configure the ENU results from the ROS driver, fill the `enu_origin.yaml` on the package folder `earth_rover_localization/cfg` with the same location of the base station. **If base station is not yet configured, remember to edit this file before launching `earth_rover_localization`**
 
@@ -164,9 +164,9 @@ The following steps explain the Hardware and ROS drivers configuration to run in
 
 ### Piksy Modules
 
-The Hardware configuration uses three [Piksi Multi Evaluation Board](https://support.swiftnav.com/customer/en/portal/articles/2681333-piksi-multi-evaluation-board): A base station and two receivers on the rover (reference and attitude). 
+The Hardware configuration uses three [Piksi Multi Evaluation Board](https://support.swiftnav.com/customer/en/portal/articles/2681333-piksi-multi-evaluation-board): A base station and two receivers on the rover (reference and attitude).
 
-The reference receiver obtains corrections from base station using the [FreeWave Radio Evaluation Kit](https://support.swiftnav.com/customer/en/portal/articles/2952967-freewave-radio-evaluation-kit) and then send corrections to the attitude receiver which enables precise heading output. 
+The reference receiver obtains corrections from base station using the [FreeWave Radio Evaluation Kit](https://support.swiftnav.com/customer/en/portal/articles/2952967-freewave-radio-evaluation-kit) and then send corrections to the attitude receiver which enables precise heading output.
 
 - Swift console on a host computer
 
@@ -178,7 +178,7 @@ The reference receiver obtains corrections from base station using the [FreeWave
 
 3. Follow the configuration to enable the heading setup. Use the piksis on the rover to configure this step. **WARNING** Be aware that one receiver (reference receiver) has already be configured to receive corrections from a base station. Configure the ```enabled_sbp_messages``` on **uart1** instead to send corrections from reference to attitude through this available port. See the [documentation](https://support.swiftnav.com/customer/en/portal/articles/2805901-piksi-multi---heading) details.
 
-4. Enable the [Ethernet Configuration](https://support.swiftnav.com/customer/en/portal/articles/2740815-using-ethernet-on-piksi-multi-and-duro) on reference and attitude receivers based on the desired IP addresses to connect. 
+4. Enable the [Ethernet Configuration](https://support.swiftnav.com/customer/en/portal/articles/2740815-using-ethernet-on-piksi-multi-and-duro) on reference and attitude receivers based on the desired IP addresses to connect.
 
 ## Usage
 
@@ -223,7 +223,7 @@ The following launch file reproduces a bag file and applies the robot localizati
 $ roslaunch er_localization er_localization_player.launch
 ```
 
-The result of the localization package is the robot's pose estimation in its world frame. Then, the origin of the world frame is georeferenced and will change depending on where the scouting mission is performed. 
+The result of the localization package is the robot's pose estimation in its world frame. Then, the origin of the world frame is georeferenced and will change depending on where the scouting mission is performed.
 
 The launch will find the coordinates of the base station to set the origin of the Map frame. Check the `enu_origin.yaml` on the package folder `earth_rover_localization/cfg`. **Only if you're using the bag player, set the following location on the configuration file.**
 
@@ -299,6 +299,209 @@ $ sudo nano mapviz.launch
 ```
 $ roslaunch mapviz mapviz.launch
 ```
-- Download the config file from this repository, `cfg/mapviz_localization_config.mvc`, go to `File -> Open Config` on the top bar and upload the configuration file. 
+- Download the config file from this repository, `cfg/mapviz_localization_config.mvc`, go to `File -> Open Config` on the top bar and upload the configuration file.
+<<<<<<< HEAD
 
+- Visualization of topics should appear to follow the localization task.
+
+## Visual Odometry
+### RTAB-Map
+
+The package used for visual odometry on the rover is RTAB-Map, a package forreal-time appearance based mapping, with the capabilities of performing visual odom-etry. It supports RGB-D SLAM approach based on an incremental appearance-basedclosed loop detection.The cameras used offer three topics, one for depth, one for color, and one forinfrared images. Since the preferred approach will be RGB-D, only the depth andcolor topics will be used.
+
+To install the package, use the line
+
+```
+$ sudo apt-get install ros-$ROS_DISTRO-rtabmap-ros
+```
+To launch the visual odometry package along with the realsense camera driver, use the following command:
+
+```
+$ roslaunch earth_rover_localization er_visual_odometry.launch
+```
+The camera driver in question is associated with the launch in earth_rover_scouting `er_camera_xavier.launch`
+
+### Inputs
+
+RTAB-Map requires the depth and color images from the camera in order to work:
+
+- `/camera0/color/image_raw`: Color image message. A remap might be needed if another camera is used or if using within a simulation.
+- `/camera0/color/camera_info`: Information for the corresponding color image. This includes elements like the timestamp, pixel size, and frame onto which the image is being projected.
+- `/camera0/depth/image_rect`: Depth image mesage. When using RTAB-Map in a simulation, an additional step must be done, described below.
+
+In addition to providing the input images, the depth camera frame must be aligned to the color camera frame in order to match both cameras and ensure proper functioning. The realsense driver comes with the following option allowing for this alignment:
+
+```
+$ roslaunch realsense2_camera rs_camera.launch align_depth:=true
+```
+
+This parameter can also be directly set within the RTAB-Map launch file. In fact, the file `er_rtabmap_node.launch` already accounts for this alignment.
+
+### depth_image_proc
+
+In case the RTAB-Map package is being used within a simulation, the current version of the rover gazebo model requires the use of the `depth_image_proc` in order to make the necessary alignment, which is registering the depth image onto the color image frame. To install this package, use
+>>>>>>> Stashed changes
+
+```
+$ sudo apt-get install ros-$ROS_DISTRO-rtabmap-ros
+```
+<<<<<<< Updated upstream
+
+The package includes the visual odometry algorithm Real-Time Appearance-Based Mapping (RTABMAP). Learn more about this algorithm
+[here](http://introlab.github.io/rtabmap/).
+=======
+This structure in a launch file will align the images published by the Gazebo depth and color camera plugins:
+
+```
+   <!-- Camera Rectification Arguments-->
+  <arg name="color_image_raw"  default="/camera0/color/image_raw"/>
+  <arg name="color_camera_info"  default="/camera0/color/camera_info"/>
+  <arg name="depth_image"			  default="/camera0/depth/image_raw"/>
+  <arg name="depth_camera_info"	  default="/camera0/depth/camera_info"/>
+  <arg name="color_image_raw_rect"  default="/image_rect_color"/>
+  <arg name="depth_image_rect"	  default="$(arg depth_image)"/>
+
+  <arg name="node_suffix" default="_0"/>
+  <arg name="bonding" default="--no-bond"/>
+
+  <!-- Nodelet manager for image pipeline -->
+  <node pkg="nodelet" type="nodelet" args="manager" name="depth_manager$(arg node_suffix)"/>
+
+  <!-- Register depth to color -->
+  <node pkg="nodelet" type="nodelet" name="register$(arg node_suffix)_depth_to_color" args="load depth_image_proc/register depth_manager$(arg node_suffix) $(arg bonding)" output="screen">
+    <remap from="rgb/camera_info" to="$(arg color_camera_info)"/>
+    <remap from="depth/camera_info" to="$(arg depth_camera_info)"/>
+    <remap from="depth/image_rect" to="$(arg depth_image)"/>
+  </node>
+  ```
+
+### Nodes
+
+Used nodes on the architecture
+- `rtabmap/rgbd_odometry`: In charge of computing the visual odometry based on the depth and color images described above.
+- `rtabmap/rtabmapviz`: Launches the visualization tool for RTAB-Map, where the image being used to compute the odometry and SLAM is displayed, showing the features being used in the algorithm, as well as functionality for the 3D map and the odometry visualization.
+
+### Parameters
+
+The following are a set of important parameters that need to be set in RTAB-Map to ensure proper functioning.
+
+- `frame_id`: Where the odometry should be coming from. The default setting is `ugv_base_link`. If using only the camera for testing, make sure this parameter is changed to the appropiate one in the camera, `camera0_link` in the realsense driver.
+- `odom_frame_id`: The odometry frame. currently set to `ugv_odom`.
+- `publish_tf`: If needed, the RTAB-Map package can publish the transform from `ugv_odom` to `ugv_base_link`
+
+
+### Outputs
+
+<<<<<<< HEAD
 - Visualization of topics should appear to follow the localization task. 
+=======
+
+- Visualization of topics should appear to follow the localization task.
+>>>>>>> a93072773d8044d1528262e463d7af5d86a1c48d
+
+## Visual Odometry
+
+If necessary, install the ROS rtabmap package:
+
+```
+$ sudo apt-get install ros-$ROS_DISTRO-rtabmap-ros
+```
+
+The package includes the visual odometry algorithm Real-Time Appearance-Based Mapping (RTABMAP). Learn more about this algorithm
+[here](http://introlab.github.io/rtabmap/).
+
+### RTAB-Map
+
+The package used for visual odometry on the rover is RTAB-Map, a package forreal-time appearance based mapping, with the capabilities of performing visual odom-etry. It supports RGB-D SLAM approach based on an incremental appearance-basedclosed loop detection.The cameras used offer three topics, one for depth, one for color, and one forinfrared images. Since the preferred approach will be RGB-D, only the depth andcolor topics will be used.
+
+To install the package, use the line
+
+```
+$ sudo apt-get install ros-melodic-rtabmap-ros
+```
+To launch the visual odometry package along with the realsense camera driver, use the following command:
+
+```
+$ roslaunch earth_rover_localization er_visual_odometry.launch
+```
+The camera driver in question is associated with the launch in earth_rover_scouting `er_camera_xavier.launch`
+
+### Inputs
+
+RTAB-Map requires the depth and color images from the camera in order to work:
+
+- `/camera0/color/image_raw`: Color image message. A remap might be needed if another camera is used or if using within a simulation.
+- `/camera0/color/camera_info`: Information for the corresponding color image. This includes elements like the timestamp, pixel size, and frame onto which the image is being projected.
+- `/camera0/depth/image_rect`: Depth image mesage. When using RTAB-Map in a simulation, an additional step must be done, described below.
+
+In addition to providing the input images, the depth camera frame must be aligned to the color camera frame in order to match both cameras and ensure proper functioning. The realsense driver comes with the following option allowing for this alignment:
+
+```
+$ roslaunch realsense2_camera rs_camera.launch align_depth:=true
+```
+
+This parameter can also be directly set within the RTAB-Map launch file. In fact, the file `er_rtabmap_node.launch` already accounts for this alignment.
+
+### depth_image_proc
+
+In case the RTAB-Map package is being used within a simulation, the current version of the rover gazebo model requires the use of the `depth_image_proc` in order to make the necessary alignment, which is registering the depth image onto the color image frame. To install this package, use
+
+```
+$ sudo apt-get install ros-melodic-depth-image-proc
+```
+This structure in a launch file will align the images published by the Gazebo depth and color camera plugins:
+
+```
+   <!-- Camera Rectification Arguments-->
+  <arg name="color_image_raw"  default="/camera0/color/image_raw"/>
+  <arg name="color_camera_info"  default="/camera0/color/camera_info"/>
+  <arg name="depth_image"			  default="/camera0/depth/image_raw"/>
+  <arg name="depth_camera_info"	  default="/camera0/depth/camera_info"/>
+  <arg name="color_image_raw_rect"  default="/image_rect_color"/>
+  <arg name="depth_image_rect"	  default="$(arg depth_image)"/>
+
+  <arg name="node_suffix" default="_0"/>
+  <arg name="bonding" default="--no-bond"/>
+
+  <!-- Nodelet manager for image pipeline -->
+  <node pkg="nodelet" type="nodelet" args="manager" name="depth_manager$(arg node_suffix)"/>
+
+  <!-- Register depth to color -->
+  <node pkg="nodelet" type="nodelet" name="register$(arg node_suffix)_depth_to_color" args="load depth_image_proc/register depth_manager$(arg node_suffix) $(arg bonding)" output="screen">
+    <remap from="rgb/camera_info" to="$(arg color_camera_info)"/>
+    <remap from="depth/camera_info" to="$(arg depth_camera_info)"/>
+    <remap from="depth/image_rect" to="$(arg depth_image)"/>
+  </node>
+  ```
+
+### Nodes
+
+Used nodes on the architecture
+- `rtabmap/rgbd_odometry`: In charge of computing the visual odometry based on the depth and color images described above.
+- `rtabmap/rtabmapviz`: Launches the visualization tool for RTAB-Map, where the image being used to compute the odometry and SLAM is displayed, showing the features being used in the algorithm, as well as functionality for the 3D map and the odometry visualization.
+
+### Parameters
+
+The following are a set of important parameters that need to be set in RTAB-Map to ensure proper functioning.
+
+- `frame_id`: Where the odometry should be coming from. The default setting is `ugv_base_link`. If using only the camera for testing, make sure this parameter is changed to the appropiate one in the camera, `camera0_link` in the realsense driver.
+- `odom_frame_id`: The odometry frame. currently set to `ugv_odom`.
+- `publish_tf`: If needed, the RTAB-Map package can publish the transform from `ugv_odom` to `ugv_base_link`
+
+
+### Outputs
+
+  The RTAB-Map package can provide visual odometry and the resulting map if the SLAM option is being used.
+  - `/rtabmap/ugv_odom`: Odometry message [nav_msgs/Odometry.msg] that comes from the visual odometry algorithm within RTAB-Map.
+- `/rtabmap/odom_info`: A custom message [rtabmap_ros/OdomInfo] by RTAB-Map that information for the corresponding odometry message, including the last position recorded and all of the feature inliers taken into account for the odometry calculations.
+<<<<<<< HEAD
+
+
+=======
+  The RTAB-Map package can provide visual odometry and the resulting map if the SLAM option is being used.
+  - `/rtabmap/ugv_odom`: Odometry message [nav_msgs/Odometry.msg] that comes from the visual odometry algorithm within RTAB-Map.
+- `/rtabmap/odom_info`: A custom message [rtabmap_ros/OdomInfo] by RTAB-Map that information for the corresponding odometry message, including the last position recorded and all of the feature inliers taken into account for the odometry calculations.
+>>>>>>> Stashed changes
+>>>>>>> feature_adding_realsense
+=======
+>>>>>>> a93072773d8044d1528262e463d7af5d86a1c48d
