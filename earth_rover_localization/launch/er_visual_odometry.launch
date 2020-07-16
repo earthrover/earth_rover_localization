@@ -43,13 +43,17 @@
   </include> -->
 
   <include file="$(find earth_rover_localization)/launch/er_rtabmap_node.launch" >
-    <arg name="use_sim_time"        value="false" />
-    <arg name="rgb_topic"           value="$(arg input_rgb_img)" />
-    <arg name="camera_info_topic"   value="$(arg input_rgb_info)" />
-    <arg name="depth_topic"         value="$(arg output_depth_rgb_img)" />
-    <arg name="args"                value="--delete_db_on_start"/>
-    <arg name="approx_sync"         value="false"/>
-    <arg name="frame_id"            value="camera$(arg cam_suffix)_link"/>
+    <arg name="odom_frame_id"           value="ugv_odom"/>
+    <arg name="map_frame_id"            value="map"/>
+    <arg name="ground_truth_frame_id"   value="ugv_odom"/>
+    <arg name="rtabmapviz"              value="false" />
+    <arg name="use_sim_time"            value="false" />
+    <arg name="rgb_topic"               value="$(arg input_rgb_img)" />
+    <arg name="camera_info_topic"       value="$(arg input_rgb_info)" />
+    <arg name="depth_topic"             value="$(arg output_depth_rgb_img)" />
+    <arg name="args"                    value="--delete_db_on_start"/>
+    <arg name="approx_sync"             value="false"/>
+    <arg name="frame_id"                value="camera$(arg cam_suffix)_link"/>
   </include>
 
 </launch>
