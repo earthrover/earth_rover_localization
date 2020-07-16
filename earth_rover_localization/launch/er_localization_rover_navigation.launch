@@ -12,9 +12,6 @@
   <node pkg="tf2_ros" type="static_transform_publisher" name="map_ugv_odom" args="0 0 0 0 0 0 map ugv_odom" />
   <node pkg="tf2_ros" type="static_transform_publisher" name="map_odom" args="0 0 0 0 0 0 map odom" />
 
-  <!-- Visual Odometry node -->
-  <include file="$(find earth_rover_localization)/launch/er_visual_odometry.launch" />
-
   <!-- Sensors -->
 	<!-- Imu driver -->
   <node name="xsens_mti" pkg="xsens_driver" type="mtnode.py" respawn="true">
