@@ -45,7 +45,6 @@
   <include file="$(find earth_rover_localization)/launch/er_rtabmap_node.launch" >
     <arg name="odom_frame_id"           value="ugv_odom"/>
     <arg name="map_frame_id"            value="map"/>
-    <arg name="ground_truth_frame_id"   value="ugv_odom"/>
     <arg name="rtabmapviz"              value="false" />
     <arg name="use_sim_time"            value="false" />
     <arg name="rgb_topic"               value="$(arg input_rgb_img)" />
