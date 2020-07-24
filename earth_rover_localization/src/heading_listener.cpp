@@ -55,6 +55,9 @@
 
  void HeadingListenerNode::init()
  {
+     // Sleeping 10 sec. to wait for good heading values
+     ros::Duration(10).sleep();
+
      _sub_heading_ned = _nh.subscribe("/piksi_attitude/baseline_heading", 1000, &HeadingListenerNode::cb_heading_ned2enu, this);
      _pub_heading_enu = _nh.advertise<sensor_msgs::Imu>("/heading", 1);
 
