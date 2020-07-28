@@ -31,12 +31,6 @@
     <remap from="/odometry/filtered" to="/odometry/filtered/local"/>
   </node>
 
-  <!-- EKF global node -->
-  <node pkg="robot_localization" type="ekf_localization_node" name="ekf_global_localization">
-    <rosparam command="load" file="$(find earth_rover_localization)/cfg/ekf_global_rover_localization.yaml" />
-    <remap from="/odometry/filtered" to="/odometry/filtered/global"/>
-  </node>
-
  <!-- Navsat_transform -->
  <node pkg="robot_localization" type="navsat_transform_node" name="navsat_transform" respawn="true" output="screen">
     <param name="frequency" value="30"/>
@@ -56,5 +50,11 @@
     <remap from="/odometry/gps" to="/odometry/gps"/>
     <remap from="/gps/filtered" to="/gps/filtered"/>
   </node>
+
+  <!-- EKF global node -->
+  <!-- <node pkg="robot_localization" type="ekf_localization_node" name="ekf_global_localization">
+    <rosparam command="load" file="$(find earth_rover_localization)/cfg/ekf_global_rover_localization.yaml" />
+    <remap from="/odometry/filtered" to="/odometry/filtered/global"/>
+  </node> -->
 
  </launch>
