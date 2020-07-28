@@ -21,11 +21,10 @@
   <!-- Heading Listener node-->
   <node pkg="earth_rover_localization" type="heading_listener" name="heading_listener" output="log" />
 
-  <!-- EKF node -->
-  <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization">
+  <!-- EKF local node -->
+  <node pkg="robot_localization" type="ekf_localization_node" name="ekf_local_localization">
     <rosparam command="load" file="$(find earth_rover_localization)/cfg/ekf_local_rover_localization.yaml" />
     <remap from="/odometry/filtered" to="/odometry/filtered/local"/>
   </node>
-
 
  </launch>
