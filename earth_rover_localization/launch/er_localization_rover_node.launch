@@ -25,6 +25,12 @@
   <!-- Heading Listener node-->
   <node pkg="earth_rover_localization" type="heading_listener" name="heading_listener" output="log" />
 
+  <!-- EKF global node -->
+  <node pkg="robot_localization" type="ekf_localization_node" name="ekf_global_localization">
+    <rosparam command="load" file="$(find earth_rover_localization)/cfg/ekf_global_rover_localization.yaml" />
+    <remap from="/odometry/filtered" to="/odometry/filtered/global"/>
+  </node>
+  
   <!-- EKF local node -->
   <node pkg="robot_localization" type="ekf_localization_node" name="ekf_local_localization">
     <rosparam command="load" file="$(find earth_rover_localization)/cfg/ekf_local_rover_localization.yaml" />
@@ -50,11 +56,5 @@
     <remap from="/odometry/gps" to="/odometry/gps"/>
     <remap from="/gps/filtered" to="/gps/filtered"/>
   </node>
-
-  <!-- EKF global node -->
-  <!-- <node pkg="robot_localization" type="ekf_localization_node" name="ekf_global_localization">
-    <rosparam command="load" file="$(find earth_rover_localization)/cfg/ekf_global_rover_localization.yaml" />
-    <remap from="/odometry/filtered" to="/odometry/filtered/global"/>
-  </node> -->
 
  </launch>
