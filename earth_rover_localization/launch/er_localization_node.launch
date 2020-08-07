@@ -20,7 +20,6 @@
     <remap from="/odometry/filtered" to="/odometry/filtered/global"/>
   </node>
 
-
  <!-- Navsat_transform -->
  <node pkg="robot_localization" type="navsat_transform_node" name="navsat_transform" respawn="true" output="screen">
     <param name="frequency" value="30"/>
@@ -31,11 +30,11 @@
     <param name="broadcast_utm_transform" value="true"/>
     <param name="publish_filtered_gps" value="true"/>
     <param name="use_odometry_yaw" value="false"/>
-    <param name="wait_for_datum" value="false"/>
+    <param name="wait_for_datum" value="true"/>
+    <rosparam command="load" file="$(find earth_rover_localization)/cfg/datum.yaml" />
 
     <remap from="/odometry/filtered" to="/odometry/filtered/global"/>
     <remap from="/gps/fix" to="/piksi_receiver/navsatfix_best_fix"/>
-    <remap from="/imu/data" to="/heading"/>
   </node>
 
  </launch>
