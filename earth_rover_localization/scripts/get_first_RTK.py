@@ -22,7 +22,9 @@ msg = rospy.wait_for_message('/piksi_receiver/navsatfix_best_fix', NavSatFix, ti
 text_file = open(opath+"/datum.yaml", "w")
 text_file.write("datum: [" + str(msg.latitude) + ", " + str(msg.longitude) + ", 0]")
 text_file.close()
+rospy.loginfo("datum updated")
 
 text_file = open(opath+"/local_xy_origins.yaml", "w")
 text_file.write("local_xy_origins: [{name: swri, latitude: " + str(msg.latitude) + ", longitude: " + str(msg.longitude) + ", altitude: " + str(msg.altitude) + ", heading: 0}]")
 text_file.close()
+rospy.loginfo("local_xy_origins updated")
