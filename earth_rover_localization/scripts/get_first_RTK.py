@@ -18,14 +18,14 @@ class FirstRTK():
         sub = rospy.Subscriber('/piksi_receiver/navsatfix_best_fix', NavSatFix, callback)
 
     def callback(self, msg):
-        text_file = open(self.opath/+"enu_origin.yaml", "w")
-        text_file.write("latitude0_deg: " + msg.latitude)
-        text_file.close()
-
         text_file = open(self.opath/+"enu_origin.yaml", "a")
+        text_file.write("latitude0_deg: " + msg.latitude)
         text_file.write("longitude0_deg: " + msg.longitude)
         text_file.write("altitude0: " + msg.altitude)
         text_file.close()
+
+        text_file_2 = open(self.opath/+"datum.yaml", "w")
+        text_file_2.write("datum: ["+msg.latitude+", "+msg.longitude+","+"0.0]")
 
     # While loop
     def main(self):
