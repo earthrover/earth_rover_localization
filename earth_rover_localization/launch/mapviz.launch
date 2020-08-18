@@ -14,14 +14,7 @@
   <node pkg="swri_transform_util" type="initialize_origin.py" name="initialize_origin" output="screen">
     <param name="local_xy_frame" value="map"/>
     <param name="local_xy_origin" value="swri"/>
-    <!-- <rosparam param="local_xy_origins">   # Replace with Map origins. Same as robot localization datum param
-      [{ name: swri,
-      latitude: 53.4386604283,
-      longitude: -0.932653757765,
-      altitude: 50.7238057501,
-      heading: 0}]
-    </rosparam> -->
-    <rosparam command="load" file="$(find earth_rover_localization)/cfg/enu_origin.yaml" />
+    <rosparam command="load" file="$(find earth_rover_localization)/cfg/local_xy_origins.yaml" />
   </node>
 
   <node pkg="mapviz" type="mapviz" name="mapviz"></node>
