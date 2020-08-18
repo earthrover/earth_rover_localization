@@ -11,37 +11,19 @@ import os
 import rospy
 from sensor_msgs.msg import NavSatFix
 
-class FirstRTK():
+# init ros node
+rospy.init_node('first_RTK')
 
-    def __init__(self, opath):
-        self.opath = opath
-        sub = rospy.Subscriber('/piksi_receiver/navsatfix_best_fix', NavSatFix, callback)
+opath = sys.argv[1]
 
-    def callback(self, msg):
-        text_file = open(self.opath/+"enu_origin.yaml", "a")
-        text_file.write("latitude0_deg: " + msg.latitude)
-        text_file.write("longitude0_deg: " + msg.longitude)
-        text_file.write("altitude0: " + msg.altitude)
-        text_file.close()
+# Subscribe once to RTK topic and get first msg
+msg = rospy.wait_for_message('/piksi_receiver/navsatfix_best_fix', NavSatFix, timeout=None)
 
-        text_file_2 = open(self.opath/+"datum.yaml", "w")
-        text_file_2.write("datum: ["+msg.latitude+", "+msg.longitude+","+"0.0]")
+# Write GPS corrdinates to yaml cfg file
+text_file = open(opath+"/datum.yaml", "w")
+text_file.write("datum: [" + str(msg.latitude) + ", " + str(msg.longitude) + ", 0]")
+text_file.close()
 
-    # While loop
-    def main(self):
-        try:
-            rospy.spin()
-        except (rospy.ROSInterruptException):
-            pass
-
-if __name__ == "__main__":
-
-    # get passed arguments:
-    input_args = rospy.myargv(argv=sys.argv)
-    output_path = input_args[1]
-
-    # init ros node
-    rospy.init_node('first_RTK')
-    listen_rtk = FirstRTK(opath=output_path)
-
-    listen_rtk.main()
+text_file = open(opath+"/local_xy_origins.yaml", "w")
+text_file.write("local_xy_origins: [{name: swri, latitude: " + str(msg.latitude) + ", longitude: " + str(msg.longitude) + ", altitude: " + str(msg.altitude) + ", heading: 0}]")
+text_file.close()
