@@ -1,25 +1,13 @@
-<!-- EarthRover Localization
-  This file includes nodes to launch Robot localization
-  Author: Andres Felipe Palomino (apalomino@edgebrain.io)
+<!-- Copyright (C) 2019 Earth Rover Limited. All rights reserved. -->
+
+<!-- Scouting system
+  This file launches the localization system.
+  Author: David Llevat Pamies (dllevat@edgebrain.io)
+  Date: 05/2019
 -->
 
 <launch>
 
-  <!-- Use sim time when playing back bag files with the clock flag -->
-  <param name="use_sim_time" value="true"/>
-
-  <!-- Bag player Node  -->
-  <arg name="path" default="$(find earth_rover_localization)/bag_files/piksi-multi-debug-2018-12-05-15-42-46.bag" /> # Write the path to your bag file
-  <node name="player" type="play" pkg="rosbag" args="--delay 1 --clock $(arg path)" output="screen" />
-
-  <!-- Transforms  -->  # Static transforms of the different frames of incoming data
-  <!-- IMU  -->
-  <node pkg="tf2_ros" type="static_transform_publisher" name="bl_imu" args="0 0 0 0 0 0 base_link xsens" />
-  <!-- GPS  -->
-  <node pkg="tf2_ros" type="static_transform_publisher" name="bl_gps_receiver" args="0 -0.95 0 0 0 0 base_link gps_receiver" />
-  <node pkg="tf2_ros" type="static_transform_publisher" name="bl_gps_attitude" args="0 0.95 0 0 0 0 base_link gps_attitude" />
-  <!-- Camera  -->
-  <!-- <node pkg="tf2_ros" type="static_transform_publisher" name="bl_gps" args="0 0 0 0 0 0 base_link camera_frame" /> -->
   <!-- Odom Frame  -->
   <node pkg="tf2_ros" type="static_transform_publisher" name="map_odom" args="0 0 0 0 0 0 map odom" />
 
@@ -44,10 +32,11 @@
     <param name="publish_filtered_gps" value="true"/>
     <param name="use_odometry_yaw" value="false"/>
     <param name="wait_for_datum" value="true"/>
-      <rosparam param="datum">[53.433998, -0.908099, 0.0]</rosparam>    # Replace with desired Map origins. Check convergence value
+    <rosparam command="load" file="$(find earth_rover_localization)/cfg/datum.yaml" />
 
     <remap from="/odometry/filtered" to="/odometry/filtered/global"/>
     <remap from="/gps/fix" to="/piksi_receiver/navsatfix_best_fix"/>
+    <!-- <remap from="/imu/data" to="/heading"/> -->
   </node>
 
  </launch>

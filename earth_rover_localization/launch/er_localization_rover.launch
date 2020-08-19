@@ -1,5 +1,5 @@
-<!-- EarthRover Localization 
-  This file includes nodes to launch Robot localization 
+<!-- EarthRover Localization
+  This file includes nodes to launch Robot localization
   Author: Andres Felipe Palomino (apalomino@edgebrain.io)
 -->
 
@@ -10,22 +10,22 @@
   <!-- IMU  -->
   <node pkg="tf2_ros" type="static_transform_publisher" name="bl_imu" args="0 0 0 0 0 0 base_link xsens" />
   <!-- GPS  -->
-  <node pkg="tf2_ros" type="static_transform_publisher" name="bl_gps_receiver" args="0 -0.95 0 0 0 0 base_link gps_receiver" /> 
-  <node pkg="tf2_ros" type="static_transform_publisher" name="bl_gps_attitude" args="0 0.95 0 0 0 0 base_link gps_attitude" /> 
+  <node pkg="tf2_ros" type="static_transform_publisher" name="bl_gps_receiver" args="0 -0.95 0 0 0 0 base_link gps_receiver" />
+  <node pkg="tf2_ros" type="static_transform_publisher" name="bl_gps_attitude" args="0 0.95 0 0 0 0 base_link gps_attitude" />
   <!-- Camera  -->
   <!-- <node pkg="tf2_ros" type="static_transform_publisher" name="bl_gps" args="0 0 0 0 0 0 base_link camera_frame" /> -->
-  <!-- Odom Frame  -->  
-  <node pkg="tf2_ros" type="static_transform_publisher" name="map_odom" args="0 0 0 0 0 0 map odom" /> 
+  <!-- Odom Frame  -->
+  <node pkg="tf2_ros" type="static_transform_publisher" name="map_odom" args="0 0 0 0 0 0 map odom" />
 
   <!-- Heading Listener node-->
-  <node pkg="earth_rover_localization" type="heading_listener" name="heading_listener" output="log" /> 
+  <node pkg="earth_rover_localization" type="heading_listener" name="heading_listener" output="log" />
 
   <!-- EKF node -->
   <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization">
     <rosparam command="load" file="$(find earth_rover_localization)/cfg/ekf_imu_heading_localization.yaml" />
     <remap from="/odometry/filtered" to="/odometry/filtered/global"/>
   </node>
-    
+
 
  <!-- Navsat_transform -->
  <node pkg="robot_localization" type="navsat_transform_node" name="navsat_transform" respawn="true" output="screen">
@@ -34,19 +34,14 @@
     <param name="magnetic_declination_radians" value="0.0"/>
     <param name="yaw_offset" value="0"/>
     <param name="zero_altitude" value="false"/>
-    <param name="broadcast_utm_transform" value="true"/>        
+    <param name="broadcast_utm_transform" value="true"/>
     <param name="publish_filtered_gps" value="true"/>
     <param name="use_odometry_yaw" value="false"/>
     <param name="wait_for_datum" value="true"/>
-      <rosparam param="datum">[41.4678702, 2.0227646, -0.0113143]</rosparam>    # Replace with desired Map origins. Check convergence value 
+      <rosparam param="datum">[53.433998, -0.908099, 0.0]</rosparam>    # Replace with desired Map origins. Check convergence value
 
     <remap from="/odometry/filtered" to="/odometry/filtered/global"/>
-    <remap from="/gps/fix" to="/piksi_receiver/navsatfix_best_fix"/>    
+    <remap from="/gps/fix" to="/piksi_receiver/navsatfix_best_fix"/>
   </node>
 
-
-  <!-- Set_datum_service. Origin of Map coordinates -->
-  <include file="$(find earth_rover_localization)/launch/er_localization_set_datum.launch"/>
-
  </launch>
-
