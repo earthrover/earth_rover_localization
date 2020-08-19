@@ -8,8 +8,6 @@
 
 <launch>
 
-  <launch>
-    <node pkg="earth_rover_localization" type="start_localization.sh" name="localization_init" />
-  </launch>
+  <node pkg="earth_rover_localization" type="start_localization.sh" name="localization_init" />
 
 </launch>
