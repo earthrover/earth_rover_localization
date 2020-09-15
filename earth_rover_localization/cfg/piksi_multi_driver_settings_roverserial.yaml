@@ -31,7 +31,7 @@ broadcast_port: 26078
 base_station_ip_for_latency_estimation: 192.168.0.1
 
 # Coordinate frame of the GPS receiver with respect to the base link.
-navsatfix_frame_id: 'scouting_base_link'
+navsatfix_frame_id: 'er_base_link'
 
 # Covariance Settings
 # Variance to be published in the NavSatFix message (in diagonal part).

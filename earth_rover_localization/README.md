@@ -327,12 +327,12 @@ As you can see, the **raw data input** is composed by the topics (the sensors ar
 
 - `/tf`: a [tf/tfMessage.msg](http://docs.ros.org/melodic/api/tf/html/msg/tfMessage.html) message containing all the required transformations for the localization, namely:
 
-	- the robot model frames: `/scouting_base_link`, `/piksi_receiver`, `/piksi_attitude`, `/xsens`.
+	- the robot model frames: `/er_base_link`, `/piksi_receiver`, `/piksi_attitude`, `/xsens`.
 	- the relation between the frames: `/map` and `/odom` (for now, this is constant).
 
 #### Output data
 The result of this node is composed by the estimated position of the robot expressed in three different ways, the topics:
-- `/odometry/filtered/global`: a [nav_msgs/Odometry.msg](http://docs.ros.org/melodic/api/nav_msgs/html/msg/Odometry.html) message containing the filtered robot position in frame `/odom`->`/scouting_base_link`. This data is in `cartesian` coordinates.
+- `/odometry/filtered/global`: a [nav_msgs/Odometry.msg](http://docs.ros.org/melodic/api/nav_msgs/html/msg/Odometry.html) message containing the filtered robot position in frame `/odom`->`/er_base_link`. This data is in `cartesian` coordinates.
 
 - `/tf`: a [tf/tfMessage.msg](http://docs.ros.org/melodic/api/tf/html/msg/tfMessage.html) message containing the `/odometry/filtered/global` data.
 
