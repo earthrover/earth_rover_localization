@@ -1,0 +1,60 @@
+<!-- Copyright (C) 2019 Earth Rover Limited. All rights reserved. -->
+
+<!-- Scouting system
+  This file launches the localization system.
+  Author: David Llevat Pamies (dllevat@edgebrain.io)
+  Date: 05/2019
+-->
+
+<launch>
+
+  <!-- Odom Frame  -->
+  <node pkg="tf2_ros" type="static_transform_publisher" name="map_ugv_odom" args="0 0 0 0 0 0 map ugv_odom" />
+  <node pkg="tf2_ros" type="static_transform_publisher" name="map_odom" args="0 0 0 0 0 0 map odom" />
+
+  <!-- Sensors -->
+  <!-- Piksi Reference receiver -->
+	<include file="$(find earth_rover_localization)/launch/piksi_multi_rover_reference.launch"/>
+	<!-- Piksi Attitude receiver -->
+	<include file="$(find earth_rover_localization)/launch/piksi_multi_rover_attitude.launch"/>
+	<!-- Imu driver -->
+  <node name="xsens_mti" pkg="xsens_driver" type="mtnode.py" respawn="true">
+      <rosparam command="load" file="$(find earth_rover_localization)/cfg/imu.yaml"/>
+  </node>
+
+  <!-- Heading Listener node-->
+  <node pkg="earth_rover_localization" type="heading_listener" name="heading_listener" output="log" />
+
+  <!-- EKF global node -->
+  <node pkg="robot_localization" type="ekf_localization_node" name="ekf_global_localization">
+    <rosparam command="load" file="$(find earth_rover_localization)/cfg/ekf_global_rover_localization.yaml" />
+    <remap from="/odometry/filtered" to="/odometry/filtered/global"/>
+  </node>
+  
+  <!-- EKF local node -->
+  <node pkg="robot_localization" type="ekf_localization_node" name="ekf_local_localization">
+    <rosparam command="load" file="$(find earth_rover_localization)/cfg/ekf_local_rover_localization.yaml" />
+    <remap from="/odometry/filtered" to="/odometry/filtered/local"/>
+  </node>
+
+ <!-- Navsat_transform -->
+ <node pkg="robot_localization" type="navsat_transform_node" name="navsat_transform" respawn="true" output="screen">
+    <param name="frequency" value="30"/>
+    <param name="delay" value="3.0"/>
+    <param name="magnetic_declination_radians" value="0.0"/>
+    <param name="yaw_offset" value="0"/>
+    <param name="zero_altitude" value="false"/>
+    <param name="broadcast_utm_transform" value="true"/>
+    <param name="publish_filtered_gps" value="true"/>
+    <param name="use_odometry_yaw" value="false"/>
+    <param name="wait_for_datum" value="false"/>
+
+    <remap from="/odometry/filtered" to="/odometry/filtered/global"/>
+    <remap from="/gps/fix" to="/piksi_receiver/navsatfix_best_fix"/>
+    <remap from="/imu/data" to="/heading"/>
+
+    <remap from="/odometry/gps" to="/odometry/gps"/>
+    <remap from="/gps/filtered" to="/gps/filtered"/>
+  </node>
+
+ </launch>
