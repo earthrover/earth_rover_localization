@@ -12,16 +12,6 @@
   <node pkg="tf2_ros" type="static_transform_publisher" name="map_ugv_odom" args="0 0 0 0 0 0 map ugv_odom" />
   <node pkg="tf2_ros" type="static_transform_publisher" name="map_odom" args="0 0 0 0 0 0 map odom" />
 
-  <!-- Sensors -->
-  <!-- Piksi Reference receiver -->
-	<include file="$(find earth_rover_localization)/launch/piksi_multi_rover_reference.launch"/>
-	<!-- Piksi Attitude receiver -->
-	<include file="$(find earth_rover_localization)/launch/piksi_multi_rover_attitude.launch"/>
-	<!-- Imu driver -->
-  <node name="xsens_mti" pkg="xsens_driver" type="mtnode.py" respawn="true">
-      <rosparam command="load" file="$(find earth_rover_localization)/cfg/imu.yaml"/>
-  </node>
-
   <!-- Heading Listener node-->
   <node pkg="earth_rover_localization" type="heading_listener" name="heading_listener" output="log" />
 
@@ -47,8 +37,9 @@
     <param name="broadcast_utm_transform" value="true"/>
     <param name="publish_filtered_gps" value="true"/>
     <param name="use_odometry_yaw" value="false"/>
-    <param name="wait_for_datum" value="false"/>
-
+    <param name="wait_for_datum" value="true"/>
+    <rosparam command="load" file="$(find earth_rover_localization)/cfg/datum.yaml" />
+    
     <remap from="/odometry/filtered" to="/odometry/filtered/global"/>
     <remap from="/gps/fix" to="/piksi_receiver/navsatfix_best_fix"/>
     <remap from="/imu/data" to="/heading"/>
