@@ -42,7 +42,7 @@
     
     <remap from="/odometry/filtered" to="/odometry/filtered/global"/>
     <remap from="/gps/fix" to="/piksi_receiver/navsatfix_best_fix"/>
-    <remap from="/imu/data" to="/heading"/>
+    <!--<remap from="/imu/data" to="/heading"/>-->
 
     <remap from="/odometry/gps" to="/odometry/gps"/>
     <remap from="/gps/filtered" to="/gps/filtered"/>
