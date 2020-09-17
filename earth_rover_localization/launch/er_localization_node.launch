@@ -9,7 +9,7 @@
 <launch>
 
   <!-- Settings -->
-  <arg name="mouting"    default="tractor" />
+  <arg name="mounting"    default="tractor" />
 
   <node pkg="earth_rover_localization" type="start_localization.sh" name="localization_init" args="$(arg mounting)"/>
 
