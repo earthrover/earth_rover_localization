@@ -99,7 +99,7 @@ displays:
     config:
       visible: false
       collapsed: true
-      frame: er_base_link
+      frame: scouting_base_link
       color: "#0000ff"
       draw_style: lines
       position_tolerance: 0
