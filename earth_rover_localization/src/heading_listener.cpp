@@ -50,6 +50,7 @@
      ros::Subscriber _sub_imu_vru;
      ros::Publisher  _pub_heading_enu;
      ros::Publisher  _pub_imu_enu;
+    ros::Publisher  _pub_heading_degrees;
 
  };
 
@@ -60,6 +61,7 @@
 
      _sub_imu_vru = _nh.subscribe("/mti/sensor/imu", 1000, &HeadingListenerNode::cb_imu_vru2enu, this);
      _pub_imu_enu = _nh.advertise<sensor_msgs::Imu>("/imu", 1);
+     _pub_heading_degrees = _nh.advertise<std_msgs::Float32>("/heading", 1);
 
      _imu.orientation_covariance[0] = (1 * M_PI/180.0)*(1 * M_PI/180.0);
      _imu.orientation_covariance[4] = _imu.orientation_covariance[0];
@@ -93,6 +95,9 @@
      // Save heading in degrees
      _heading_new = true;
      _heading0 = heading_deg.data;
+
+     //Update last message stamp
+     _pub_heading_degrees.publish(heading_deg);
 
      // Debug heading readings
      ROS_DEBUG("Heading : [%d] deg ENU: [%f] rad ENU: [%f]", heading.data, heading_deg.data, heading_radians.data);
