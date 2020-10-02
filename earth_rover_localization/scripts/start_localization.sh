@@ -9,10 +9,12 @@ then
    roslaunch earth_rover_localization scouting_localization_node.launch
 elif [ ${mount} == "rover" ]
 then
-   local_node= $(rosnode list | grep localization)
+   local_node= $(rosnode list | grep ekf)
+   echo $local_node
    if [ -z ${local_node}]
    then
-   roslaunch earth_rover_localization rover_localization_node.launch 
+    echo "OK"
+   roslaunch earth_rover_localization rover_localization_node.launch
    fi
 else
    echo "ERROR: ${mount} is not an acceptable argument"

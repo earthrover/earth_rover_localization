@@ -66,7 +66,7 @@ publish_acceleration: false
 map_frame: map              # Defaults to "map" if unspecified
 odom_frame: odom            # Defaults to "odom" if unspecified
 base_link_frame: scouting_base_link  # Defaults to "base_link" if unspecified
-world_frame: odom           # Defaults to the value of odom_frame if unspecified
+world_frame: map           # Defaults to the value of odom_frame if unspecified
 
 predict_to_current_time: true
 
