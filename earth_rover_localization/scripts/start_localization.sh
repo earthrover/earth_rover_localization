@@ -13,6 +13,7 @@ then
    if [ -z ${local_node}]
    then
    roslaunch earth_rover_localization rover_localization_node.launch 
+   fi
 else
    echo "ERROR: ${mount} is not an acceptable argument"
 fi
