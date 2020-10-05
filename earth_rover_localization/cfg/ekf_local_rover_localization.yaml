@@ -64,9 +64,9 @@ publish_acceleration: false
 #     3b. MAKE SURE something else is generating the odom->base_link transform. Note that this can even be another state
 #         estimation node from robot_localization! However, that instance should *not* fuse the global data.
 map_frame: map              # Defaults to "map" if unspecified
-odom_frame: odom            # Defaults to "odom" if unspecified
-base_link_frame: scouting_base_link  # Defaults to "base_link" if unspecified
-world_frame: odom           # Defaults to the value of odom_frame if unspecified
+odom_frame: ugv_odom            # Defaults to "odom" if unspecified
+base_link_frame: ugv_base_link  # Defaults to "base_link" if unspecified
+world_frame: ugv_odom           # Defaults to the value of odom_frame if unspecified
 
 predict_to_current_time: true
 
