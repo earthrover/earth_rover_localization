@@ -10,10 +10,8 @@ then
 elif [ ${mount} == "rover" ]
 then
    local_node= $(rosnode list | grep ekf)
-   echo $local_node
-   if [ -z ${local_node}]
+   if [ -z ${local_node} ]
    then
-    echo "OK"
    roslaunch earth_rover_localization rover_localization_node.launch
    fi
 else
