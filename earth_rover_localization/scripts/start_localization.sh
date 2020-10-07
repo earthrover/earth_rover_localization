@@ -9,7 +9,7 @@ then
    roslaunch earth_rover_localization scouting_localization_node.launch
 elif [ ${mount} == "rover" ]
 then
-   local_node= $(rosnode list | grep ekf)
+   local_node= $(rosnode list | grep ekf_global_localization)
    if [ -z ${local_node} ]
    then
    roslaunch earth_rover_localization rover_localization_node.launch
