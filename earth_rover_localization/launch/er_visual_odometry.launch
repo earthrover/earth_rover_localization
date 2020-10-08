@@ -24,9 +24,10 @@
   <!-- Realsense Camera driver -->
   <include file="$(find earth_rover_scouting_system)/launch/er_camera_xavier.launch" >
     <arg name="camera"      value="camera$(arg cam_suffix)"/>
+    <!--For realsense 455 fps=5,15,30,60 for 435 fps=6-->
     <arg name="depth_fps"   value="15"/>
     <arg name="color_fps"   value="15"/>
-    <arg name="infra_fps"   value="6"/>  <!--eliminate-->
+    <arg name="infra_fps"   value="15"/>  <!--eliminate-->
   </include>
 
   <!-- Depth and ir registration to color -->
@@ -50,7 +51,7 @@
     <arg name="depth_topic"         value="$(arg output_depth_rgb_img)" />
     <arg name="args"                value="--delete_db_on_start"/>
     <arg name="approx_sync"         value="false"/>
-    <!--<arg name="frame_id"            value="camera$(arg cam_suffix)_link"/>-->
+    <arg name="frame_id"            value="camera$(arg cam_suffix)_link"/>
   </include>
 
 </launch>

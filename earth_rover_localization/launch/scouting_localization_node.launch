@@ -9,7 +9,8 @@
 <launch>
 
   <!-- Odom Frame  -->
-  <node pkg="tf2_ros" type="static_transform_publisher" name="map_odom" args="0 0 0 0 0 0 map odom" />
+  <node pkg="tf2_ros" type="static_transform_publisher" name="map_odom" args="0 0 0 0 0 0 map scouting_base_link" />
+  <node pkg="tf2_ros" type="static_transform_publisher" name="odom_scoutingbaselink" args="0 0 0 0 0 0 odom scouting_base_link" />
 
   <!-- Heading Listener node-->
   <node pkg="earth_rover_localization" type="heading_listener" name="heading_listener" output="log" />

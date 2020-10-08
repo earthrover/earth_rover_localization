@@ -1,0 +1,20 @@
+<launch>
+
+  <!--Load rover model to simulate -->
+  <!--<include file="$(find earth_rover_ugv_controller)/launch/earth_rover_load_model.launch" />-->
+
+  <!--Load sensors from scouting box-->
+  <include file="$(find earth_rover_scouting_system)/launch/model_test.launch" />
+
+  <node type="rviz" name="rviz" pkg="rviz" />
+  <!-- <arg name="rvizconfig"  default="$(find earth_rover_ugv_description)/rviz/display.rviz" /> -->
+
+  <!-- <node name="joint_state_publisher" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" /> -->
+
+  <!-- <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" /> -->
+  <!--<node pkg="tf" type="static_transform_publisher" name="camera_0_link2ugv_tf" args="-0.045 0 0 0 0 0  ugv_base_link 100"/>-->
+
+  <!--Load realsense to simulate visual odometry-->
+  <!-- <include file="$(find earth_rover_localization)/launch/er_visual_odometry.launch" /> -->
+
+</launch>
