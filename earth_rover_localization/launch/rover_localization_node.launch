@@ -8,8 +8,8 @@
 
 <launch>
 
-  <arg name="enable_sensors"    default="true" />
-  <arg name="cam_suffix"        default="_0" />
+  <!-- <arg name="enable_sensors"    default="true" />
+  <arg name="cam_suffix"        default="_0" /> -->
 
   <!-- Odom Frame  -->
   <!-- <node pkg="tf2_ros" type="static_transform_publisher" name="map_ugv_odom" args="0.02 0 0 0 0 0 map ugv_odom" /> -->
@@ -19,15 +19,15 @@
   <node pkg="earth_rover_localization" type="heading_listener" name="heading_listener" output="log" />
 
   <!-- Launch sensors -->
-  <include if="$(eval enable_sensors)" file="$(find earth_rover_scouting_system)/launch/scouting_system_sensors.launch" >
+  <!-- <include if="$(eval enable_sensors)" file="$(find earth_rover_scouting_system)/launch/scouting_system_sensors.launch" >
     <arg name="cam_suffix"   value="$(arg cam_suffix)" />
-  </include >
+  </include > -->
 
   <!-- Load the scouting box model -->
-  <include file="$(find earth_rover_scouting_system)/launch/scouting_model.launch" >
+  <!-- <include file="$(find earth_rover_scouting_system)/launch/scouting_model.launch" >
     <arg name="cam_suffix"   value="$(arg cam_suffix)" />
     <arg name="model" value="tfl21_rover" />
-  </include >
+  </include > -->
 
   <!-- EKF global node -->
   <node pkg="robot_localization" type="ekf_localization_node" name="ekf_global_localization">
