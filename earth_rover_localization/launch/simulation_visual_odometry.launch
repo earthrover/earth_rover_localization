@@ -16,7 +16,10 @@
 
   <!--Load realsense to simulate visual odometry-->
   <include file="$(find earth_rover_localization)/launch/er_visual_odometry.launch">
-    <!-- <arg name="publish_tf_camera"   default="false"/> -->
+    <arg name="publish_tf_camera"   default="true"/>
+    <arg name="cam_suffix"    default="_1"/>
   </include>
+
+  <!-- <node pkg="tf2_ros" type="static_transform_publisher" name="camera_0_1_tf" args="0 0 0 0 0 0 1  camera_0_link camera_1_link"/> -->
 
 </launch>
