@@ -5,6 +5,7 @@
   <arg name="input_rgb_info"    default="/camera$(arg cam_suffix)/color/camera_info" />
   <arg name="input_rgb_img"     default="/camera$(arg cam_suffix)/color/image_raw" />
   <arg name="output_depth_rgb_img"    default="/camera$(arg cam_suffix)/aligned_depth_to_color/image_raw" />
+  <arg name="odom_topic"        default="odom"/>
 
   <include file="$(find earth_rover_localization)/launch/er_rtabmap_node.launch" >
     <arg name="use_sim_time"        value="false" />
@@ -14,6 +15,7 @@
     <arg name="args"                value="--delete_db_on_start"/>
     <arg name="approx_sync"         value="false"/>
     <arg name="frame_id"            value="camera$(arg cam_suffix)_link"/>
+    <arg name="odom_topic"          value="$(arg odom_topic)"/>
   </include>
 
 </launch>
