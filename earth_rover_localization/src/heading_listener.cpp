@@ -40,6 +40,7 @@
      double _imu0 = 0.0;
      // Offset angle between the heading frame and the imu frame
      double _yaw_hi = 180.0;
+     std::string _mounting_type = "tractor";
 
      // public ros node handle
      ros::NodeHandle _nh;
@@ -49,6 +50,8 @@
      ros::Subscriber _sub_heading_ned;
      ros::Subscriber _sub_imu_vru;
      ros::Publisher  _pub_heading_enu;
+     ros::Publisher  _pub_heading_enu_deg;
+
      ros::Publisher  _pub_imu_enu;
 
  };
@@ -60,6 +63,8 @@
 
      _sub_heading_ned = _nh.subscribe("/piksi_attitude/baseline_heading", 1000, &HeadingListenerNode::cb_heading_ned2enu, this);
      _pub_heading_enu = _nh.advertise<sensor_msgs::Imu>("/heading", 1);
+     _pub_heading_enu_deg = _nh.advertise<sensor_msgs::Imu>("/heading_deg", 1);
+
 
      _sub_imu_vru = _nh.subscribe("/mti/sensor/imu", 1000, &HeadingListenerNode::cb_imu_vru2enu, this);
      _pub_imu_enu = _nh.advertise<sensor_msgs::Imu>("/imu", 1);
@@ -73,6 +78,9 @@
      _imu.linear_acceleration_covariance[0] = 0.0004;
      _imu.linear_acceleration_covariance[4] = _imu.linear_acceleration_covariance[0];
      _imu.linear_acceleration_covariance[8] = _imu.linear_acceleration_covariance[0];
+     
+     _nh.getParam("mount_type", _mounting_type);
+
  }
 
  void HeadingListenerNode::cb_heading_ned2enu(const piksi_rtk_msgs::BaselineHeading::ConstPtr& msg)
@@ -89,6 +97,12 @@
      heading_deg.data = (float)heading.data/1000;
      heading_deg.data = 360 - heading_deg.data;    // Orientation increasing Counter clockwise
      heading_deg.data = heading_deg.data + 90;    // 0° pointing East
+
+     //Correct heading for rover configuration
+     if(_mounting_type == "rover"){
+        heading_deg.data = heading_deg.data - 180;    // 0° pointing East
+     }
+     
      if (heading_deg.data > 360.0)
          heading_deg.data = heading_deg.data - 360.0;
      heading_radians.data = heading_deg.data * M_PI/180.0;
@@ -99,6 +113,8 @@
 
      // Debug heading readings
      ROS_DEBUG("Heading : [%d] deg ENU: [%f] rad ENU: [%f]", heading.data, heading_deg.data, heading_radians.data);
+     //Publish heading in degrees
+     _pub_heading_enu_deg.publish(heading_deg.data);
 
      // Create imu msg from heading RTK
      heading_rtk.header.stamp = msg->header.stamp;
