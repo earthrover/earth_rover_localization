@@ -114,7 +114,7 @@
      // Debug heading readings
      ROS_DEBUG("Heading : [%d] deg ENU: [%f] rad ENU: [%f]", heading.data, heading_deg.data, heading_radians.data);
      //Publish heading in degrees
-     _pub_heading_enu_deg.publish(heading_deg.data);
+     _pub_heading_enu_deg.publish(heading_deg);
 
      // Create imu msg from heading RTK
      heading_rtk.header.stamp = msg->header.stamp;
