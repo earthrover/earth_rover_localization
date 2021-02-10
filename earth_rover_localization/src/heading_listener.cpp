@@ -40,7 +40,7 @@
      double _imu0 = 0.0;
      // Offset angle between the heading frame and the imu frame
      double _yaw_hi = 180.0;
-     std::string _mounting_type = "tractor";
+     std::string _mounting_type = "rover";
 
      // public ros node handle
      ros::NodeHandle _nh;
@@ -63,7 +63,7 @@
 
      _sub_heading_ned = _nh.subscribe("/piksi_attitude/baseline_heading", 1000, &HeadingListenerNode::cb_heading_ned2enu, this);
      _pub_heading_enu = _nh.advertise<sensor_msgs::Imu>("/heading", 1);
-     _pub_heading_enu_deg = _nh.advertise<sensor_msgs::Imu>("/heading_deg", 1);
+     _pub_heading_enu_deg = _nh.advertise<std_msgs::Float32>("/heading_deg", 1);
 
 
      _sub_imu_vru = _nh.subscribe("/mti/sensor/imu", 1000, &HeadingListenerNode::cb_imu_vru2enu, this);
