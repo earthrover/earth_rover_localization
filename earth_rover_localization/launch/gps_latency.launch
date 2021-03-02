@@ -3,7 +3,7 @@
   <param name="use_sim_time" value="true" />
 
   <node pkg="earth_rover_localization" type="remove_gps_latency" name="remove_gps_latency">
-        <param name="gps_latency" value="290"/> <!-- latency in msec-->
+        <param name="gps_latency" value="200"/> <!-- latency in msec-->
   </node>
 
 </launch>
