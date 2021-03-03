@@ -19,8 +19,9 @@
   <node pkg="earth_rover_localization" type="heading_listener" name="heading_listener" output="log" />
 
   <!-- Correct GPS latency -->
-  <node pkg="earth_rover_localization" type="remove_gps_latency" name="remove_gps_latency">
-        <param name="gps_latency" value="200"/> <!-- latency in msec-->
+  <node pkg="earth_rover_localization" type="remove_latency" name="remove_latency">
+        <param name="gps_latency" value="0"/> <!-- gps latency in msec-->
+        <param name="ekf_latency" value="200"/> <!-- ekf output from RL latency in msec-->
   </node>
 
   <!-- Launch sensors -->
