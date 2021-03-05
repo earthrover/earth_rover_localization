@@ -175,7 +175,7 @@ imu0_queue_size: 5
 # this to true, and *make sure* your data conforms to REP-103, specifically, that the data is in ENU frame.
 imu0_remove_gravitational_acceleration: true
 
-imu1: /heading
+imu1: /heading/corrected_latency
 imu1_config: [false, false, false,
               false, false, true,
               false, false, false,
