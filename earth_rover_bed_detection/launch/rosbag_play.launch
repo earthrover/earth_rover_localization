@@ -1,0 +1,38 @@
+<!-- Copyright (C) 2019 Earth Rover Limited. All rights reserved. -->
+
+<!-- EarthRover Scouting System: rosbag play for debug
+  This file plays the rosbag files with certain parameters defined when calling it
+  Author: David Llevat Pamies (dllevat@edgebrain.io)
+  Date: 05/2019
+-->
+
+<launch>
+
+  <!-- Parameters definition -->
+  <arg name="bag_session_id"    default=""/>
+  <arg name="bag_3bed_mode"     default="false"/>
+  <arg name="bag_path"          default="/home/earth/earth_rover_ws/media/bags/" />
+  <arg name="bag_required"      default="true" />
+  <arg name="bag_output"        default="screen" />
+
+  <arg name="bag_options" default="--pause --skip-empty=5" />
+
+  <arg name="bag_topics_base"  default="/piksi_receiver/navsatfix_best_fix /piksi_attitude/baseline_heading /mti/sensor/imu /mti/sensor/magnetic /piksi_receiver/navsatfix_rtk_fix /piksi_receiver/navsatfix_rtk_float /piksi_receiver/navsatfix_spp" />
+
+  <arg name="bag_camera_base"  default="/camera/color/image_raw /camera/color/camera_info /camera/infra1/image_rect_raw /camera/infra1/camera_info /camera/depth/image_rect_raw /camera/depth/camera_info /camera_0/color/image_raw /camera_0/color/camera_info /camera_0/infra1/image_rect_raw /camera_0/infra1/camera_info /camera_0/depth/image_rect_raw /camera_0/depth/camera_info" />
+  <arg name="bag_camera_3bed"  default="/camera_0/color/image_raw /camera_0/color/camera_info /camera_0/infra1/image_rect_raw /camera_0/infra1/camera_info /camera_0/depth/image_rect_raw /camera_0/depth/camera_info /camera_1/color/image_raw /camera_1/color/camera_info /camera_1/infra1/image_rect_raw /camera_1/infra1/camera_info /camera_1/depth/image_rect_raw /camera_1/depth/camera_info /camera_2/color/image_raw /camera_2/color/camera_info /camera_2/infra1/image_rect_raw /camera_2/infra1/camera_info /camera_2/depth/image_rect_raw /camera_2/depth/camera_info" />
+
+  <!-- Parameters setting -->
+  <!-- Use sim time when playing back bag files with the clock flag -->
+  <param name="use_sim_time" value="true" />
+  <!-- <include file="$(find earth_rover_scouting_system)/launch/scouting_parameters.launch">
+    <arg name="session_id" value="$(arg bag_session_id)" />
+  </include> -->
+  <param name="is_3bed_mode" value="true" if="$(eval bag_3bed_mode)"/>
+
+  <arg if="$(eval bag_3bed_mode)" name="bag_topics"  value="$(arg bag_topics_base) $(arg bag_camera_3bed)" />
+  <arg if="$(eval not bag_3bed_mode)" name="bag_topics"  value="$(arg bag_topics_base) $(arg bag_camera_base)" />
+
+  <node name="player" type="play" pkg="rosbag" args="$(arg bag_options) --clock $(arg bag_path) --topics $(arg bag_topics)" required = "$(arg bag_required)" output = "$(arg bag_output)"/>
+
+</launch>
