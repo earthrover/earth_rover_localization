@@ -60,7 +60,7 @@
     <param name="wait_for_datum" value="true"/>
     <rosparam command="load" file="$(find earth_rover_localization)/cfg/datum.yaml" />
 
-    <remap from="/odometry/filtered" to="/odometry/filtered/global"/>
+    <remap from="/odometry/filtered" to="/odometry/filtered/global/corrected_latency"/>
     <remap from="/gps/fix" to="/piksi_receiver/navsatfix_best_fix/corrected_latency"/>
     <!--<remap from="/imu/data" to="/heading"/>-->
 
