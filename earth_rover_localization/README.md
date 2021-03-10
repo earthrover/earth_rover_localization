@@ -9,7 +9,7 @@ $ sudo apt-get install ros-kinetic-ros-base
 ## Dependencies
 - A summary description and links to the corresponding sites are listed below only if browsing further information is needed. The installation steps will download or include necessary configuration details on how to use the required dependences
 
-[robot_localization](http://docs.ros.org/kinetic/api/robot_localization/html/index.html): Robot Localization is a collection of state estimation nodes, each of which is an implementation of a nonlinear state estimator for robots moving in 3D space. It contains two state estimation nodes, ekf_localization_node and ukf_localization_node. In addition, robot_localization provides navsat_transform_node, which aids in the integration of GPS data.
+[robot_localization](http://docs.ros.org/kinetic/api/robot_localization/html/index.html): Robot Localization is a collection of state estimation nodes, each of which is an implementation of a nonlinear state estimator for robots moving in 3D space. It contains two state estimation nodes, ekf_localization_node and ukf_localization_node. In addition, robot_localization provides navsat_transform_node, which aids in the integration of GPS data. A more detailed documentation explaining this package (nodes, workflow, ...) can be found [here](https://github.com/earthrover/earth_rover_localization/blob/master/earth_rover_localization/docs/robot_localization_documentation.md).
 
 [Piksy Driver](https://github.com/earthrover/earth_rover_piksi): Driver compatible with the Swift Navigation devices.
 

@@ -35,9 +35,7 @@ The circular subscription (navsat subscribes to the odometry output of the EKF, 
 
 Once `navsat_transform_node` has the necessary data, it generates the required transform, and starts spitting out, for each GPS message, a pose that is consistent with your map/global frame EKF. So that data is then fed back to the map/global EKF. At this point, it [no longer needs IMU data](https://github.com/cra-ros-pkg/robot_localization/blob/a53709f364b6a88516632083387cb59c2bdd17bb/src/navsat_transform.cpp#L193).
 
-If we use a manual datum, the `world→utm` static transform is done at the start and is independent of external topics. In our case, `world=odom` so we will have `odom→utm`.
-
-The UTM grid assumes that the X-axis faces east, the Y-axis faces (true) north, and the Z-axis points up out of the ground ([REP-105](https://www.ros.org/reps/rep-0105.html)). Adding a yaw angle to the datum parameter will rotate the odom frame with the specified angle with respect to the UTM grid.
+If we use a manual datum, the `world→utm` static transform is done at the start and is independent of external topics. In our case, `world=odom` so we will have `odom→utm`. The UTM grid assumes that the X-axis faces east, the Y-axis faces (true) north, and the Z-axis points up out of the ground ([REP-105](https://www.ros.org/reps/rep-0105.html)). Adding a yaw angle to the datum parameter will rotate the odom frame with the specified angle with respect to the UTM grid.
 
 The workflow of the navsat node is shown below.
 
