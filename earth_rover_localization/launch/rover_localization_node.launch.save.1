@@ -1,0 +1,77 @@
+<!-- Copyright (C) 2019 Earth Rover Limited. All rights reserved. -->
+
+<!-- Scouting system
+  This file launches the localization system.
+  Author: David Llevat Pamies (dllevat@edgebrain.io)
+  Date: 05/2019
+-->
+
+<launch>
+
+  <!-- <arg name="enable_sensors"    default="true" />
+  <arg name="cam_suffix"        default="_0" /> -->
+
+  <!-- Odom Frame  -->
+  <!--<node pkg="tf2_ros" type="static_transform_publisher" name="map_ugv_odom" args="0.02 0 0 0 0 0 map ugv_odom" />-->
+  <node pkg="tf2_ros" type="static_transform_publisher" name="map_odom" args="0 0 0 0 0 0 map odom" />
+
+  <!-- Heading Listener node-->
+  <node pkg="earth_rover_localization" type="heading_listener" name="heading_listener" output="log" />
+
+  <!-- Correct GPS latency -->
+  <node pkg="earth_rover_localization" type="remove_latency" name="remove_latency">
+        <param name="gps_latency" value="0"/> <!-- gps latency in msec-->
+        <param name="ekf_latency" value="200"/> <!-- ekf output from RL latency in msec-->
+  </node>
+
+  <!-- Launch sensors -->
+  <!-- <include if="$(eval enable_sensors)" file="$(find earth_rover_scouting_system)/launch/scouting_system_sensors.launch" >
+    <arg name="cam_suffix"   value="$(arg cam_suffix)" />
+  </include > -->
+
+  <!-- Load the scouting box model -->
+  <!-- <include file="$(find earth_rover_scouting_system)/launch/scouting_model.launch" >
+    <arg name="cam_suffix"   value="$(arg cam_suffix)" />
+    <arg name="model" value="tfl21_rover" />
+  </include > -->
+
+  <!-- EKF global node -->
+  <node pkg="robot_localization" type="ekf_localization_node" name="ekf_global_localization">
+    <rosparam command="load" file="$(find earth_rover_localization)/cfg/ekf_global_rover_localization.yaml" />
+    <!--<rosparam command="load" file="$(find earth_rover_localization)/cfg/initial_state.yaml" />-->
+    <remap from="/odometry/filtered" to="/odometry/filtered/global"/>
+  </node>
+
+ <!-- Transform navsat gps/filtered into utm coord -->
+ <!--<node pkg="earth_rover_localization" type="datum_convergence_utm" name="datum_convergence_utm"/>-->
+  <!-- EKF local node -->
+  <!-- <node pkg="robot_localization" type="ekf_localization_node" name="ekf_local_localization">
+    <rosparam command="load" file="$(find earth_rover_localization)/cfg/ekf_local_rover_localization.yaml" />
+    <remap from="/odometry/filtered" to="/odometry/filtered/local"/>
+  </node> -->
+
+ <!-- Navsat_transform -->
+ <node pkg="robot_localization" type="navsat_transform_node" name="navsat_transform" respawn="true" output="screen">
+    <param name="frequency" value="30"/>
+    <param name="delay" value="0"/>
+    <param name="magnetic_declination_radians" value="0.0"/>
+    <param name="yaw_offset" value="0"/>
+    <param name="zero_altitude" value="false"/>
+    <param name="broadcast_utm_transform" value="true"/>
+    <param name="publish_filtered_gps" value="true"/>
+    <param name="use_odometry_yaw" value="false"/>
+    <param name="wait_for_datum" value="true"/>
+    <rosparam command="load" file="$(find earth_rover_localization)/cfg/datum.yaml" />
+
+<<<<<<< HEAD
+    <remap from="/odometry/filtered" to="/odometry/filtered/global/corrected_latency"/>
+    <remap from="/gps/fix" to="/piksi_receiver/navsatfix_best_fix/corrected_laten
+    <!--<remap from="/imu/data" to="/heading"/>-->
+
+    <!-- <remap from="/odometry/gps" to="/odometry/gps"/>
+    <remap from="/gps/filtered" to="/gps/filtered"/> -->
+
+  </node>
+
+
+ </launch>

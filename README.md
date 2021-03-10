@@ -2,7 +2,7 @@
 
 This repository contains ROS drivers, tools, launch files, and documents to configure the EKF robot_localization for the Earth Rover Agribot.
 
-![](https://github.com/earthrover/er_localisation/blob/master/earth_rover_localization/docs/OpenER.jpg)
+![](https://github.com/earthrover/er_localisation/blob/master/earth_rover_localization/docs/imgs/OpenER.jpg)
 
 Overview
 ------
@@ -25,20 +25,20 @@ Earth Rover ROS – The Open-Source Agribot (http://open.earthrover.cc/)
 Andres Palomino apalomino(at)earthrover.cc
 Ricard Pardell ricard(at)earthrover.cc
 
-<!-- 
+<!--
     ROSIN acknowledgement from the ROSIN press kit
     @ https://github.com/rosin-project/press_kit
 -->
 
 <a href="http://rosin-project.eu">
-  <img src="http://rosin-project.eu/wp-content/uploads/rosin_ack_logo_wide.png" 
+  <img src="http://rosin-project.eu/wp-content/uploads/rosin_ack_logo_wide.png"
        alt="rosin_logo" height="60" >
 </a>
 
 Supported by ROSIN - ROS-Industrial Quality-Assured Robot Software Components.  
 More information: <a href="http://rosin-project.eu">rosin-project.eu</a>
 
-<img src="http://rosin-project.eu/wp-content/uploads/rosin_eu_flag.jpg" 
+<img src="http://rosin-project.eu/wp-content/uploads/rosin_eu_flag.jpg"
      alt="eu_flag" height="45" align="left" >  
 
 This project has received funding from the European Union’s Horizon 2020  
