@@ -14,6 +14,12 @@
   <!-- Heading Listener node-->
   <node pkg="earth_rover_localization" type="heading_listener" name="heading_listener" output="log" />
 
+  <!-- Correct GPS latency -->
+  <node pkg="earth_rover_localization" type="remove_latency" name="remove_latency">
+        <param name="gps_latency" value="0"/> <!-- gps latency in msec-->
+        <param name="ekf_latency" value="200"/> <!-- ekf output from RL latency in msec-->
+  </node>
+
   <!-- EKF node -->
   <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization">
     <rosparam command="load" file="$(find earth_rover_localization)/cfg/ekf_imu_heading_localization.yaml" />
@@ -34,8 +40,8 @@
     <param name="wait_for_datum" value="true"/>
     <rosparam command="load" file="$(find earth_rover_localization)/cfg/datum.yaml" />
 
-    <remap from="/odometry/filtered" to="/odometry/filtered/global"/>
-    <remap from="/gps/fix" to="/piksi_receiver/navsatfix_best_fix"/>
+    <remap from="/odometry/filtered" to="/odometry/filtered/global/corrected_latency"/>
+    <remap from="/gps/fix" to="/piksi_receiver/navsatfix_best_fix/corrected_latency"/>
     <!-- <remap from="/imu/data" to="/heading"/> -->
   </node>
 
