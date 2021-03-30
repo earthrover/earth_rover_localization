@@ -1,27 +1,31 @@
+################################################################
+# Copyright (C) 2019 Earth Rover Limited. All rights reserved. #
+################################################################
+
 cmake_minimum_required(VERSION 2.8.3)
-project(earth_rover_localization)
+project(earth_rover_bed_detection)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
-add_compile_options(-std=c++11)
+# add_compile_options(-std=c++11)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED COMPONENTS
+set(PKG_DEPENDENCIES
+  geometry_msgs
+  nav_msgs
+  robot_localization
   roscpp
   rospy
+  sensor_msgs
   std_msgs
-  piksi_multi_rtk
-  piksi_rtk_msgs
-  robot_localization
   tf
 )
+find_package(catkin REQUIRED COMPONENTS ${PKG_DEPENDENCIES}
+)
 
-# add package modules path, not needed in dependend packages
-list(INSERT CMAKE_MODULE_PATH 0 "${CMAKE_CURRENT_SOURCE_DIR}/cmake/Modules")
-
-## GeographicLib
-find_package(GeographicLib REQUIRED)
+## System dependencies are found with CMake's conventions
+# find_package(Boost REQUIRED COMPONENTS system)
 
 
 ## Uncomment this if the package has a setup.py. This macro ensures
@@ -110,10 +114,10 @@ find_package(GeographicLib REQUIRED)
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES er_localisation
-#  CATKIN_DEPENDS robot_localization roscpp rospy std_msgs
-  DEPENDS GeographicLib
+ INCLUDE_DIRS include
+ LIBRARIES bed_detection
+ CATKIN_DEPENDS roscpp rospy std_msgs
+ # DEPENDS system_lib
 )
 
 ###########
@@ -123,17 +127,15 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-# include
+ include
   ${catkin_INCLUDE_DIRS}
-  ${GeographicLib_INCLUDE_DIRS}
 )
 
-add_definitions (${GeographicLib_DEFINITIONS})
-
 ## Declare a C++ library
-# add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/er_localisation.cpp
-# )
+add_library(bed_detection
+  src/${PROJECT_NAME}/bed_detection.cpp
+)
+## Specify libraries to link a library or executable target against
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
@@ -143,26 +145,25 @@ add_definitions (${GeographicLib_DEFINITIONS})
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-add_executable(heading_listener src/heading_listener.cpp)
-add_executable(set_datum src/set_datum.cpp)
-add_executable(local_transform src/local_transform.cpp)
-add_executable(remove_latency src/remove_latency.cpp)
+# add_executable(${PROJECT_NAME}_node src/earth_rover_bed_detection_node.cpp)
+add_executable(${PROJECT_NAME}_node src/bed_detection_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
 ## e.g. "rosrun someones_pkg node" instead of "rosrun someones_pkg someones_pkg_node"
-## set_target_properties(set_datum PROPERTIES CXX_STANDARD 11)
+set_target_properties(${PROJECT_NAME}_node PROPERTIES OUTPUT_NAME bed_detection PREFIX "")
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
-add_dependencies(heading_listener ${catkin_EXPORTED_TARGETS})
+# add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(${PROJECT_NAME}_node ${catkin_EXPORTED_TARGETS})
 
-## Specify libraries to link a library or executable target against
-target_link_libraries(heading_listener ${catkin_LIBRARIES})
-target_link_libraries(set_datum ${catkin_LIBRARIES} ${GeographicLib_LIBRARIES})
-target_link_libraries(local_transform ${catkin_LIBRARIES})
-target_link_libraries(remove_latency ${catkin_LIBRARIES})
+target_link_libraries(${PROJECT_NAME}_node
+  ${catkin_LIBRARIES}
+	bed_detection
+)
+
 
 #############
 ## Install ##
@@ -178,12 +179,19 @@ target_link_libraries(remove_latency ${catkin_LIBRARIES})
 #   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 # )
 
-## Mark executables and/or libraries for installation
-install(TARGETS heading_listener set_datum
+## Mark executables for installation
+## See http://docs.ros.org/melodic/api/catkin/html/howto/format1/building_executables.html
+# install(TARGETS ${PROJECT_NAME}_node
+#   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+# )
+
+## Mark libraries for installation
+## See http://docs.ros.org/melodic/api/catkin/html/howto/format1/building_libraries.html
+# install(TARGETS ${PROJECT_NAME}
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-)
+#   RUNTIME DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION}
+# )
 
 ## Mark cpp header files for installation
 # install(DIRECTORY include/${PROJECT_NAME}/
@@ -199,28 +207,12 @@ install(TARGETS heading_listener set_datum
 #   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 # )
 
-install(DIRECTORY launch/
-  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/launch
-)
-
-install(DIRECTORY cfg/
-  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/cfg
-)
-
-install(DIRECTORY bag_files/
-  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/bag_files
-)
-
-install(DIRECTORY scripts/
-  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/scripts
-)
-
 #############
 ## Testing ##
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_er_localisation.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_earth_rover_bed_detection.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()

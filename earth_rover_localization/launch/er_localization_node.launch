@@ -8,6 +8,10 @@
 
 <launch>
 
-  <node pkg="earth_rover_localization" type="start_localization.sh" name="localization_init" />
+  <!-- Settings -->
+  <arg name="mounting"    default="tractor" />
 
+  <node pkg="earth_rover_localization" type="start_localization.sh" name="localization_init" args="$(arg mounting)"/>
+  
+  <param name="mount_type" type="string" value="$(arg mounting)" />
 </launch>

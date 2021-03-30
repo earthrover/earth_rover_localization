@@ -1,0 +1,25 @@
+<!-- Copyright (C) 2019 Earth Rover Limited. All rights reserved. -->
+
+<!-- EarthRover Mapping
+  This file includes nodes to launch the bed detection
+  Author: Rodrigo Gonzalez (rodrigo.gonzalez@earthrover.farm)
+  Date: 04/2020
+-->
+
+<launch>
+
+  <!-- Arguments -->
+  <!-- <arg name="odom"            default="/ugv_11/earth_rover_ugv_diff/odom"/> -->
+  <arg name="odom"            default="/odometry/filtered/global"/>
+  <arg name="is_straight"     default="/bed_detection/is_straight" />
+
+  <!-- Load parameters -->
+  <rosparam ns="bed_detection" command="load" file="$(find earth_rover_bed_detection)/config/bed_detection.yaml" />
+
+  <!-- Launch Bed Detection Node -->
+  <node name="bed_detection" type="bed_detection" pkg="earth_rover_bed_detection" output="screen">
+    <remap from="/bed_detection/odom"         to="$(arg odom)"/>
+    <remap from="/bed_detection/is_straight"  to="$(arg is_straight)"/>
+  </node>
+
+</launch>
