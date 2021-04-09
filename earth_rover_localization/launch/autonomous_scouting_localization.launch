@@ -15,6 +15,12 @@
   <!-- Heading Listener node-->
   <node pkg="earth_rover_localization" type="heading_listener" name="heading_listener" output="log" />
 
+  <!-- Correct GPS latency -->
+  <node pkg="earth_rover_localization" type="remove_latency" name="remove_latency">
+        <param name="gps_latency" value="0"/> <!-- gps latency in msec-->
+        <param name="ekf_latency" value="200"/> <!-- ekf output from RL latency in msec-->
+  </node>
+
   <!-- EKF global node -->
   <node pkg="robot_localization" type="ekf_localization_node" name="ekf_global_localization" output="log">
     <rosparam command="load" file="$(find earth_rover_localization)/cfg/ekf_global_rover_localization.yaml" />
@@ -27,21 +33,25 @@
     <remap from="/odometry/filtered" to="/odometry/filtered/local"/>
   </node>
 
- <!-- Navsat_transform -->
- <node pkg="robot_localization" type="navsat_transform_node" name="navsat_transform" respawn="true"  output="log">
-    <param name="frequency" value="30"/>
-    <param name="delay" value="3.0"/>
-    <param name="magnetic_declination_radians" value="0.0"/>
-    <param name="yaw_offset" value="0"/>
-    <param name="zero_altitude" value="false"/>
-    <param name="broadcast_utm_transform" value="true"/>
-    <param name="publish_filtered_gps" value="true"/>
-    <param name="use_odometry_yaw" value="false"/>
-    <param name="wait_for_datum" value="true"/>
-    <rosparam command="load" file="$(find earth_rover_localization)/cfg/datum.yaml" />
+  <!-- Navsat_transform -->
+  <node pkg="robot_localization" type="navsat_transform_node" name="navsat_transform" respawn="true" output="screen">
+     <param name="frequency" value="30"/>
+     <param name="delay" value="3.0"/>
+     <param name="magnetic_declination_radians" value="0.0"/>
+     <param name="yaw_offset" value="0"/>
+     <param name="zero_altitude" value="false"/>
+     <param name="broadcast_utm_transform" value="true"/>
+     <param name="publish_filtered_gps" value="true"/>
+     <param name="use_odometry_yaw" value="false"/>
+     <param name="wait_for_datum" value="true"/>
+     <rosparam command="load" file="$(find earth_rover_localization)/cfg/datum.yaml" />
 
-    <remap from="/odometry/filtered" to="/odometry/filtered/global"/>
-    <remap from="/gps/fix" to="/piksi_receiver/navsatfix_best_fix"/>
-  </node>
+     <remap from="/odometry/filtered" to="/odometry/filtered/global/corrected_latency"/>
+     <remap from="/gps/fix" to="/piksi_receiver/navsatfix_best_fix/corrected_latency"/>
+     <!--<remap from="/imu/data" to="/heading"/>-->
+
+     <!-- <remap from="/odometry/gps" to="/odometry/gps"/>
+     <remap from="/gps/filtered" to="/gps/filtered"/> -->
+   </node>
 
  </launch>
