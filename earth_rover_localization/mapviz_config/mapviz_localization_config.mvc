@@ -1,0 +1,157 @@
+capture_directory: ~
+fixed_frame: map
+target_frame: base_link
+fix_orientation: false
+rotate_90: false
+enable_antialiasing: true
+show_displays: true
+show_status_bar: true
+show_capture_tools: true
+window_width: 1309
+window_height: 747
+view_scale: 0.04305676
+offset_x: 2.352336
+offset_y: 0.07798001
+use_latest_transforms: true
+background: "#a0a0a4"
+displays:
+  - type: mapviz_plugins/tile_map
+    name: Google maps
+    config:
+      visible: true
+      collapsed: true
+      custom_sources:
+        - base_url: http://localhost:8080/wmts/gm_layer/gm_grid/{level}/{x}/{y}.png
+          max_zoom: 19
+          name: Google
+          type: wmts
+      bing_api_key: ""
+      source: Google
+  - type: mapviz_plugins/navsat
+    name: Best GPS
+    config:
+      visible: true
+      collapsed: true
+      topic: /piksi_receiver/navsatfix_best_fix
+      color: "#aa0000"
+      draw_style: points
+      position_tolerance: 0
+      buffer_size: 0
+  - type: mapviz_plugins/navsat
+    name: RTK Float
+    config:
+      visible: true
+      collapsed: true
+      topic: /piksi_receiver/navsatfix_rtk_float
+      color: "#ffaa00"
+      draw_style: points
+      position_tolerance: 0
+      buffer_size: 200
+  - type: mapviz_plugins/navsat
+    name: RTK Fix
+    config:
+      visible: true
+      collapsed: true
+      topic: /piksi_receiver/navsatfix_rtk_fix
+      color: "#55ff00"
+      draw_style: points
+      position_tolerance: 0
+      buffer_size: 0
+  - type: mapviz_plugins/navsat
+    name: GPS filtered NavSat node
+    config:
+      visible: false
+      collapsed: true
+      topic: /gps/filtered
+      color: "#0055ff"
+      draw_style: points
+      position_tolerance: 0
+      buffer_size: 0
+  - type: mapviz_plugins/odometry
+    name: GPS odometry (Map)
+    config:
+      visible: false
+      collapsed: true
+      topic: /odometry/gps
+      color: "#ff00ff"
+      draw_style: points
+      position_tolerance: 0
+      buffer_size: 0
+      show_laps: false
+      show_covariance: false
+      static_arrow_sizes: true
+      arrow_size: 25
+      tampstamps: 0
+  - type: mapviz_plugins/odometry
+    name: EKF result (Map)
+    config:
+      visible: true
+      collapsed: true
+      topic: /odometry/filtered/global
+      color: "#55aaff"
+      draw_style: arrows
+      position_tolerance: 0
+      buffer_size: 0
+      show_laps: false
+      show_covariance: false
+      static_arrow_sizes: true
+      arrow_size: 53
+      tampstamps: 0
+  - type: mapviz_plugins/tf_frame
+    name: base_link
+    config:
+      visible: true
+      collapsed: true
+      frame: base_link
+      color: "#0000ff"
+      draw_style: lines
+      position_tolerance: 0
+      buffer_size: 0
+      static_arrow_sizes: false
+      arrow_size: 25
+  - type: mapviz_plugins/tf_frame
+    name: receiver
+    config:
+      visible: true
+      collapsed: true
+      frame: gps_receiver
+      color: "#ffffff"
+      draw_style: lines
+      position_tolerance: 0
+      buffer_size: 0
+      static_arrow_sizes: false
+      arrow_size: 25
+  - type: mapviz_plugins/tf_frame
+    name: attitude
+    config:
+      visible: true
+      collapsed: true
+      frame: gps_attitude
+      color: "#ffffff"
+      draw_style: lines
+      position_tolerance: 0
+      buffer_size: 0
+      static_arrow_sizes: false
+      arrow_size: 25
+  - type: mapviz_plugins/attitude_indicator
+    name: Rover Attitude
+    config:
+      visible: true
+      collapsed: true
+      topic: /odometry/filtered/global
+      x: 5
+      y: -7
+      width: 100
+      height: 100
+  - type: mapviz_plugins/robot_image
+    name: Rover image
+    config:
+      visible: true
+      collapsed: true
+      frame: base_link
+      image: /home/andreslinx/Documents/ROS/robot_localization_ws/car.png
+      width: 3
+      height: 1.61
+      offset_x: 0
+      offset_y: 0
+      ratio: original

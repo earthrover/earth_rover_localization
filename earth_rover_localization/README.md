@@ -242,17 +242,20 @@ The main published topics are:
 
 ### Nodes
 
-Used nodes on the architecture
-- `heading_listener`: In charge of traducing the vehicle heading from the baseline into ROS-compliant message to use in robot localization node
-- `set_datum`: Finds the convergence value of the desired start location in `enu_origin.yaml`. It's necessary to set the map's origin.
+Used nodes on the architecture.
 - `navsat_transform`: Takes as input the GPS data and produces an odometry message in coordinates that are consistent with the robot’s world frame. More info about navsat_transform_node on [Documentation](http://docs.ros.org/kinetic/api/robot_localization/html/navsat_transform_node.html).
 - `ekf_localization`: The node is an implementation of an [Extended Kalman filter](https://en.wikipedia.org/wiki/Extended_Kalman_filter). It uses an omnidirectional motion model to project the state forward in time, and corrects that projected estimate using perceived sensor data. Detailed information on the [Documentation](http://docs.ros.org/kinetic/api/robot_localization/html/navsat_transform_node.html) page.
+- `heading_listener`: In charge of traducing the vehicle heading from the baseline into ROS-compliant message to use in robot localization node
+- `set_datum`: Finds the convergence value of the desired start location in `enu_origin.yaml`. It's necessary to set the map's origin.
+- `remove_latency`: This node corrects the latency of the GPS/EKF by subtracting a constant value to the message timestamps, passed as a parameter.
+- `set_initial_state_filter`: Takes a GPS measurement and transforms it into odom frame to set the `initial_state` parameter for the EKF filter in the robot_localization pkg. Waits until RTK fix is achieved to use the GPS data and save the initial state parameter.
 
 ### Outputs
 
 - `/odometry/gps`: A [nav_msgs/Odometry.msg](http://docs.ros.org/melodic/api/nav_msgs/html/msg/Odometry.html) message containing the GPS coordinates of your robot, transformed into its world coordinate frame.
 - `gps/filtered`: A [sensor_msgs/NavSatFix.msg](http://docs.ros.org/melodic/api/sensor_msgs/html/msg/NavSatFix.html) message containing your robot’s world frame position, transformed into GPS coordinates.
 - `/odometry/filtered/global`: A [nav_msgs/Odometry.msg](http://docs.ros.org/melodic/api/nav_msgs/html/msg/Odometry.html) message with the robot's pose estimation in its world frame.
+- `/odometry/filtered/global/corrected_latency`: A [nav_msgs/Odometry.msg](http://docs.ros.org/melodic/api/nav_msgs/html/msg/Odometry.html) message with a timestamp corrected with a specified latency. Requires running the `remove_latency` node.
 
 ### Mapviz (Optional) on host PC
 
