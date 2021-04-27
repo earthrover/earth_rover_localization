@@ -1,0 +1,46 @@
+<!-- Copyright (C) 2019 Earth Rover Limited. All rights reserved. -->
+
+<!-- Scouting system
+  This file launches required files to start the scouting system.
+  Author: David Llevat Pamies (dllevat@edgebrain.io)
+  Date: 07/2019
+-->
+
+<launch>
+
+  <!-- Settings -->
+  <arg name="enable_sensors"    default="true" />
+  <arg name="cam_suffix"        default="_0" />
+  <arg name="input_rgb_info"    default="/camera$(arg cam_suffix)/color/camera_info" />
+  <arg name="input_rgb_img"     default="/camera$(arg cam_suffix)/color/image_raw" />
+  <arg name="output_depth_rgb_img"    default="/camera$(arg cam_suffix)/aligned_depth_to_color/image_raw" />
+  <arg name="odom_topic"        default="odom"/>
+
+  <!-- Launch sensors -->
+  <include if="$(eval enable_sensors)" file="$(find earth_rover_scouting_system)/launch/scouting_system_sensors.launch" >
+    <arg name="cam_suffix"   value="$(arg cam_suffix)" />
+  </include >
+
+  <!-- Load the scouting box model -->
+  <include file="$(find earth_rover_scouting_system)/launch/scouting_model.launch" >
+    <arg name="cam_suffix"   value="$(arg cam_suffix)" />
+    <arg name="model" value="tfl21_rover" />
+  </include >
+
+  <!-- Heading Listener node-->
+  <node pkg="earth_rover_localization" type="heading_listener" name="heading_listener" output="log" />
+
+  <!-- Launch visual odometry -->
+  <include file="$(find earth_rover_localization)/launch/er_rtabmap_node.launch" >
+    <arg name="rtabmapviz"          value="false" />
+    <arg name="use_sim_time"        value="false" />
+    <arg name="rgb_topic"           value="$(arg input_rgb_img)" />
+    <arg name="camera_info_topic"   value="$(arg input_rgb_info)" />
+    <arg name="depth_topic"         value="$(arg output_depth_rgb_img)" />
+    <arg name="args"                value="--delete_db_on_start"/>
+    <arg name="approx_sync"         value="false"/>
+    <arg name="frame_id"            value="scouting_base_link"/>
+    <arg name="odom_topic"          value="$(arg odom_topic)"/>
+  </include>
+
+</launch>
