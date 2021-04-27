@@ -147,6 +147,7 @@ add_executable(heading_listener src/heading_listener.cpp)
 add_executable(set_datum src/set_datum.cpp)
 add_executable(local_transform src/local_transform.cpp)
 add_executable(remove_latency src/remove_latency.cpp)
+add_executable(set_initial_state_filter src/set_initial_state_filter.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -163,6 +164,7 @@ target_link_libraries(heading_listener ${catkin_LIBRARIES})
 target_link_libraries(set_datum ${catkin_LIBRARIES} ${GeographicLib_LIBRARIES})
 target_link_libraries(local_transform ${catkin_LIBRARIES})
 target_link_libraries(remove_latency ${catkin_LIBRARIES})
+target_link_libraries(set_initial_state_filter ${catkin_LIBRARIES})
 
 #############
 ## Install ##

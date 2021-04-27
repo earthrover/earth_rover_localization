@@ -1,6 +1,6 @@
 /**
  * @file remove_gps_latency.cpp
- * @brief This file substracts the GPS measured latency to the GPS message
+ * @brief This node corrects the latency of the GPS/EKF by subtracting a constant value to the message timestamps
  * @author Xavier Ruiz (xavier.ruiz@earthrover.farm)
  */
 

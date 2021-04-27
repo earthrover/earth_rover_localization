@@ -48,10 +48,6 @@
 
      <remap from="/odometry/filtered" to="/odometry/filtered/global/corrected_latency"/>
      <remap from="/gps/fix" to="/piksi_receiver/navsatfix_best_fix/corrected_latency"/>
-     <!--<remap from="/imu/data" to="/heading"/>-->
-
-     <!-- <remap from="/odometry/gps" to="/odometry/gps"/>
-     <remap from="/gps/filtered" to="/gps/filtered"/> -->
    </node>
 
  </launch>
