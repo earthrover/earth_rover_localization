@@ -20,16 +20,15 @@ from sbp.observation import SBP_MSG_OBS, MsgObs, SBP_MSG_GLO_BIASES, MsgGloBiase
 import argparse
 
 # NTRIP host
-NTRIP_HOST = "rtk2go.com"
-NTRIP_PORT = 2101
-NTRIP_MOUNT_POINT = "ER_Valldoreix_1"
-NTRIP_ROVER_POS = [ 41.472178, 1.96012, 0 ]
+NTRIP_HOST = rospy.get_param('/sbp_arbitrator/ntrip_host', "rtk2go.com")
+NTRIP_PORT = rospy.get_param('/sbp_arbitrator/ntrip_port', 2101)
+NTRIP_MOUNT_POINT = rospy.get_param('/sbp_arbitrator/ntrip_mount_point', "ER_Valldoreix_1")
 #RADIO
-RADIO_PORT = '/dev/freewaveGXMT14'
-RADIO_BAUDRATE = 115200
+RADIO_PORT =  rospy.get_param('/sbp_arbitrator/radio_port', "/dev/freewaveGXMT14")
+RADIO_BAUDRATE = rospy.get_param('/sbp_arbitrator/radio_baudrate', 115200)
 # UDP LOGGER
-UDP_ADDRESS = "192.168.8.222"
-UDP_PORT = 55558
+UDP_ADDRESS = rospy.get_param('/sbp_arbitrator/udp_address', "192.168.8.222")
+UDP_PORT =  rospy.get_param('/sbp_arbitrator/udp_port', 55558)
 
 # create instance of UdpLogger object
 udp = UdpLogger(UDP_ADDRESS, UDP_PORT)
@@ -44,10 +43,10 @@ def get_current_time():
 def ntrip_corrections(q):
     last_ntrip_epoch = None
     ntrip_epoch = None
-    ntrip_msgs_to_send = [] # ntrip messages to be sent 
+    ntrip_msgs_to_send = [] # ntrip messages to be sent
 
     # run command to listen to ntrip client, convert from rtcm3 to sbp and from sbp to json redirecting the stdout
-    str2str_cmd = ["str2str", "-in", "ntrip://{}:{}/{}".format(NTRIP_HOST, NTRIP_PORT, NTRIP_MOUNT_POINT)]#, "-n", "1000", "-p", *[str(x) for x in NTRIP_ROVER_POS]]
+    str2str_cmd = ["str2str", "-in", "ntrip://{}:{}/{}".format(NTRIP_HOST, NTRIP_PORT, NTRIP_MOUNT_POINT)]
     rtcm3tosbp_cmd = ["rtcm3tosbp"]#, "-d", get_current_time()]
     cmd = "{} 2>/dev/null| {} | sbp2json".format(' '.join(str2str_cmd), ' '.join(rtcm3tosbp_cmd))
     p = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
@@ -64,7 +63,7 @@ def ntrip_corrections(q):
         # sanity check
         if 'msg_type' not in json_msg:
             continue
-        
+
         # parse sbp msgs
         sbp_general_msg = sbp.msg.SBP.from_json_dict(json_msg)
         if sbp_general_msg.msg_type == 72:
@@ -77,7 +76,7 @@ def ntrip_corrections(q):
 
         # break msgs into epochs
         if last_ntrip_epoch is not None and ntrip_epoch > last_ntrip_epoch:
-            # read last_tow from queue 
+            # read last_tow from queue
             q.acquire()
             last_tow = q.value
             q.release()
@@ -88,7 +87,7 @@ def ntrip_corrections(q):
                 q.release()
                 print("NTRIP msg sent for epoch: ", ntrip_tow)
                 for x in ntrip_msgs_to_send:
-                    udp.call(x) 
+                    udp.call(x)
                 # send msg to the piksi through udp
                     if x.msg_type == 74:
                         seq = x.header.n_obs
@@ -96,7 +95,7 @@ def ntrip_corrections(q):
                     else:
                         seq = None
                         tow2print = None
-                    print("Ntrip", x.msg_type, seq, tow2print)
+                    print("    Ntrip", x.msg_type, seq, tow2print)
                 print("===============================")
             #elif ntrip_tow <= last_tow:
                 #print("Ignoring ntrip msg with old tow")
@@ -143,7 +142,7 @@ def radio_corrections(q):
                                 else:
                                     seq = None
                                     tow2print = None
-                                print("Radio", x.msg_type, seq, tow2print)
+                                print("    Radio", x.msg_type, seq, tow2print)
                             print("===============================")
                         #elif radio_tow <= last_tow:
                             #print("Ignoring radio msg with old tow")
@@ -166,4 +165,3 @@ if __name__ == '__main__':
     p2.start()
     p1.join()
     p2.join()
-
