@@ -85,18 +85,24 @@ def ntrip_corrections(q):
                 q.acquire()
                 q.value = ntrip_tow
                 q.release()
-                print("NTRIP msg sent for epoch: ", ntrip_tow)
+                print("NTRIP msg sent for epoch: ", ntrip_tow, )
+                n_seq = 0
+                n_glo = 0
                 for x in ntrip_msgs_to_send:
                     udp.call(x)
                 # send msg to the piksi through udp
                     if x.msg_type == 74:
+                        n_seq += 1
                         seq = x.header.n_obs
                         tow2print = ntrip_tow
+                    if x.msg_type == 117:
+                        n_glo +=1
                     else:
                         seq = None
                         tow2print = None
                     print("    Ntrip", x.msg_type, seq, tow2print)
                 print("===============================")
+                rospy.loginfo("Ntrip, %i, %i, %i", ntrip_tow, n_seq, n_glo)
             #elif ntrip_tow <= last_tow:
                 #print("Ignoring ntrip msg with old tow")
                 #print("===============================")
@@ -134,16 +140,22 @@ def radio_corrections(q):
                             q.value = radio_tow
                             q.release()
                             print("RADIO msg sent for epoch: ", radio_tow)
+                            n_seq = 0
+                            n_glo = 0
                             for x in radio_msgs_to_send:
                                 udp.call(x) # send msg to the piksi through udp
                                 if x.msg_type == 74:
+                                    n_seq += 1
                                     seq = x.header.n_obs
                                     tow2print = radio_tow
+                                if x.msg_type == 117:
+                                    n_glo +=1
                                 else:
                                     seq = None
                                     tow2print = None
                                 print("    Radio", x.msg_type, seq, tow2print)
                             print("===============================")
+                            rospy.loginfo("Radio, %i, %i, %i", radio_tow, n_seq, n_glo)
                         #elif radio_tow <= last_tow:
                             #print("Ignoring radio msg with old tow")
                             #print("===============================")
