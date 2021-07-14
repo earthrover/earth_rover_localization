@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 #https://stackoverflow.com/questions/34337514/updated-variable-into-multiprocessing-python
 import rospy
@@ -36,9 +36,9 @@ udp = UdpLogger(UDP_ADDRESS, UDP_PORT)
 q = Value('i', 0)
 
 # get current year:month:day:hour
-def get_current_time():
-    now = datetime.datetime.now(datetime.timezone.utc)
-    return "{}:{}:{}:{}".format(now.year, now.month, now.day, now.hour)
+#def get_current_time():
+#    now = datetime.datetime.now(datetime.timezone.utc)
+#    return "{}:{}:{}:{}".format(now.year, now.month, now.day, now.hour)
 
 def ntrip_corrections(q):
     last_ntrip_epoch = None
@@ -57,9 +57,9 @@ def ntrip_corrections(q):
             # handle encoded JSON
             if 'data' in json_msg and 'payload' in json_msg['data']:
                 json_msg = json_msg['data']
-        except json.decoder.JSONDecodeError:
+        except ValueError:
             continue
-
+        
         # sanity check
         if 'msg_type' not in json_msg:
             continue
